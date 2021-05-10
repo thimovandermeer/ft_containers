@@ -1,18 +1,18 @@
 # This is a script which executes my CI testing scripts
 
-name: MacOS Compile and testing
+# name: MacOS Compile and testing
 
-on:
-  push:
-    branches: [ main ] # only when something is pushed to production it should be tested thorougly
-  pull_request:
-    branches: [ main ]
+# on:
+#   push:
+#     branches: [ main ] # only when something is pushed to production it should be tested thorougly
+#   pull_request:
+#     branches: [ main ]
     
-jobs:
-  build:
-    runs-on: macos-latest
+# jobs:
+#   build:
+#     runs-on: macos-latest
     
-    steps:
-    - uses: actions/checkout@v2
-    - name: make test
-      run: make test asan=1
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: make test
+#       run: make test asan=1
