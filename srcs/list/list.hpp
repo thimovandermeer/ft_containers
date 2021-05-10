@@ -11,6 +11,7 @@ namespace ft {
 	public:
 		class iterator;
 		class const_iterator;
+		// test
 		typedef typename Allocator::reference 						reference;
 		typedef typename Allocator::const_reference					const_reference;
 		typedef typename Allocator::size_type						size_type;
