@@ -38,7 +38,6 @@ TEST_CASE("List: Allocators", "[List]")
 
 TEST_CASE("List: Iterators", "[List]")
 {
-
 	SECTION("INCREMENT over int")
 	{
 		ft::list<int> myList;
@@ -190,6 +189,71 @@ TEST_CASE("List: Iterators", "[List]")
 		--sysIT;
 		REQUIRE(*myIT == *sysIT);
 	}
+
+	ft::list<std::string>mylist;
+	std::list<std::string>syslist;
+
+	mylist.push_back("iterators");
+	mylist.push_back("Zijn");
+	mylist.push_back("EPIC");
+
+
+	syslist.push_back("iterators");
+	syslist.push_back("Zijn");
+	syslist.push_back("EPIC");
+	ft::list<std::string>::iterator myIT = mylist.begin();
+	std::list<std::string>::iterator sysIT = syslist.begin();
+	SECTION("-> overload")
+	{
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT->data() == *sysIT->data());
+	}
+
+	SECTION("* overload")
+	{
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+	}
+
+	SECTION("== overload")
+	{
+		bool res;
+		res = myIT == mylist.begin();
+		REQUIRE(res == true);
+		myIT++;
+		res = myIT == mylist.begin();
+		REQUIRE(res == false);
+	}
+
+	SECTION("!= overload")
+	{
+		bool res;
+		res = myIT != mylist.begin();
+		REQUIRE(res == false);
+		myIT++;
+		res = myIT != mylist.begin();
+		REQUIRE(res == true);
+	}
+
+	SECTION("Test (*it)--")
+	{
+
+	}
+
+	SECTION("Test assignment with iterator")
+	{
+
+	}
+
+	SECTION("TEST dereference as lvalue" )
+	{
+
+	}
+
+
+
 
 }
 
@@ -218,8 +282,8 @@ TEST_CASE("List: CONST Iterators", "[List]")
 		sysList.push_back(30);
 		sysList.push_back(35);
 
-		ft::list<int>::iterator myIT = myList.begin();
-		std::list<int>::iterator sysIT = sysList.begin();
+		ft::list<int>::const_iterator myIT = myList.begin();
+		std::list<int>::const_iterator sysIT = sysList.begin();
 		myIT++;
 		sysIT++;
 		REQUIRE(*myIT == *sysIT);
@@ -256,8 +320,8 @@ TEST_CASE("List: CONST Iterators", "[List]")
 		sysList.push_back("Geweldig");
 		sysList.push_back("Iterators");
 
-		ft::list<std::string>::iterator myIT = myList.begin();
-		std::list<std::string>::iterator sysIT = sysList.begin();
+		ft::list<std::string>::const_iterator myIT = myList.begin();
+		std::list<std::string>::const_iterator sysIT = sysList.begin();
 		myIT++;
 		sysIT++;
 		REQUIRE(*myIT == *sysIT);
@@ -294,8 +358,8 @@ TEST_CASE("List: CONST Iterators", "[List]")
 		sysList.push_back(30);
 		sysList.push_back(35);
 
-		ft::list<int>::iterator myIT = myList.end();
-		std::list<int>::iterator sysIT = sysList.end();
+		ft::list<int>::const_iterator myIT = myList.end();
+		std::list<int>::const_iterator sysIT = sysList.end();
 		myIT--;
 		sysIT--;
 		REQUIRE(*myIT == *sysIT);
@@ -332,8 +396,8 @@ TEST_CASE("List: CONST Iterators", "[List]")
 		sysList.push_back("Geweldig");
 		sysList.push_back("Iterators");
 
-		ft::list<std::string>::iterator myIT = myList.end();
-		std::list<std::string>::iterator sysIT = sysList.end();
+		ft::list<std::string>::const_iterator myIT = myList.end();
+		std::list<std::string>::const_iterator sysIT = sysList.end();
 		myIT--;
 		sysIT--;
 		REQUIRE(*myIT == *sysIT);
@@ -348,6 +412,39 @@ TEST_CASE("List: CONST Iterators", "[List]")
 		REQUIRE(*myIT == *sysIT);
 	}
 
+	SECTION("-> overload")
+	{
+
+	}
+
+	SECTION("* overload")
+	{
+
+	}
+	SECTION("== overload")
+	{
+
+	}
+
+	SECTION("!= overload")
+	{
+
+	}
+
+	SECTION("Test (*it)--")
+	{
+
+	}
+
+	SECTION("Test assignment with iterator")
+	{
+
+	}
+
+	SECTION("TEST dereference as lvalue" )
+	{
+
+	}
 }
 
 TEST_CASE("List: Member Functions Assign", "[List]")

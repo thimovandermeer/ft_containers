@@ -71,7 +71,7 @@ namespace ft {
 		}
 
 		pointer 	operator->() {
-			return _ptr;
+			return &this->_ptr->_data;
 		}
 
 		bool operator== (const BidirectionalIterator& obj) {
@@ -91,7 +91,6 @@ namespace ft {
 		}
 	};
 
-
 	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
 	class ConstBidirectionalIterator : public BidirectionalIterator<T, N>{
 	public:
@@ -110,6 +109,7 @@ namespace ft {
 		ConstBidirectionalIterator(): BidirectionalIterator<T, N>() {}
 		explicit ConstBidirectionalIterator(node_pointer node) : BidirectionalIterator<T,N>(node) {}
 		ConstBidirectionalIterator(const ConstBidirectionalIterator& obj): BidirectionalIterator<T,N>(obj) {*this = obj;}
+		ConstBidirectionalIterator(const BidirectionalIterator<T, N>& obj): BidirectionalIterator<T,N>(obj) {*this = obj;}
 		ConstBidirectionalIterator& operator= (const ConstBidirectionalIterator& obj){
 			if(&obj != this){
 				this->_ptr = obj.getPtr();
