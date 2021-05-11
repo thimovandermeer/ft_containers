@@ -8,6 +8,7 @@
 #include <memory>
 #include <iterator>
 #include <algorithm>
+#include "BidirectionalIterator.hpp"
 // include bidrectional iterators
 
 
@@ -25,7 +26,7 @@ namespace ft {
 		typedef listNode<T>	*node_pointer;
 		typedef ptrdiff_t	difference_type;
 		typedef size_t		size_type;
-//		typedef BidirectionalIterator<value_type, node_pointer >	iterator;
+		typedef BidirectionalIterator<value_type, node_pointer >	iterator;
 //		typedef ConstBidirectionalIterator<value_type , node_pointer > const_iterator;
 //		typedef RevBidirectionalIterator<value_type , node_pointer > reverse_iterator;
 //		typedef ConstRevBidirectionalIterator<value_type, node_pointer> const_reverse_iterator;
@@ -84,21 +85,21 @@ namespace ft {
 
 		}
 
-		// Iterators
-//		iterator begin()
-//		{
-//			return iterator(_head->_next);
-//		}
+//		 Iterators
+		iterator begin()
+		{
+			return iterator(_head->_next);
+		}
 //
 //		const_iterator begin() const
 //		{
 //			return const_iterator(_head->_next);
 //		}
 //
-//		iterator end()
-//		{
-//			return iterator (_tail);
-//		}
+		iterator end()
+		{
+			return iterator (_tail);
+		}
 //
 //		const_iterator end() const
 //		{

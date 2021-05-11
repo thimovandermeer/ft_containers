@@ -5,6 +5,7 @@
 #include "Catch2.h"
 #include "../srcs/list/list.hpp"
 #include <list>
+#include <iostream>
 
 TEST_CASE("List: Constructors", "[List]")
 {
@@ -37,6 +38,315 @@ TEST_CASE("List: Allocators", "[List]")
 
 TEST_CASE("List: Iterators", "[List]")
 {
+
+	SECTION("INCREMENT over int")
+	{
+		ft::list<int> myList;
+		std::list<int> sysList;
+
+		myList.push_back(10);
+		myList.push_back(5);
+		myList.push_back(15);
+		myList.push_back(20);
+		myList.push_back(25);
+		myList.push_back(30);
+		myList.push_back(35);
+
+
+		sysList.push_back(10);
+		sysList.push_back(5);
+		sysList.push_back(15);
+		sysList.push_back(20);
+		sysList.push_back(25);
+		sysList.push_back(30);
+		sysList.push_back(35);
+
+		ft::list<int>::iterator myIT = myList.begin();
+		std::list<int>::iterator sysIT = sysList.begin();
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+		++myIT;
+		++sysIT;
+		REQUIRE(*myIT == *sysIT);
+		++myIT;
+		++sysIT;
+		REQUIRE(*myIT == *sysIT);
+	}
+
+	SECTION("INCREMENT over std::string")
+	{
+		ft::list<std::string> myList;
+		std::list<std::string> sysList;
+
+		myList.push_back("Hallo");
+		myList.push_back("Ik");
+		myList.push_back("Ben");
+		myList.push_back("Een");
+		myList.push_back("Baassie");
+		myList.push_back("Geweldig");
+		myList.push_back("Iterators");
+
+
+		sysList.push_back("Hallo");
+		sysList.push_back("Ik");
+		sysList.push_back("Ben");
+		sysList.push_back("Een");
+		sysList.push_back("Baassie");
+		sysList.push_back("Geweldig");
+		sysList.push_back("Iterators");
+
+		ft::list<std::string>::iterator myIT = myList.begin();
+		std::list<std::string>::iterator sysIT = sysList.begin();
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+		++myIT;
+		++sysIT;
+		REQUIRE(*myIT == *sysIT);
+		++myIT;
+		++sysIT;
+		REQUIRE(*myIT == *sysIT);
+	}
+
+	SECTION("DECREMENT over int")
+	{
+		ft::list<int> myList;
+		std::list<int> sysList;
+
+		myList.push_back(10);
+		myList.push_back(5);
+		myList.push_back(15);
+		myList.push_back(20);
+		myList.push_back(25);
+		myList.push_back(30);
+		myList.push_back(35);
+
+
+		sysList.push_back(10);
+		sysList.push_back(5);
+		sysList.push_back(15);
+		sysList.push_back(20);
+		sysList.push_back(25);
+		sysList.push_back(30);
+		sysList.push_back(35);
+
+		ft::list<int>::iterator myIT = myList.end();
+		std::list<int>::iterator sysIT = sysList.end();
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+		--myIT;
+		--sysIT;
+		REQUIRE(*myIT == *sysIT);
+		--myIT;
+		--sysIT;
+		REQUIRE(*myIT == *sysIT);
+	}
+
+	SECTION("DECREMENT over std::string")
+	{
+		ft::list<std::string> myList;
+		std::list<std::string> sysList;
+
+		myList.push_back("Hallo");
+		myList.push_back("Ik");
+		myList.push_back("Ben");
+		myList.push_back("Een");
+		myList.push_back("Baassie");
+		myList.push_back("Geweldig");
+		myList.push_back("Iterators");
+
+
+		sysList.push_back("Hallo");
+		sysList.push_back("Ik");
+		sysList.push_back("Ben");
+		sysList.push_back("Een");
+		sysList.push_back("Baassie");
+		sysList.push_back("Geweldig");
+		sysList.push_back("Iterators");
+
+		ft::list<std::string>::iterator myIT = myList.end();
+		std::list<std::string>::iterator sysIT = sysList.end();
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+		--myIT;
+		--sysIT;
+		REQUIRE(*myIT == *sysIT);
+		--myIT;
+		--sysIT;
+		REQUIRE(*myIT == *sysIT);
+	}
+
+}
+
+TEST_CASE("List: CONST Iterators", "[List]")
+{
+
+	SECTION("INCREMENT over int")
+	{
+		ft::list<int> myList;
+		std::list<int> sysList;
+
+		myList.push_back(10);
+		myList.push_back(5);
+		myList.push_back(15);
+		myList.push_back(20);
+		myList.push_back(25);
+		myList.push_back(30);
+		myList.push_back(35);
+
+
+		sysList.push_back(10);
+		sysList.push_back(5);
+		sysList.push_back(15);
+		sysList.push_back(20);
+		sysList.push_back(25);
+		sysList.push_back(30);
+		sysList.push_back(35);
+
+		ft::list<int>::iterator myIT = myList.begin();
+		std::list<int>::iterator sysIT = sysList.begin();
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+		++myIT;
+		++sysIT;
+		REQUIRE(*myIT == *sysIT);
+		++myIT;
+		++sysIT;
+		REQUIRE(*myIT == *sysIT);
+	}
+
+	SECTION("INCREMENT over std::string")
+	{
+		ft::list<std::string> myList;
+		std::list<std::string> sysList;
+
+		myList.push_back("Hallo");
+		myList.push_back("Ik");
+		myList.push_back("Ben");
+		myList.push_back("Een");
+		myList.push_back("Baassie");
+		myList.push_back("Geweldig");
+		myList.push_back("Iterators");
+
+
+		sysList.push_back("Hallo");
+		sysList.push_back("Ik");
+		sysList.push_back("Ben");
+		sysList.push_back("Een");
+		sysList.push_back("Baassie");
+		sysList.push_back("Geweldig");
+		sysList.push_back("Iterators");
+
+		ft::list<std::string>::iterator myIT = myList.begin();
+		std::list<std::string>::iterator sysIT = sysList.begin();
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
+		++myIT;
+		++sysIT;
+		REQUIRE(*myIT == *sysIT);
+		++myIT;
+		++sysIT;
+		REQUIRE(*myIT == *sysIT);
+	}
+
+	SECTION("DECREMENT over int")
+	{
+		ft::list<int> myList;
+		std::list<int> sysList;
+
+		myList.push_back(10);
+		myList.push_back(5);
+		myList.push_back(15);
+		myList.push_back(20);
+		myList.push_back(25);
+		myList.push_back(30);
+		myList.push_back(35);
+
+
+		sysList.push_back(10);
+		sysList.push_back(5);
+		sysList.push_back(15);
+		sysList.push_back(20);
+		sysList.push_back(25);
+		sysList.push_back(30);
+		sysList.push_back(35);
+
+		ft::list<int>::iterator myIT = myList.end();
+		std::list<int>::iterator sysIT = sysList.end();
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+		--myIT;
+		--sysIT;
+		REQUIRE(*myIT == *sysIT);
+		--myIT;
+		--sysIT;
+		REQUIRE(*myIT == *sysIT);
+	}
+
+	SECTION("DECREMENT over std::string")
+	{
+		ft::list<std::string> myList;
+		std::list<std::string> sysList;
+
+		myList.push_back("Hallo");
+		myList.push_back("Ik");
+		myList.push_back("Ben");
+		myList.push_back("Een");
+		myList.push_back("Baassie");
+		myList.push_back("Geweldig");
+		myList.push_back("Iterators");
+
+
+		sysList.push_back("Hallo");
+		sysList.push_back("Ik");
+		sysList.push_back("Ben");
+		sysList.push_back("Een");
+		sysList.push_back("Baassie");
+		sysList.push_back("Geweldig");
+		sysList.push_back("Iterators");
+
+		ft::list<std::string>::iterator myIT = myList.end();
+		std::list<std::string>::iterator sysIT = sysList.end();
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+		--myIT;
+		--sysIT;
+		REQUIRE(*myIT == *sysIT);
+		--myIT;
+		--sysIT;
+		REQUIRE(*myIT == *sysIT);
+	}
 
 }
 
