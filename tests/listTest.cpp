@@ -237,23 +237,74 @@ TEST_CASE("List: Iterators", "[List]")
 		REQUIRE(res == true);
 	}
 
-	SECTION("Test (*it)--")
+	SECTION("Test (*it)++")
 	{
+		ft::list<int> myIntList;
+		std::list<int> sysIntList;
 
+		myIntList.push_back(1);
+		sysIntList.push_back(1);
+
+		ft::list<int>::iterator myIntIt = myIntList.begin();
+		std::list<int>::iterator sysIntIt = sysIntList.begin();
+		(*myIntIt)++;
+		(*sysIntIt)++;
+		REQUIRE((*myIntIt) == (*sysIntIt));
+		(*myIntIt)--;
+		REQUIRE(*myIntIt == 1);
+		(*myIntIt)++;
+		REQUIRE(*myIntIt == 2);
+		*myIntIt++;
+		bool res = (myIntIt == myIntList.end());
+		REQUIRE(res == true);
+
+	}
+
+	SECTION("Test (*it)--") {
+		ft::list<int> myIntList;
+		std::list<int> sysIntList;
+
+		myIntList.push_back(2);
+		sysIntList.push_back(2);
+		std::list<int>::iterator sysIntIt = sysIntList.begin();
+		ft::list<int>::iterator myIntIt = myIntList.begin();
+		(*myIntIt)--;
+		(*sysIntIt)--;
+		REQUIRE((*myIntIt) == (*sysIntIt));
+		(*myIntIt)++;
+		REQUIRE(*myIntIt == 2);
+		(*myIntIt)--;
+		REQUIRE(*myIntIt == 1);
+		*myIntIt--;
+		bool res = (myIntIt != myIntList.begin());
+		REQUIRE(res == true);
 	}
 
 	SECTION("Test assignment with iterator")
 	{
+		ft::list<int> myIntList;
+		std::list<int> sysIntList;
 
+		myIntList.push_back(1);
+		myIntList.push_back(8);
+		ft::list<int>::iterator myIntIt = myIntList.begin();
+		REQUIRE(*myIntIt == 1);
+		*myIntIt = 5;
+		REQUIRE(*myIntIt == 5);
 	}
 
 	SECTION("TEST dereference as lvalue" )
 	{
-
+		ft::list<int> myIntList;
+		std::list<int> sysIntList;
+		myIntList.push_back(1);
+		myIntList.push_back(8);
+		ft::list<int>::iterator myIntIt = myIntList.begin();
+		*myIntIt++ = 5;
+		REQUIRE(*myIntIt == 8);
+		myIntIt--;
+		REQUIRE(*myIntIt == 5);
 	}
-
-
-
 
 }
 
@@ -412,39 +463,79 @@ TEST_CASE("List: CONST Iterators", "[List]")
 		REQUIRE(*myIT == *sysIT);
 	}
 
+	ft::list<std::string> mylist;
+	std::list<std::string> syslist;
+
+	mylist.push_back("iterators");
+	mylist.push_back("Zijn");
+	mylist.push_back("EPIC");
+
+
+	syslist.push_back("iterators");
+	syslist.push_back("Zijn");
+	syslist.push_back("EPIC");
+	ft::list<std::string>::const_iterator myIT = mylist.begin();
+	std::list<std::string>::const_iterator sysIT = syslist.begin();
+
+	SECTION("Begin")
+	{
+		REQUIRE(*myIT == *sysIT);
+	}
+
+	SECTION("END")
+	{
+		ft::list<std::string> mylist;
+		std::list<std::string> syslist;
+
+		mylist.push_back("iterators");
+		mylist.push_back("Zijn");
+		mylist.push_back("EPIC");
+
+
+		syslist.push_back("iterators");
+		syslist.push_back("Zijn");
+		syslist.push_back("EPIC");
+		ft::list<std::string>::const_iterator myIT = mylist.end();
+		std::list<std::string>::const_iterator sysIT = syslist.end();
+		myIT--;
+		sysIT--;
+		REQUIRE(*myIT == *sysIT);
+	}
 	SECTION("-> overload")
 	{
-
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT->data() == *sysIT->data());
 	}
 
 	SECTION("* overload")
 	{
-
+		myIT++;
+		sysIT++;
+		REQUIRE(*myIT == *sysIT);
 	}
+
 	SECTION("== overload")
 	{
-
+		bool res;
+		res = myIT == mylist.begin();
+		REQUIRE(res == true);
+		myIT++;
+		res = myIT == mylist.begin();
+		REQUIRE(res == false);
 	}
 
 	SECTION("!= overload")
 	{
-
+		bool res;
+		res = myIT != mylist.begin();
+		REQUIRE(res == false);
+		myIT++;
+		res = myIT != mylist.begin();
+		REQUIRE(res == true);
 	}
 
-	SECTION("Test (*it)--")
-	{
 
-	}
-
-	SECTION("Test assignment with iterator")
-	{
-
-	}
-
-	SECTION("TEST dereference as lvalue" )
-	{
-
-	}
 }
 
 TEST_CASE("List: Member Functions Assign", "[List]")
@@ -472,6 +563,24 @@ TEST_CASE("List: Member Functions Assign", "[List]")
 		REQUIRE(myList1.size() == sysList1.size());
 		REQUIRE(myList1.front() == sysList1.front());
 		REQUIRE(myList1.back() == sysList1.back());
+	}
+
+	SECTION("Template version of ASSIGN")
+	{
+		ft::list<int>list;
+		ft::list<int>receivelist;
+		list.push_back(1);
+		list.push_back(2);
+		list.push_back(3);
+		list.push_back(150);
+		receivelist.assign(list.begin(), list.end());
+		REQUIRE(receivelist.size() == 4);
+		ft::list<int>::iterator myit = receivelist.begin();
+		myit++;
+		REQUIRE(*myit == 2);
+		ft::list<int>::iterator myitback = receivelist.end();
+		myitback--;
+		REQUIRE(*myitback == 150);
 	}
 }
 
@@ -522,7 +631,60 @@ TEST_CASE("List: Member Functions Empty", "[List]")
 
 TEST_CASE("List: Member Functions Erase", "[List]")
 {
+	SECTION("Position erase")
+	{
+		ft::list<std::string> mylist;
+		std::list<std::string> syslist;
 
+		mylist.push_back("iterators");
+		mylist.push_back("Zijn");
+		mylist.push_back("EPIC");
+
+
+		syslist.push_back("iterators");
+		syslist.push_back("Zijn");
+		syslist.push_back("EPIC");
+		ft::list<std::string>::const_iterator myIT = mylist.begin();
+		std::list<std::string>::const_iterator sysIT = syslist.begin();
+
+		mylist.erase(myIT);
+		syslist.erase(sysIT);
+		myIT = mylist.begin();
+		sysIT = syslist.begin();
+		REQUIRE(mylist.size() == syslist.size());
+		REQUIRE(*myIT == *sysIT);
+		std::cout << *myIT << std::endl;
+		std::cout << *sysIT << std::endl;
+	}
+
+	SECTION("range erase")
+	{
+		ft::list<std::string> mylist;
+		std::list<std::string> syslist;
+
+		mylist.push_back("iterators");
+		mylist.push_back("Zijn");
+		mylist.push_back("EPIC");
+
+
+		syslist.push_back("iterators");
+		syslist.push_back("Zijn");
+		syslist.push_back("EPIC");
+		ft::list<std::string>::const_iterator myIT = mylist.begin();
+		std::list<std::string>::const_iterator sysIT = syslist.begin();
+
+		ft::list<std::string>::const_iterator myITEND = mylist.end();
+		std::list<std::string>::const_iterator sysITEND = syslist.end();
+
+		mylist.erase(myIT, myITEND);
+		syslist.erase(sysIT, sysITEND);
+		myIT = mylist.begin();
+		sysIT = syslist.begin();
+		REQUIRE(mylist.size() == syslist.size());
+		REQUIRE(*myIT == *sysIT);
+		std::cout << mylist.size() << std::endl;
+		std::cout << mylist.size() << std::endl;
+	}
 }
 
 TEST_CASE("List: Member Functions Front", "[List]")
@@ -532,7 +694,84 @@ TEST_CASE("List: Member Functions Front", "[List]")
 
 TEST_CASE("List: Member Functions Insert", "[List]")
 {
+	SECTION("INSERT SPECIFIC POSITION")
+	{
+		ft::list<std::string> mylist;
+		std::list<std::string> syslist;
 
+		mylist.push_back("iterators");
+		mylist.push_back("Zijn");
+		mylist.push_back("EPIC");
+
+
+		syslist.push_back("iterators");
+		syslist.push_back("Zijn");
+		syslist.push_back("EPIC");
+		ft::list<std::string>::const_iterator myIT = mylist.begin();
+		std::list<std::string>::const_iterator sysIT = syslist.begin();
+
+		mylist.insert(myIT, "Niet meer EPIC");
+		syslist.insert(sysIT, "Niet meer EPIC");
+		myIT = mylist.begin();
+		sysIT = syslist.begin();
+		REQUIRE(mylist.size() == syslist.size());
+		REQUIRE(*myIT == *sysIT);
+
+		ft::list<std::string>::const_iterator myITEND = mylist.end();
+		std::list<std::string>::const_iterator sysITEND = syslist.end();
+
+		mylist.insert(myITEND, "Zet dit aan de achterkant");
+		syslist.insert(sysITEND, "Zet dit aan de achterkant");
+		myITEND = mylist.end();
+		sysITEND = syslist.end();
+		*myITEND--;
+		*sysITEND--;
+		REQUIRE(mylist.size() == syslist.size());
+		REQUIRE(*myITEND == *sysITEND);
+		std::cout << *myITEND << std::endl;
+		std::cout << *sysITEND << std::endl;
+	}
+
+	SECTION("INSERT RANGE")
+	{
+		ft::list<int> mylist;
+		ft::list<int>::iterator myit;
+		std::list<int> syslist;
+		std::list<int>::iterator sysit;
+		// set some initial values:
+		for (int i=1; i<=5; ++i) mylist.push_back(i); // 1 2 3 4 5
+		for (int i=1; i<=5; ++i) syslist.push_back(i);
+		myit = mylist.begin();
+		sysit = syslist.begin();
+		++myit;       // it points now to number 2           ^
+		++sysit;
+
+		REQUIRE(*myit == *sysit);
+		mylist.insert (myit,10);                        // 1 10 2 3 4 5
+		syslist.insert(sysit,10);
+		REQUIRE(mylist.size() == syslist.size());
+		// "it" still points to number 2                           ^
+		mylist.insert (myit,2,20);                      // 1 10 20 20 2 3 4 5
+		syslist.insert (sysit,2,20);                      // 1 10 20 20 2 3 4 5
+		REQUIRE(mylist.size() == syslist.size());
+		--myit;       // it points now to the second 20            ^
+		--sysit;
+		REQUIRE(*myit == *sysit);
+		std::vector<int> myvector (2,30);
+		mylist.insert(myit,myvector.begin(),myvector.end());
+		syslist.insert(sysit,myvector.begin(),myvector.end());
+		// 1 10 20 30 30 20 2 3 4 5
+		//               ^
+		myit--;
+		sysit--;
+		REQUIRE(*myit == *sysit);
+		REQUIRE(mylist.size() == syslist.size());
+	}
+
+	SECTION("INSERT TEMPLATE")
+	{
+
+	}
 }
 
 TEST_CASE("List: Member Functions Merge", "[List]")

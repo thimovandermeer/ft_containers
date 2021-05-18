@@ -47,7 +47,7 @@ namespace ft {
 		BidirectionalIterator 	operator++(int)
 		{
 			BidirectionalIterator ret(*this);
-			++(*this);
+			_ptr = _ptr->getNext();
 			return ret;
 		}
 
@@ -62,7 +62,7 @@ namespace ft {
 		BidirectionalIterator operator--(int)
 		{
 			BidirectionalIterator ret(*this);
-			--(*this);
+			_ptr = _ptr->getPrev();
 			return ret;
 		}
 
@@ -129,7 +129,7 @@ namespace ft {
 		}
 
 		const_pointer 	operator->() {
-			return (this->_ptr);
+			return &this->_ptr->_data;
 		}
 
 		bool operator== (const ConstBidirectionalIterator& obj) {

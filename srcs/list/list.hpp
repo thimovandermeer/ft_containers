@@ -90,21 +90,21 @@ namespace ft {
 		{
 			return iterator(_head->_next);
 		}
-//
-//		const_iterator begin() const
-//		{
-//			return const_iterator(_head->_next);
-//		}
-//
+
+		const_iterator begin() const
+		{
+			return const_iterator(_head->_next);
+		}
+
 		iterator end()
 		{
 			return iterator (_tail);
 		}
-//
-//		const_iterator end() const
-//		{
-//			return const_iterator (_tail);
-//		}
+
+		const_iterator end() const
+		{
+			return const_iterator (_tail);
+		}
 //
 //		reverse_iterator rbegin()
 //		{
@@ -127,11 +127,17 @@ namespace ft {
 //		}
 //
 //		// Member Functions
-//		template <class InputIterator> void assign(InputIterator start, InputIterator finish)
-//		{
-//
-//		}
-//
+		template <class InputIterator>
+		void assign(InputIterator start, InputIterator finish)
+		{
+			clear();
+			while(start != finish)
+			{
+				push_back(*start);
+				start++;
+			}
+		}
+
 		void assign(size_type n, const value_type& val)
 		{
 			clear();
@@ -172,16 +178,25 @@ namespace ft {
 			return _size;
 		}
 
-//		iterator erase(iterator position)
-//		{
-//
-//		}
+		iterator erase(iterator position)
+		{
+			listNode<value_type> *tmp = position.getPtr();
+			tmp->_prev->_next = tmp->_next;
+			tmp->_next->_prev = tmp->_prev;
+			delete tmp;
+			this->_size--;
+			return position;
+		}
 
-//		iterator erase(iterator start, iterator finish)
-//		{
-//
-//		}
-//
+		iterator erase(iterator start, iterator finish)
+		{
+			while(start != finish){
+				erase(start);
+				start++;
+			}
+			return start;
+		}
+
 		reference front()
 		{
 			return _head->getNext()->_data;
@@ -192,27 +207,36 @@ namespace ft {
 			return _head->getNext()->_data;
 		}
 
-//		iterator insert(iterator position, const T& x)
-//		{
-//
-//		}
-//
-//		void 	insert(iterator position, size_type n, const T& x)
-//		{
-//
-//		}
-//
-//		void 	insert(iterator position, size_type n, const T& x)
-//		{
-//
-//		}
-//
-//		template<class InputIterator>
-//				void insert(iterator position, InputIterator start, InputIterator finish)
-//		{
-//
-//		}
-//
+		iterator insert(iterator position, const value_type& val)
+		{
+			listNode<value_type> *newNode = new listNode<value_type>(val);
+			listNode<value_type> *tmp = position.getPtr();
+
+			newNode->_prev = tmp->_prev;
+			newNode->_next = tmp;
+			tmp->_prev = newNode;
+			newNode->_prev->_next = newNode;
+			_size++;
+			return iterator(newNode);
+		}
+
+		void 	insert(iterator position, size_type n, const value_type &val)
+		{
+			for(size_type i = 0; i < n; i++) {
+				insert(position, val);
+			}
+		}
+
+		template<class InputIterator>
+				void insert(iterator position, InputIterator start, InputIterator finish)
+		{
+			while(start != finish)
+			{
+				insert(position, *start);
+				start++;
+			}
+		}
+
 		size_type max_size() const
 		{
 			return this->_allocator.max_size();
