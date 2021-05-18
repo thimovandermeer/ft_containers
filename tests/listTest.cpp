@@ -584,11 +584,6 @@ TEST_CASE("List: Member Functions Assign", "[List]")
 	}
 }
 
-TEST_CASE("List: Member Functions Back", "[List]")
-{
-
-}
-
 TEST_CASE("List: Member Functions Clear", "[List]")
 {
 	ft::list<std::string> myList1;
@@ -653,8 +648,6 @@ TEST_CASE("List: Member Functions Erase", "[List]")
 		sysIT = syslist.begin();
 		REQUIRE(mylist.size() == syslist.size());
 		REQUIRE(*myIT == *sysIT);
-		std::cout << *myIT << std::endl;
-		std::cout << *sysIT << std::endl;
 	}
 
 	SECTION("range erase")
@@ -682,14 +675,7 @@ TEST_CASE("List: Member Functions Erase", "[List]")
 		sysIT = syslist.begin();
 		REQUIRE(mylist.size() == syslist.size());
 		REQUIRE(*myIT == *sysIT);
-		std::cout << mylist.size() << std::endl;
-		std::cout << mylist.size() << std::endl;
 	}
-}
-
-TEST_CASE("List: Member Functions Front", "[List]")
-{
-
 }
 
 TEST_CASE("List: Member Functions Insert", "[List]")
@@ -728,8 +714,6 @@ TEST_CASE("List: Member Functions Insert", "[List]")
 		*sysITEND--;
 		REQUIRE(mylist.size() == syslist.size());
 		REQUIRE(*myITEND == *sysITEND);
-		std::cout << *myITEND << std::endl;
-		std::cout << *sysITEND << std::endl;
 	}
 
 	SECTION("INSERT RANGE")
@@ -739,44 +723,64 @@ TEST_CASE("List: Member Functions Insert", "[List]")
 		std::list<int> syslist;
 		std::list<int>::iterator sysit;
 		// set some initial values:
-		for (int i=1; i<=5; ++i) mylist.push_back(i); // 1 2 3 4 5
-		for (int i=1; i<=5; ++i) syslist.push_back(i);
+		for (int i = 1; i <= 5; ++i) mylist.push_back(i); // 1 2 3 4 5
+		for (int i = 1; i <= 5; ++i) syslist.push_back(i);
 		myit = mylist.begin();
 		sysit = syslist.begin();
 		++myit;       // it points now to number 2           ^
 		++sysit;
 
 		REQUIRE(*myit == *sysit);
-		mylist.insert (myit,10);                        // 1 10 2 3 4 5
-		syslist.insert(sysit,10);
+		mylist.insert(myit, 10);                        // 1 10 2 3 4 5
+		syslist.insert(sysit, 10);
 		REQUIRE(mylist.size() == syslist.size());
 		// "it" still points to number 2                           ^
-		mylist.insert (myit,2,20);                      // 1 10 20 20 2 3 4 5
-		syslist.insert (sysit,2,20);                      // 1 10 20 20 2 3 4 5
+		mylist.insert(myit, 2, 20);                      // 1 10 20 20 2 3 4 5
+		syslist.insert(sysit, 2, 20);                      // 1 10 20 20 2 3 4 5
 		REQUIRE(mylist.size() == syslist.size());
 		--myit;       // it points now to the second 20            ^
 		--sysit;
 		REQUIRE(*myit == *sysit);
-		std::vector<int> myvector (2,30);
-		mylist.insert(myit,myvector.begin(),myvector.end());
-		syslist.insert(sysit,myvector.begin(),myvector.end());
-		// 1 10 20 30 30 20 2 3 4 5
-		//               ^
-		myit--;
-		sysit--;
-		REQUIRE(*myit == *sysit);
-		REQUIRE(mylist.size() == syslist.size());
 	}
 
 	SECTION("INSERT TEMPLATE")
 	{
+		ft::list<int> mylist;
+		std::list<int> syslist;
+		ft::list<int> mylist1;
+		std::list<int> syslist1;
+		ft::list<int>::iterator myit = mylist.begin();
+		std::list<int>::iterator sysit = syslist.begin();
 
+		mylist1.push_front(10);
+		mylist1.push_front(15);
+		mylist1.push_front(20);
+		mylist1.push_front(25);
+
+		syslist1.push_front(10);
+		syslist1.push_front(15);
+		syslist1.push_front(20);
+		syslist1.push_front(25);
+
+		mylist.insert(myit, mylist1.begin(), mylist1.end());
+		syslist.insert(sysit, syslist1.begin(), syslist1.end());
+		// 1 10 20 30 30 20 2 3 4 5
+		//               ^
+		REQUIRE(mylist.size() == syslist.size());
+		for (int i = 0; i < 4; i++) {
+			myit--;
+			sysit--;
+			REQUIRE(*myit == *sysit);
+		}
 	}
 }
 
 TEST_CASE("List: Member Functions Merge", "[List]")
 {
+	SECTION("List X merging")
+	{
 
+	}
 }
 
 TEST_CASE("List: Member Functions PopBack", "[List]")
@@ -907,17 +911,128 @@ TEST_CASE("List: Member Functions PushFront", "[List]")
 
 TEST_CASE("List: Member Functions Remove", "[List]")
 {
+	int myints[]= {17,89,7,14};
+	ft::list<int> myintlist(myints, myints+4);
+	std::list<int> sysintslist(myints, myints+4);
+
+	myintlist.remove(89);
+	sysintslist.remove(89);
+	REQUIRE(myintlist.size() == sysintslist.size());
+	ft::list<int>::iterator myit = myintlist.begin();
+	std::list<int>::iterator sysit = sysintslist.begin();
+	*myit++;
+	*sysit++;
+	REQUIRE(*myit == *sysit);
+	*myit++;
+	*sysit++;
+	REQUIRE(*myit == *sysit);
 
 }
 
 TEST_CASE("List: Member Functions RemoveIF", "[List]")
 {
 
+// a predicate implemented as a class:
+	struct is_odd {
+		bool operator() (const int& value) { return (value%2)==1; }
+	};
+
+	int myints[]= {15,36,7,17,20,39,4,1};
+	int sysints[]= {15,36,7,17,20,39,4,1};
+	ft::list<int> mylist (myints, myints+8);
+	std::list<int> syslist (sysints,sysints+8);   // 15 36 7 17 20 39 4 1
+
+	std::cout << "mylist ";
+	for (auto v : mylist)
+		std::cout  << "[" << v << "]";
+	std::cout << std::endl;
+	std::cout << "syslist ";
+	for (auto v : syslist)
+		std::cout  << "[" << v << "]";
+	std::cout << std::endl;
+	mylist.remove_if (is_odd());
+	syslist.remove_if (is_odd());// 36 20 36 17 20 39
+	std::cout << "mylist after remove ";
+	for (auto v : mylist)
+		std::cout  << "[" << v << "]";
+	std::cout << std::endl;
+	std::cout << "syslist after remove";
+	for (auto v : syslist)
+		std::cout  << "[" << v << "]";
+	std::cout << std::endl;
+	REQUIRE(mylist.size() == syslist.size());
 }
 
 TEST_CASE("List: Member Functions Resize", "[List]")
 {
+	SECTION("List needs to be made smaller")
+	{
+		int myints[]= {15,36,7,17,20,39,4,1};
+		int sysints[]= {15,36,7,17,20,39,4,1};
 
+		ft::list<int> myintlist(myints, myints+8);
+		std::list<int> sysintlist(sysints, sysints+8);
+
+		myintlist.resize(5);
+		sysintlist.resize(5);
+
+		REQUIRE(myintlist.size() == sysintlist.size());
+		ft::list<int>::iterator myit = myintlist.begin();
+		std::list<int>::iterator sysit = sysintlist.begin();
+
+		for (int i = 0; i < myintlist.size(); i++, myit++, sysit++)
+		{
+			std::cout << *myit << std::endl;
+			std::cout << *sysit << std::endl;
+			REQUIRE(*myit == *sysit);
+		}
+	}
+
+	SECTION ("List needs to be made bigger with given values")
+	{
+		int myints[]= {15,36,7,17,20,39,4,1};
+		int sysints[]= {15,36,7,17,20,39,4,1};
+
+		ft::list<int> myintlist(myints, myints+8);
+		std::list<int> sysintlist(sysints, sysints+8);
+
+		myintlist.resize(20, 15);
+		sysintlist.resize(20,15);
+
+		REQUIRE(myintlist.size() == sysintlist.size());
+		ft::list<int>::iterator myit = myintlist.begin();
+		std::list<int>::iterator sysit = sysintlist.begin();
+
+		for (int i = 0; i < myintlist.size(); i++, myit++, sysit++)
+		{
+			std::cout << "my it " << *myit << std::endl;
+			std::cout << "sys it " << *sysit << std::endl;
+			REQUIRE(*myit == *sysit);
+		}
+	}
+
+	SECTION("List need to be made bigger with zero values")
+	{
+		int myints[]= {15,36,7,17,20,39,4,1};
+		int sysints[]= {15,36,7,17,20,39,4,1};
+
+		ft::list<int> myintlist(myints, myints+8);
+		std::list<int> sysintlist(sysints, sysints+8);
+
+		myintlist.resize(20);
+		sysintlist.resize(20);
+
+		REQUIRE(myintlist.size() == sysintlist.size());
+		ft::list<int>::iterator myit = myintlist.begin();
+		std::list<int>::iterator sysit = sysintlist.begin();
+
+		for (int i = 0; i < myintlist.size(); i++, myit++, sysit++)
+		{
+			std::cout << "my it " << *myit << std::endl;
+			std::cout << "sys it " << *sysit << std::endl;
+			REQUIRE(*myit == *sysit);
+		}
+	}
 }
 
 TEST_CASE("List: Member Functions Reverse", "[List]")

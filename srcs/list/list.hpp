@@ -9,6 +9,8 @@
 #include <iterator>
 #include <algorithm>
 #include "BidirectionalIterator.hpp"
+#include "../typeTraits.hpp"
+#include <iostream>
 // include bidrectional iterators
 
 
@@ -62,12 +64,22 @@ namespace ft {
 		template <class inputIterator>
 			list (inputIterator first, inputIterator last, const allocator_type& alloc = allocator_type())
 		{
-
+			_head = new listNode<value_type>;
+			_tail = new listNode<value_type>;
+			_head->_next = _tail;
+			_tail->_prev = _head;
+			_size = 0;
+			assign(first, last);
 		}
 
 		list (const list &x)
 		{
-
+			_head = new listNode<value_type>;
+			_tail = new listNode<value_type>;
+			_head->_next = _tail;
+			_tail->_prev = _head;
+			_size = 0;
+			assign(x.begin(), x.end());
 		}
 		// Destructors
 		~list()
@@ -183,6 +195,7 @@ namespace ft {
 			listNode<value_type> *tmp = position.getPtr();
 			tmp->_prev->_next = tmp->_next;
 			tmp->_next->_prev = tmp->_prev;
+			position++;
 			delete tmp;
 			this->_size--;
 			return position;
@@ -191,8 +204,7 @@ namespace ft {
 		iterator erase(iterator start, iterator finish)
 		{
 			while(start != finish){
-				erase(start);
-				start++;
+				start = erase(start);
 			}
 			return start;
 		}
@@ -228,7 +240,8 @@ namespace ft {
 		}
 
 		template<class InputIterator>
-				void insert(iterator position, InputIterator start, InputIterator finish)
+				void insert(iterator position, InputIterator start, InputIterator finish,
+					typename enable_if<is_iterator<typename InputIterator::iterator_category>::result, InputIterator>::type* = NULL)
 		{
 			while(start != finish)
 			{
@@ -241,12 +254,19 @@ namespace ft {
 		{
 			return this->_allocator.max_size();
 		}
-//
-//		void merge(list<T, Alloc>&x)
-//		{
-//
-//		}
-//
+
+		void merge (list &x)
+		{
+			// check if ordered
+
+			// need splice for this one
+		}
+		template <class Compare>
+		void merge(list<T, Alloc>&x)
+		{
+			// need splice for this one
+		}
+
 		void pop_back()
 		{
 			if (_size)
@@ -298,37 +318,61 @@ namespace ft {
 			_size++;
 		}
 
-//		void remove(const T& value)
-//		{
-//
-//		}
-//
-//		template<class class Predicate>
-//				void remove_if(predicate pred)
-//		{
-//
-//		}
-//
-//		void resize(size_type sz, T c)
-//		{
-//
-//		}
-//
-//		void reverse()
-//		{
-//
-//		}
-//
-//		size_type size() const
-//		{
-//
-//		}
-//
-//		size_type size() const
-//		{
-//
-//		}
-//
+		void remove(const value_type& val)
+		{
+			iterator it = this->begin();
+			while(it != this->end())
+			{
+				if (*it == val){
+					it = erase(it);
+				}
+				else{
+					it++;
+				}
+			}
+		}
+
+		template<class Predicate>
+				void remove_if(Predicate pred)
+		{
+			iterator it = this->begin();
+			while(it != this->end())
+			{
+				if (pred(*it)){
+					it = erase(it);
+				}
+				else{
+					it++;
+				}
+			}
+		}
+
+
+		void resize(size_type n, value_type val = value_type())
+		{
+			if (n < _size)
+			{
+				while(n != _size)
+				{
+					this->pop_back();
+				}
+			}
+			else
+			{
+				while(_size != n)
+				{
+					this->push_back(val);
+				}
+			}
+		}
+
+		void reverse()
+		{
+
+
+
+		}
+
 //		void sort()
 //		{
 //
@@ -411,5 +455,7 @@ namespace ft {
 
 	};
 }
+
+
 
 #endif //MY_FT_CONTAINERS_LIST_HPP

@@ -7,9 +7,10 @@
 #include <iterator>
 #include <cstddef>
 #include "listNode.hpp"
+#include "../typeTraits.hpp"
 
 namespace ft {
-	template < typename T, typename N, class Category = std::bidirectional_iterator_tag >
+	template < typename T, typename N, class Category = ft::bidirectional_iterator_tag >
 	class BidirectionalIterator {
 	public:
 		typedef T							value_type;
