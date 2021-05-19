@@ -1158,10 +1158,49 @@ TEST_CASE("List: Member Functions Splice", "[List]")
 		REQUIRE(insertlist.size() == sysinsertlist.size());
 	}
 
-	SECTION("One item transfer")
+	SECTION("Range of list transfer")
 	{
 
+		// ft part of construction
+		int startlist[5] = {1,2,3,4,5};
+		ft::list<int> mylist(startlist, startlist+5);
+
+		int insertionnumbers[5] = {100, 101, 102, 103, 104};
+		ft::list<int> insertionlist(insertionnumbers, insertionnumbers+5);
+
+		ft::list<int>::iterator position = mylist.end();
+		ft::list<int>::iterator start = insertionlist.begin();
+		ft::list<int>::iterator end = insertionlist.end();
+		end--;
+		end--;
+		// end of ft part of construction
+		// std::part of construction
+		int sysstartlist[5] = {1,2,3,4,5};
+		std::list<int> syslist(startlist, startlist+5);
+
+		int sysinsertionnumbers[5] = {100, 101, 102, 103, 104};
+		std::list<int> sysinsertionlist(sysinsertionnumbers, sysinsertionnumbers+5);
+
+		std::list<int>::iterator sysposition = syslist.end();
+		std::list<int>::iterator sysstart = sysinsertionlist.begin();
+		std::list<int>::iterator sysend = sysinsertionlist.end();
+		sysend--;
+		sysend--;
+		// end of std:: part of construction
+
+		mylist.splice(position, insertionlist, start, end);
+		syslist.splice(sysposition, sysinsertionlist, sysstart, sysend);
+
+		ft::list<int>::iterator myit2 = mylist.begin();
+		std::list<int>::iterator sysit2 = syslist.begin();
+		for (int i = 0; i < mylist.size(); i++, myit2++, sysit2++)
+		{
+			REQUIRE(*myit2 == *sysit2);
+		}
+		REQUIRE(insertionlist.size() == sysinsertionlist.size());
 	}
+
+
 }
 
 TEST_CASE("List: Member Functions Swap", "[List]")

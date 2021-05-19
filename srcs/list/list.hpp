@@ -426,40 +426,45 @@ namespace ft {
 
 	public:
 
-		void splice(iterator position, list& x)
-		{
-
-			iterator it = x.begin();
-			while(it != x.end())
-			{
-				insert(position, *it);
-				it++;
-			}
-			x.clear();
-
-		}
-
 		void splice(iterator position, list& x, iterator i)
 		{
-			listNode<value_type> *newNode =  i.getptr();
-
-
-			listNode<value_type> *tmp = position.getPtr();
-
-			newNode->_prev = tmp->_prev;
-			newNode->_next = tmp;
-			tmp->_prev = newNode;
-			newNode->_prev->_next = newNode;
-			_size++;
-			return iterator(newNode);
-
+			listNode<value_type>* node = i.getPtr();
+			node->_prev->_next = node->_next;
+			node->_next->_prev = node->_prev;
+			x._size--;
+			listNode<value_type>* ptr = position.getPtr();
+			node->_prev = ptr->_prev;
+			ptr->_prev->_next = node;
+			node->_next = ptr;
+			ptr->_prev = node;
+			this->_size++;
 		}
-//
-//		void splice(iterator position, list<T, Allocator>& x, iterator start, iterator finish)
-//		{
-//
-//		}
-//
+
+		void splice(iterator position, list& x)
+		{
+			iterator it = x.begin();
+			iterator newit;
+			while(it != x.end())
+			{
+				newit = it;
+				newit++;
+				splice(position, x, it);
+				it = newit;
+			}
+		}
+
+		void splice(iterator position, list& x, iterator start, iterator finish)
+		{
+			iterator newit;
+			while(start != finish)
+			{
+				newit = start;
+				newit++;
+				splice(position, x, start);
+				start = newit;
+			}
+		}
+
 //		void swap(list &x)
 //		{
 //
