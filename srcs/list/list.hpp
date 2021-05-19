@@ -368,38 +368,99 @@ namespace ft {
 
 		void reverse()
 		{
+			listNode<value_type>* current = _head;
+			listNode<value_type> *prev = NULL;
+			listNode<value_type> *next = NULL;
 
+			while(current != NULL)
+			{
+				next = current->_next;
+				current->_next = prev;
+				prev = current;
+				current = next;
+			}
+			_head = prev;
+		}
 
+		void sort()
+		{
+			iterator tmp = this->begin();
+			tmp++;
+			while(tmp != this->end())
+			{
+				if(*tmp < tmp.getPtr()->_prev->_data)
+				{
+					swap(tmp.getPtr()->_prev,tmp.getPtr());
+					tmp = this->begin();
+				}
+				tmp++;
+			}
+		}
+
+		template< class compare>
+				void sort (compare comp)
+		{
+			iterator tmp = this->begin();
+			tmp++;
+			while(tmp != this->end())
+			{
+				if(comp(*tmp, tmp.getPtr()->_prev->_data))
+				{
+					swap(tmp.getPtr()->_prev,tmp.getPtr());
+					tmp = this->begin();
+				}
+				tmp++;
+			}
+		}
+
+	private:
+		void swap(node_pointer first, node_pointer second)
+		{
+			first->_prev->_next = second;
+			second->_next->_prev = first;
+			second->_prev = first->_prev;
+			first->_next = second->_next;
+			second->_next = first;
+			first->_prev = second;
+		}
+
+	public:
+
+		void splice(iterator position, list& x)
+		{
+
+			iterator it = x.begin();
+			while(it != x.end())
+			{
+				insert(position, *it);
+				it++;
+			}
+			x.clear();
 
 		}
 
-//		void sort()
-//		{
-//
-//		}
-//
-//		template< class compare>
-//				void sort (compare comp)
-//		{
-//
-//		}
-//
-//		void splice(iterator position, list<T, Allocator>& x)
-//		{
-//
-//		}
-//
-//		void splice(iterator position, list<T, Allocator>& x, iterator i)
-//		{
-//
-//		}
+		void splice(iterator position, list& x, iterator i)
+		{
+			listNode<value_type> *newNode =  i.getptr();
+
+
+			listNode<value_type> *tmp = position.getPtr();
+
+			newNode->_prev = tmp->_prev;
+			newNode->_next = tmp;
+			tmp->_prev = newNode;
+			newNode->_prev->_next = newNode;
+			_size++;
+			return iterator(newNode);
+
+		}
 //
 //		void splice(iterator position, list<T, Allocator>& x, iterator start, iterator finish)
 //		{
 //
 //		}
 //
-//		void swap(list<T, Allocator& x)
+//		void swap(list &x)
 //		{
 //
 //		}

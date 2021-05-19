@@ -942,25 +942,20 @@ TEST_CASE("List: Member Functions RemoveIF", "[List]")
 	ft::list<int> mylist (myints, myints+8);
 	std::list<int> syslist (sysints,sysints+8);   // 15 36 7 17 20 39 4 1
 
-	std::cout << "mylist ";
-	for (auto v : mylist)
-		std::cout  << "[" << v << "]";
-	std::cout << std::endl;
-	std::cout << "syslist ";
-	for (auto v : syslist)
-		std::cout  << "[" << v << "]";
-	std::cout << std::endl;
+
 	mylist.remove_if (is_odd());
 	syslist.remove_if (is_odd());// 36 20 36 17 20 39
-	std::cout << "mylist after remove ";
-	for (auto v : mylist)
-		std::cout  << "[" << v << "]";
-	std::cout << std::endl;
-	std::cout << "syslist after remove";
-	for (auto v : syslist)
-		std::cout  << "[" << v << "]";
-	std::cout << std::endl;
+
 	REQUIRE(mylist.size() == syslist.size());
+	ft::list<int>::iterator myit = mylist.begin();
+	std::list<int>::iterator sysit = syslist.begin();
+
+	for (int i = 0; i < mylist.size(); i++, myit++, sysit++)
+	{
+//		std::cout << *myit << std::endl;
+//		std::cout << *sysit << std::endl;
+		REQUIRE(*myit == *sysit);
+	}
 }
 
 TEST_CASE("List: Member Functions Resize", "[List]")
@@ -982,8 +977,8 @@ TEST_CASE("List: Member Functions Resize", "[List]")
 
 		for (int i = 0; i < myintlist.size(); i++, myit++, sysit++)
 		{
-			std::cout << *myit << std::endl;
-			std::cout << *sysit << std::endl;
+//			std::cout << *myit << std::endl;
+//			std::cout << *sysit << std::endl;
 			REQUIRE(*myit == *sysit);
 		}
 	}
@@ -1005,8 +1000,8 @@ TEST_CASE("List: Member Functions Resize", "[List]")
 
 		for (int i = 0; i < myintlist.size(); i++, myit++, sysit++)
 		{
-			std::cout << "my it " << *myit << std::endl;
-			std::cout << "sys it " << *sysit << std::endl;
+//			std::cout << "my it " << *myit << std::endl;
+//			std::cout << "sys it " << *sysit << std::endl;
 			REQUIRE(*myit == *sysit);
 		}
 	}
@@ -1028,8 +1023,8 @@ TEST_CASE("List: Member Functions Resize", "[List]")
 
 		for (int i = 0; i < myintlist.size(); i++, myit++, sysit++)
 		{
-			std::cout << "my it " << *myit << std::endl;
-			std::cout << "sys it " << *sysit << std::endl;
+//			std::cout << "my it " << *myit << std::endl;
+//			std::cout << "sys it " << *sysit << std::endl;
 			REQUIRE(*myit == *sysit);
 		}
 	}
@@ -1037,27 +1032,136 @@ TEST_CASE("List: Member Functions Resize", "[List]")
 
 TEST_CASE("List: Member Functions Reverse", "[List]")
 {
+	int myints[] = {1,2,3,4,5,6,7,8,9,10};
+	int sysints[] = {1,2,3,4,5,6,7,8,9,10};
+	ft::list<int> mylist(myints, myints+10);
+	std::list<int> syslist(sysints, sysints+10);
+	mylist.reverse();
+	syslist.reverse();
+	REQUIRE(mylist.size() == syslist.size());
+	ft::list<int>::iterator myit = mylist.begin();
+	std::list<int>::iterator sysit = syslist.begin();
 
+	for (int i = 0; i < mylist.size(); i++, myit++, sysit++)
+	{
+//		std::cout << "my it " << *myit << std::endl;
+//		std::cout << "sys it " << *sysit << std::endl;
+		REQUIRE(*myit == *sysit);
+//		std::cout<< "[" << *myit << "]" << " VS " << "[" << *sysit << "]" << std::endl;
+	}
 }
 
-TEST_CASE("List: Member Functions Size", "[List]")
+bool compare_nocase (const std::string& first, const std::string& second)
 {
-
+	unsigned int i=0;
+	while ( (i<first.length()) && (i<second.length()) )
+	{
+		if (tolower(first[i])<tolower(second[i])) return true;
+		else if (tolower(first[i])>tolower(second[i])) return false;
+		++i;
+	}
+	return ( first.length() < second.length() );
 }
 
 TEST_CASE("List: Member Functions sort", "[List]")
 {
 
-}
+	SECTION("Non templated sort function")
+	{
+		int myints[] = {1,2,3,4,5,6,7,8,9,10};
+		int sysints[] = {1,2,3,4,5,6,7,8,9,10};
+		ft::list<int> mylist(myints, myints+10);
+		std::list<int> syslist(sysints, sysints+10);
+		mylist.sort();
+		syslist.sort();
+		REQUIRE(mylist.size() == syslist.size());
+		ft::list<int>::iterator myit = mylist.begin();
+		std::list<int>::iterator sysit = syslist.begin();
 
-TEST_CASE("List: Member Functions Compare", "[List]")
-{
+		for (int i = 0; i < mylist.size(); i++, myit++, sysit++)
+		{
+//			std::cout << "my it " << *myit << std::endl;
+//			std::cout << "sys it " << *sysit << std::endl;
+			REQUIRE(*myit == *sysit);
+//			std::cout<< "[" << *myit << "]" << " VS " << "[" << *sysit << "]" << std::endl;
+		}
 
+	}
+	SECTION("Templated sort function")
+	{
+
+		ft::list<std::string> mylist;
+		std::list<std::string> syslist;
+		mylist.push_back ("one");
+		mylist.push_back ("two");
+		mylist.push_back ("Three");
+		mylist.push_back ("Four");
+		mylist.push_back ("Six");
+		mylist.push_back ("ten");
+
+		syslist.push_back ("one");
+		syslist.push_back ("two");
+		syslist.push_back ("Three");
+		syslist.push_back ("Four");
+		syslist.push_back ("Six");
+		syslist.push_back ("ten");
+
+		syslist.sort(compare_nocase);
+		mylist.sort(compare_nocase);
+		ft::list<std::string>::iterator myit = mylist.begin();
+		std::list<std::string>::iterator sysit = syslist.begin();
+		for (int i = 0; i < mylist.size(); i++, myit++, sysit++)
+		{
+//			std::cout << "my it " << *myit << std::endl;
+//			std::cout << "sys it " << *sysit << std::endl;
+			REQUIRE(*myit == *sysit);
+//			std::cout<< "[" << *myit << "]" << " VS " << "[" << *sysit << "]" << std::endl;
+		}
+
+	}
 }
 
 TEST_CASE("List: Member Functions Splice", "[List]")
 {
+	SECTION("Full list transfer")
+	{
+		int myints[] = {1,2,3,4,5,6,7,8,9,10};
+		int insertints[] = {11,12,13,14,15,16,17,18,19,20};
 
+
+		ft::list<int> insertlist(insertints, insertints+10);
+		std::list<int> sysinsertlist(insertints, insertints+10);
+
+
+		ft::list<int> mylist(myints, myints+10);
+		std::list<int> syslist(myints, myints+10);
+
+		ft::list<int>::iterator myit = mylist.end();
+		std::list<int>::iterator sysit = syslist.end();
+		*myit--;
+		*myit--;
+		*sysit--;
+		*sysit--;
+		mylist.splice(myit, insertlist);
+		syslist.splice(sysit, sysinsertlist);
+
+		ft::list<int>::iterator myit2 = mylist.begin();
+		std::list<int>::iterator sysit2 = syslist.begin();
+
+		for (int i = 0; i < mylist.size(); i++, myit2++, sysit2++)
+		{
+			std::cout << "my it " << *myit2 << std::endl;
+			std::cout << "sys it " << *sysit2 << std::endl;
+			REQUIRE(*myit2 == *sysit2);
+			std::cout<< "[" << *myit2 << "]" << " VS " << "[" << *sysit2 << "]" << std::endl;
+		}
+		REQUIRE(insertlist.size() == sysinsertlist.size());
+	}
+
+	SECTION("One item transfer")
+	{
+
+	}
 }
 
 TEST_CASE("List: Member Functions Swap", "[List]")
