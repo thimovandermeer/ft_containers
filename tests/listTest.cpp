@@ -1299,37 +1299,36 @@ TEST_CASE("List: Member Functions Unique", "[List]")
 		}
 		REQUIRE(mylist.size() == syslist.size());
 	}
-
-
-
 }
 
-TEST_CASE("List: NonMember functions operator==", "[List]")
+TEST_CASE("List: overlaods ", "[List]")
 {
+	ft::list<int> a;
+	a.push_back(10);
+	a.push_back(20);
+	a.push_back(30);
+	ft::list<int> b;
+	b.push_back(10);
+	b.push_back(20);
+	b.push_back(30);
+	ft::list<int> c;
+	c.push_back(30);
+	c.push_back(20);
+	c.push_back(10);
 
+	REQUIRE((a == b) == true);
+	REQUIRE((b != c) == true);
+	REQUIRE((b < c) == true);
+	REQUIRE((c > b) == true);
+	REQUIRE((a <= b) == true);
+	REQUIRE((a >= b) == true);
+
+	REQUIRE((a <= b) == true);
+	REQUIRE((a > b) == false);
+	REQUIRE((a < b) == false);
+	REQUIRE((a != b) == false);
+	REQUIRE((b > c) == false);
+	REQUIRE((b == c) == false);
+	REQUIRE((b != c) == true);
 }
 
-TEST_CASE("List: NonMember functions operator!=", "[List]")
-{
-
-}
-
-TEST_CASE("List: NonMember functions operator<", "[List]")
-{
-
-}
-
-TEST_CASE("List: NonMember functions operator>", "[List]")
-{
-
-}
-
-TEST_CASE("List: NonMember functions operator<=", "[List]")
-{
-
-}
-
-TEST_CASE("List: NonMember functions operator>=", "[List]")
-{
-
-}

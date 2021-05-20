@@ -30,8 +30,8 @@ namespace ft {
 		typedef size_t size_type;
 		typedef BidirectionalIterator<value_type, node_pointer> iterator;
 		typedef ConstBidirectionalIterator<value_type, node_pointer> const_iterator;
-//		typedef RevBidirectionalIterator<value_type , node_pointer > reverse_iterator;
-//		typedef ConstRevBidirectionalIterator<value_type, node_pointer> const_reverse_iterator;
+		typedef RevBidirectionalIterator<value_type , node_pointer > reverse_iterator;
+		typedef ConstRevBidirectionalIterator<value_type, node_pointer> const_reverse_iterator;
 
 	private:
 		// here are the member vars
@@ -85,19 +85,27 @@ namespace ft {
 		// Destructors
 		~list()
 		{
-
+			this->clear();
+			delete this->_tail;
+			delete this->_head;
 		}
 
 		// Assignment operators
-		list<T, Alloc> &operator=(const list<T, Alloc> &x)
+		list& operator=(const list& x)
 		{
-
+			_head = new listNode<value_type>;
+			_tail = new listNode<value_type>;
+			_head->_next = _tail;
+			_tail->_prev = _head;
+			_size = 0;
+			assign(x.begin(), x.end());
+			return *this;
 		}
 
 		// Allocators
 		allocator_type get_allocator() const
 		{
-
+			return _allocator;
 		}
 
 //		 Iterators
@@ -121,27 +129,27 @@ namespace ft {
 			return const_iterator(_tail);
 		}
 
-//
-//		reverse_iterator rbegin()
-//		{
-//			return reverse_iterator (_head->_next);
-//		}
-//
-//		const_reverse_iterator rbegin() const
-//		{
-//			return const_reverse_iterator (_head->_next);
-//		}
-//
-//		reverse_iterator rend()
-//		{
-//			return reverse_iterator (_tail);
-//		}
-//
-//		const_reverse_iterator rend() const
-//		{
-//			return const_reverse_iterator (_tail);
-//		}
-//
+
+		reverse_iterator rbegin()
+		{
+			return reverse_iterator (_head->_next);
+		}
+
+		const_reverse_iterator rbegin() const
+		{
+			return const_reverse_iterator (_head->_next);
+		}
+
+		reverse_iterator rend()
+		{
+			return reverse_iterator (_tail);
+		}
+
+		const_reverse_iterator rend() const
+		{
+			return const_reverse_iterator (_tail);
+		}
+
 //		// Member Functions
 		template<class InputIterator>
 		void assign(InputIterator start, InputIterator finish)
@@ -258,11 +266,9 @@ namespace ft {
 
 		void merge(list &x)
 		{
-			// check if ordered
 			iterator tmp = x.begin();
 			iterator current = this->begin();
 			iterator prev;
-			// need splice for this one
 			while(tmp != x.end())
 			{
 				while(current != end() && *tmp > *current)
@@ -367,7 +373,6 @@ namespace ft {
 				}
 			}
 		}
-
 
 		void resize(size_type n, value_type val = value_type())
 		{
@@ -503,42 +508,6 @@ namespace ft {
 		}
 
 
-		// Nonmember Operators
-//		template<class T, class Alloc>
-//		bool operator==(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
-//		{
-//
-//		}
-//
-//		template<class T, class Allocator>
-//		bool operator!=(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
-//		{
-//			return !(lhs == rhs);
-//		}
-//
-//		template<class T, class Allocator>
-//		bool operator<(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
-//		{
-//
-//		}
-//
-//		template<class T, class Allocator>
-//		bool operator>(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
-//		{
-//
-//		}
-//
-//		template<class T, class Allocator>
-//		bool operator<=(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
-//		{
-//
-//		}
-//
-//		template<class T, class Allocator>
-//		bool operator>=(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
-//		{
-//
-//		}
 
 	private:
 		void swap(node_pointer first, node_pointer second)
@@ -559,8 +528,53 @@ namespace ft {
 			second = tmp;
 		}
 	};
+
+	// Nonmember Operators
+	template<class value_type, class allocator_type>
+	bool operator==(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return false;
+		typename ft::list<value_type>::iterator lhsIT = lhs.begin();
+		typename ft::list<value_type>::iterator rhsIT = rhs.begin();
+		while(lhsIT != lhs.end() && rhsIT != rhs.end())
+		{
+			if(!(*lhsIT == *rhsIT))
+				return false;
+			++lhsIT;
+			++rhsIT;
+		}
+		return true;
+	}
+
+	template<class value_type, class allocator_type>
+	bool operator!=(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template<class value_type, class allocator_type>
+	bool operator<(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
+	{
+		return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template<class value_type, class allocator_type>
+	bool operator>(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	template<class value_type, class allocator_type>
+	bool operator<=(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template<class value_type, class allocator_type>
+	bool operator>=(const list<value_type, allocator_type> &lhs, const list<value_type, allocator_type> &rhs)
+	{
+		return !(lhs < rhs);
+	}
 }
-
-
-
 #endif //MY_FT_CONTAINERS_LIST_HPP
