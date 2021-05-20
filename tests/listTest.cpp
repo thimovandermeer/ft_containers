@@ -779,7 +779,31 @@ TEST_CASE("List: Member Functions Merge", "[List]")
 {
 	SECTION("List X merging")
 	{
+		int numbers[5] = {10, 9, 50, 30, 4};
+		int mergenumbers[6] = {12, 8, 7, 3, 12, 1};
+		std::list<int> syslist(numbers, numbers+5);
+		std::list<int> mergelist(mergenumbers, mergenumbers+6);
+		syslist.sort();
+		mergelist.sort();
 
+		ft::list<int> mylist(numbers, numbers+5);
+		ft::list<int> mymergelist(mergenumbers, mergenumbers+6);
+		mylist.sort();
+		mergelist.sort();
+		syslist.sort();
+		mymergelist.sort();
+		mylist.merge(mymergelist);
+		syslist.merge(mergelist);
+		REQUIRE(mylist.size() == syslist.size());
+		ft::list<int>::iterator myit = mylist.begin();
+		std::list<int>::iterator sysit = syslist.begin();
+
+		for (int i = 0; i < mylist.size(); i++, myit++, sysit++)
+		{
+//			std::cout << "my it " << *myit << std::endl;
+//			std::cout << "sys it " << *sysit << std::endl;
+			REQUIRE(*myit == *sysit);
+		}
 	}
 }
 
@@ -952,8 +976,6 @@ TEST_CASE("List: Member Functions RemoveIF", "[List]")
 
 	for (int i = 0; i < mylist.size(); i++, myit++, sysit++)
 	{
-//		std::cout << *myit << std::endl;
-//		std::cout << *sysit << std::endl;
 		REQUIRE(*myit == *sysit);
 	}
 }
@@ -1150,10 +1172,8 @@ TEST_CASE("List: Member Functions Splice", "[List]")
 
 		for (int i = 0; i < mylist.size(); i++, myit2++, sysit2++)
 		{
-			std::cout << "my it " << *myit2 << std::endl;
-			std::cout << "sys it " << *sysit2 << std::endl;
+
 			REQUIRE(*myit2 == *sysit2);
-			std::cout<< "[" << *myit2 << "]" << " VS " << "[" << *sysit2 << "]" << std::endl;
 		}
 		REQUIRE(insertlist.size() == sysinsertlist.size());
 	}
@@ -1199,17 +1219,88 @@ TEST_CASE("List: Member Functions Splice", "[List]")
 		}
 		REQUIRE(insertionlist.size() == sysinsertionlist.size());
 	}
-
-
 }
 
 TEST_CASE("List: Member Functions Swap", "[List]")
 {
+	SECTION("Same length")
+	{
+		int startlist[5] = {1,2,3,4,5};
+		ft::list<int> mystartlist(startlist, startlist+5);
+		int secondlist[5] = {10,11,12,13,14};
+		ft::list<int> mysecondlist(secondlist, secondlist+5);
 
+		int sysstart[5] = {1,2,3,4,5};
+		std::list<int> sysstartlist(sysstart, sysstart+5);
+		int syssecond[5] = {10,11,12,13,14};
+		std::list<int> syssecondlist(syssecond, syssecond+5);
+
+		mystartlist.swap(mysecondlist);
+		sysstartlist.swap(syssecondlist);
+
+		ft::list<int>::iterator myit2 = mystartlist.begin();
+		std::list<int>::iterator sysit2 = sysstartlist.begin();
+		for (int i = 0; i < mystartlist.size(); i++, myit2++, sysit2++)
+		{
+			REQUIRE(*myit2 == *sysit2);
+		}
+		REQUIRE(mystartlist.size() == sysstartlist.size());
+		REQUIRE(mysecondlist.size() == syssecondlist.size());
+	}
 }
+
+struct is_near {
+	bool operator() (double first, double second)
+	{ return (fabs(first-second)<5.0); }
+};
 
 TEST_CASE("List: Member Functions Unique", "[List]")
 {
+	SECTION("Unique without binary predicate")
+	{
+		int startlist[5] = {1,2,3,3,3};
+		ft::list<int> mystartlist(startlist, startlist+5);
+
+		int sysstart[5] = {1,2,3,3,3};
+		std::list<int> sysstartlist(sysstart, sysstart+5);
+
+		mystartlist.unique();
+		sysstartlist.unique();
+
+		ft::list<int>::iterator myit2 = mystartlist.begin();
+		std::list<int>::iterator sysit2 = sysstartlist.begin();
+		for (int i = 0; i < mystartlist.size(); i++, myit2++, sysit2++)
+		{
+			REQUIRE(*myit2 == *sysit2);
+		}
+		REQUIRE(mystartlist.size() == sysstartlist.size());
+	}
+
+	SECTION("Unique with binary predicate")
+	{
+		double mydoubles[]={ 12.15,  2.72, 73.0,  12.77,  3.14,
+							 12.77, 73.35, 72.25, 15.3,  72.25 };
+		double sysdoubles[]={ 12.15,  2.72, 73.0,  12.77,  3.14,
+							 12.77, 73.35, 72.25, 15.3,  72.25 };
+
+		ft::list<double> mylist (mydoubles,mydoubles+10);
+		std::list<double> syslist(sysdoubles, sysdoubles+10);
+		mylist.sort();             //  2.72,  3.14, 12.15, 12.77, 12.77,
+		syslist.sort();
+		mylist.unique (is_near());           //  2.72, 12.15, 72.25
+		syslist.unique(is_near());
+		ft::list<double>::iterator myit2 = mylist.begin();
+		std::list<double>::iterator sysit2 = syslist.begin();
+		for (int i = 0; i < mylist.size(); i++, myit2++, sysit2++)
+		{
+			REQUIRE(*myit2 == *sysit2);
+			std::cout << "my it " << *myit2 << std::endl;
+			std::cout << "sys it " << *sysit2 << std::endl;
+		}
+		REQUIRE(mylist.size() == syslist.size());
+	}
+
+
 
 }
 
