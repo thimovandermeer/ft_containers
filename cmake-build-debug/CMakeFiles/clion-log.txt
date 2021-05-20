@@ -1,18 +1,16 @@
 /Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers"
--- The C compiler identification is AppleClang 12.0.5.12050022
--- The CXX compiler identification is AppleClang 12.0.5.12050022
--- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc
--- Check for working C compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc - works
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Detecting C compile features
--- Detecting C compile features - done
--- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++
--- Check for working CXX compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ - works
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Detecting CXX compile features
--- Detecting CXX compile features - done
 -- Configuring done
--- Generating done
--- Build files have been written to: /Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug
+CMake Error at CMakeLists.txt:10 (add_executable):
+  Cannot find source file:
+
+    catch2.hpp
+
+  Tried extensions .c .C .c++ .cc .cpp .cxx .cu .m .M .mm .h .hh .h++ .hm
+  .hpp .hxx .in .txx
+
+
+CMake Error at CMakeLists.txt:10 (add_executable):
+  No SOURCES given to target: my_ft_containers
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
