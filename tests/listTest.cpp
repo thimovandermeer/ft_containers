@@ -1058,18 +1058,19 @@ TEST_CASE("List: Member Functions Reverse", "[List]")
 	int sysints[] = {1,2,3,4,5,6,7,8,9,10};
 	ft::list<int> mylist(myints, myints+10);
 	std::list<int> syslist(sysints, sysints+10);
+
 	mylist.reverse();
 	syslist.reverse();
+	std::cout << "Nee" << std::endl;
+	std::cout << mylist.size() << std::endl;
+	std::cout << syslist.size() << std::endl;
 	REQUIRE(mylist.size() == syslist.size());
 	ft::list<int>::iterator myit = mylist.begin();
 	std::list<int>::iterator sysit = syslist.begin();
 
 	for (int i = 0; i < mylist.size(); i++, myit++, sysit++)
 	{
-//		std::cout << "my it " << *myit << std::endl;
-//		std::cout << "sys it " << *sysit << std::endl;
 		REQUIRE(*myit == *sysit);
-//		std::cout<< "[" << *myit << "]" << " VS " << "[" << *sysit << "]" << std::endl;
 	}
 }
 

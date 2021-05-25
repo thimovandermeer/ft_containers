@@ -1,15 +1,10 @@
-NAME = ft_containers_tests
-FILES = catchMain listTest stackTest
-#vectorTest queueTest stackTest
-SRCS = $(addsuffix .cpp, $(FILES))
+NAME = ft_containers
+FILES = main
+SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(SRCS:.cpp=.o)
+INCLUDE = -Isrcs -Isrcs/list -Isrcs/queue -Isrcs/stack -Isrcs/vector -Isrcs/map
 
-# Add the directories you need here:
-INCLUDE = -I../srcs/list -I../srcs/stack
-#-I../srcs -I../srcs/vector  -I../srcs/queue -I../srcs/map
-
-CXXFLAGS = -std=c++11
-
+CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++98 -O0
 
 ifeq ($(shell uname), Linux)
  ECHO = -e
@@ -28,12 +23,18 @@ $(NAME): $(OBJS)
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Bundling executable... $(END)$(NAME)"
 	@$(CXX) $(CXXFLAGS) $(OBJS) $(INCLUDE) -o $@
 
+test:
+	@echo $(ECHO) "$(PREFIX)$(GREEN) Running tests... $(END)$(NAME)"
+	@cd tests && make run asan=1
+
+%.a: %
+	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
+	@make -s -C $<
+	@cp $</$@ .
+
 %.o: %.cpp
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Compiling file $(END)$< $(GREEN)to $(END)$@"
 	@$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
-
-run: all
-	./$(NAME)
 
 clean:
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Removing .o files $(END)$(OUT_DIR)"
@@ -42,7 +43,11 @@ clean:
 fclean: clean
 	@echo $(ECHO) "$(PREFIX)$(GREEN) Removing executable $(END)$(OUT_DIR)"
 	@rm -rf $(NAME)
+	@cd tests && make fclean
 
 re: fclean all
 
-.PHONY: clean fclean re all
+run: clean all
+	./$(NAME)
+
+.PHONY: clean fclean re all test
