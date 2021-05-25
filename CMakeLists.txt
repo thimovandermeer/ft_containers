@@ -10,4 +10,4 @@ include_directories(srcs/list)
 add_executable(my_ft_containers
         srcs/list/list.hpp
         tests/listTest.cpp
-        catch2.hpp srcs/stack/stack.hpp tests/stackTest.cpp)
+        catch2.hpp srcs/stack/stack.hpp tests/stackTest.cpp srcs/queue/queue.hpp tests/queueTest.cpp)

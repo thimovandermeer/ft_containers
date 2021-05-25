@@ -50,6 +50,26 @@ namespace ft{
 			_container.pop_back();
 		}
 
+		friend bool	operator==(const stack<value_type , container_type>& lhs, const stack<value_type , container_type>& rhs) {
+			return (lhs._ctnr == rhs._ctnr);
+		}
+		friend bool operator!=(const stack<value_type , container_type>& lhs, const stack<value_type , container_type>& rhs) {
+			return (lhs._ctnr != rhs._ctnr);
+		}
+		friend bool	operator<(const stack<value_type , container_type>& lhs, const stack<value_type , container_type>& rhs) {
+			return (lhs._ctnr < rhs._ctnr);
+		}
+		friend bool operator>(const stack<value_type , container_type>& lhs, const stack<value_type , container_type>& rhs) {
+			return (lhs._ctnr > rhs._ctnr);
+		}
+		friend bool	operator<=(const stack<value_type , container_type>& lhs, const stack<value_type , container_type>& rhs) {
+			return (lhs._ctnr <= rhs._ctnr);
+		}
+		friend bool operator>=(const stack<value_type , container_type>& lhs, const stack<value_type , container_type>& rhs) {
+			return (lhs._ctnr >= rhs._ctnr);
+		}
 	};
+
+
 }
 #endif //MY_FT_CONTAINERS_STACK_HPP
