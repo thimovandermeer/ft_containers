@@ -4,69 +4,52 @@
 
 #ifndef MY_FT_CONTAINERS_STACK_HPP
 #define MY_FT_CONTAINERS_STACK_HPP
+#include "../list/list.hpp"
 namespace ft{
 	template<class T, class Container = list<T>>
 	class stack
 	{
 	public:
 		typedef T 			value_type;
-		typedef container	container_type;
+		typedef Container	container_type;
 		typedef size_t		size_type;
 
 	private:
-		value_type 			_type;
 		container_type 		_container;
-		size_type			_size;
 
 	public:
-		explicit stack (const container_type& ctnr = container_type())
-		{
-
-		}
+		explicit stack (const container_type& ctnr = container_type()) : _container(ctnr) {}
 
 		bool	empty() const
 		{
-			if(_size == 0)
-				return true;
-			else
-				return false;
+			return _container.empty();
 		}
 
 		size_type size() const
 		{
-			return(_size);
+			return(_container.size());
 		}
 
 		value_type &top()
 		{
-
+			return (_container.back());
 		}
 
 		const value_type &top() const
 		{
-
+			return (_container.back());
 		}
 
 		void push(const value_type &val)
 		{
-
-		}
-
-		template<class... Args>
-		void emplace(Args&&... args)
-		{
-
+			return (_container.push_back(val));
 		}
 
 		void pop()
 		{
-
+			_container.pop_back();
 		}
 
-		void swap(stack& x) noexcept();
-		{
-
-		}
 	};
 }
 #endif //MY_FT_CONTAINERS_STACK_HPP
