@@ -86,13 +86,34 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/catch2.hpp">
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/RandomAccesIterator.hpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/ReverseIterator.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/list/list.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/queue/queue.hpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/stack/stack.hpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/vector/vector.hpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/listTest.cpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/queueTest.cpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/stackTest.cpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/vectorTest.cpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/CMakeLists.txt">

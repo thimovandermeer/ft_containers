@@ -8,8 +8,8 @@
 #include <memory>
 #include <iterator>
 #include <algorithm>
-#include "BidirectionalIterator.hpp"
-#include "../typeTraits.hpp"
+#include "../utils/typeTraits.hpp"
+#include "../iterators/BidirectionalIterator.hpp"
 #include <iostream>
 // include bidrectional iterators
 

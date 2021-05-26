@@ -170,6 +170,87 @@ tests/listTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/listTest.cpp.s
 .PHONY : tests/listTest.cpp.s
 
+tests/queueTest.o: tests/queueTest.cpp.o
+
+.PHONY : tests/queueTest.o
+
+# target to build an object file
+tests/queueTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/queueTest.cpp.o
+.PHONY : tests/queueTest.cpp.o
+
+tests/queueTest.i: tests/queueTest.cpp.i
+
+.PHONY : tests/queueTest.i
+
+# target to preprocess a source file
+tests/queueTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/queueTest.cpp.i
+.PHONY : tests/queueTest.cpp.i
+
+tests/queueTest.s: tests/queueTest.cpp.s
+
+.PHONY : tests/queueTest.s
+
+# target to generate assembly for a file
+tests/queueTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/queueTest.cpp.s
+.PHONY : tests/queueTest.cpp.s
+
+tests/stackTest.o: tests/stackTest.cpp.o
+
+.PHONY : tests/stackTest.o
+
+# target to build an object file
+tests/stackTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/stackTest.cpp.o
+.PHONY : tests/stackTest.cpp.o
+
+tests/stackTest.i: tests/stackTest.cpp.i
+
+.PHONY : tests/stackTest.i
+
+# target to preprocess a source file
+tests/stackTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/stackTest.cpp.i
+.PHONY : tests/stackTest.cpp.i
+
+tests/stackTest.s: tests/stackTest.cpp.s
+
+.PHONY : tests/stackTest.s
+
+# target to generate assembly for a file
+tests/stackTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/stackTest.cpp.s
+.PHONY : tests/stackTest.cpp.s
+
+tests/vectorTest.o: tests/vectorTest.cpp.o
+
+.PHONY : tests/vectorTest.o
+
+# target to build an object file
+tests/vectorTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/vectorTest.cpp.o
+.PHONY : tests/vectorTest.cpp.o
+
+tests/vectorTest.i: tests/vectorTest.cpp.i
+
+.PHONY : tests/vectorTest.i
+
+# target to preprocess a source file
+tests/vectorTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/vectorTest.cpp.i
+.PHONY : tests/vectorTest.cpp.i
+
+tests/vectorTest.s: tests/vectorTest.cpp.s
+
+.PHONY : tests/vectorTest.s
+
+# target to generate assembly for a file
+tests/vectorTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/vectorTest.cpp.s
+.PHONY : tests/vectorTest.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -182,6 +263,15 @@ help:
 	@echo "... tests/listTest.o"
 	@echo "... tests/listTest.i"
 	@echo "... tests/listTest.s"
+	@echo "... tests/queueTest.o"
+	@echo "... tests/queueTest.i"
+	@echo "... tests/queueTest.s"
+	@echo "... tests/stackTest.o"
+	@echo "... tests/stackTest.i"
+	@echo "... tests/stackTest.s"
+	@echo "... tests/vectorTest.o"
+	@echo "... tests/vectorTest.i"
+	@echo "... tests/vectorTest.s"
 .PHONY : help
 
 

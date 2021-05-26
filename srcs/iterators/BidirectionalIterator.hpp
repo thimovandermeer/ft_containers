@@ -7,7 +7,7 @@
 #include <iterator>
 #include <cstddef>
 #include "listNode.hpp"
-#include "../typeTraits.hpp"
+#include "../utils/typeTraits.hpp"
 
 namespace ft {
 	template < typename T, typename N, class Category = ft::bidirectional_iterator_tag >
