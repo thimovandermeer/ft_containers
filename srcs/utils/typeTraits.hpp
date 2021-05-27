@@ -22,6 +22,7 @@ namespace ft {
 
 	template <typename T>
 	struct is_iterator {
+
 		static const bool result = false;
 	};
 

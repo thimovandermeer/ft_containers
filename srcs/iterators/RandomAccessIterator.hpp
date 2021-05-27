@@ -21,7 +21,8 @@ namespace ft{
 
 	public:
 		RandomAccessIterator(): _ptr(nullptr) {}
-		explicit RandomAccessIterator(pointer ptr) : _ptr(ptr) {}
+		RandomAccessIterator(pointer ptr) : _ptr(ptr) {}
+//		explicit RandomAccessIterator(pointer ptr) : _ptr(ptr) {}
 		RandomAccessIterator(const RandomAccessIterator<T, Pointer, Reference>& obj) { *this = obj;}
 		RandomAccessIterator& operator= (const RandomAccessIterator<T, Pointer, Reference>& obj){
 			if(&obj != this){
@@ -50,6 +51,7 @@ namespace ft{
 			tmp._ptr += number;
 			return (tmp);
 		}
+
 		RandomAccessIterator operator-(RandomAccessIterator<T, Pointer, Reference> rhs) const
 		{
 			return (this->_ptr - rhs._val);
