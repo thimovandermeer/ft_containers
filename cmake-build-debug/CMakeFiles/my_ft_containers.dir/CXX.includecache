@@ -6,7 +6,23 @@
 
 #IncludeRegexTransform: 
 
-../catch2.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/RandomAccessIterator.hpp
+../utils/typeTraits.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/utils/typeTraits.hpp
+
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/ReverseIterator.hpp
+
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/utils/typeTraits.hpp
+
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/vector/vector.hpp
+../iterators/RandomAccessIterator.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/RandomAccessIterator.hpp
+../iterators/ReverseIterator.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/ReverseIterator.hpp
+iostream
+-
+
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/Catch2.h
 TargetConditionals.h
 -
 cstddef
@@ -305,7 +321,11 @@ limits
 -
 signal.h
 -
-cassert
+AfxWin.h
+-
+windows.h
+-
+signal.h
 -
 string
 -
@@ -336,10 +356,6 @@ ctime
 cstring
 -
 ostream
--
-AfxWin.h
--
-windows.h
 -
 sstream
 -
@@ -384,11 +400,7 @@ string
 memory
 -
 Foundation/Foundation.h
-../Foundation/Foundation.h
-algorithm
--
-signal.h
--
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/Foundation/Foundation.h
 limits
 -
 set
@@ -561,8 +573,6 @@ cstddef
 -
 exception
 -
-exception
--
 ostream
 -
 iomanip
@@ -594,23 +604,13 @@ algorithm
 cassert
 -
 
-../srcs/list/list.hpp
-listNode.hpp
-../srcs/list/listNode.hpp
-memory
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/vectorTest.cpp
+Catch2.h
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/Catch2.h
+vector
 -
-iterator
--
-algorithm
--
-
-../srcs/list/listNode.hpp
-
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/listTest.cpp
-catch2.hpp
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/catch2.hpp
-srcs/list/list.hpp
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/srcs/list/list.hpp
-list
+../srcs/vector/vector.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/vector/vector.hpp
+iostream
 -
 

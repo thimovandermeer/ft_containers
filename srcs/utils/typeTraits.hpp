@@ -21,20 +21,53 @@ namespace ft {
 	};
 
 	template <typename T>
-	struct is_iterator {
+	struct is_iterator
+	{
+	private:
+		typedef char	true_type;
+		typedef int		false_type;
 
-		static const bool result = false;
+		template <typename U>
+		static true_type test(typename U::iterator_category* = 0);
+		template <typename U>
+		static false_type test(...);
+
+	public:
+		static const bool result = (sizeof(true_type) == sizeof(test<T>(0)));
 	};
 
-	template <>
-	struct is_iterator<ft::random_access_iterator_tag>
+	template <typename T>
+	struct iterator_traits : public enable_if<is_iterator<T>::result, T>
 	{
-		static const bool result = true;
+		typedef ptrdiff_t					difference_type;
+		typedef T							value_type;
+		typedef T*							pointer;
+		typedef T&							reference;
+		typedef random_access_iterator_tag	iterator_category;
 	};
-	template<>
-	struct is_iterator<ft::bidirectional_iterator_tag>
+
+	template <typename T>
+	struct iterator_traits<T*>
 	{
-		static const bool result = true;
+		typedef ptrdiff_t					difference_type;
+		typedef T							value_type;
+		typedef T*							pointer;
+		typedef T&							reference;
+		typedef random_access_iterator_tag	iterator_category;
+
+		typedef random_access_iterator_tag	type;
+	};
+
+	template <typename T>
+	struct iterator_traits<const T*>
+	{
+		typedef ptrdiff_t					difference_type;
+		typedef T							value_type;
+		typedef T*							pointer;
+		typedef T&							reference;
+		typedef random_access_iterator_tag	iterator_category;
+
+		typedef random_access_iterator_tag	type;
 	};
 }
 #endif //MY_FT_CONTAINERS_TYPETRAITS_HPP

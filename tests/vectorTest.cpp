@@ -420,6 +420,85 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 {
 	SECTION("Assign")
 	{
+		std::cout << "my int vec\n";
+		std::cout << "---------------" << std::endl;
+		ft::vector<int> myvec;
+		myvec.push_back(10);
+		myvec.push_back(9);
+		myvec.push_back(8);
+		myvec.push_back(7);
+		myvec.push_back(6);
+		myvec.push_back(5);
+		myvec.push_back(4);
+		myvec.push_back(3);
+		myvec.push_back(2);
+		myvec.push_back(1);
+		myvec.push_back(0);
+
+
+
+		std::vector<int> sysvec;
+		sysvec.push_back(10);
+		sysvec.push_back(9);
+		sysvec.push_back(8);
+		sysvec.push_back(7);
+		sysvec.push_back(6);
+		sysvec.push_back(5);
+		sysvec.push_back(4);
+		sysvec.push_back(3);
+		sysvec.push_back(2);
+		sysvec.push_back(1);
+		sysvec.push_back(0);
+
+		ft::vector<std::string>mystrvec;
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		mystrvec.push_back("hallo");
+		std::vector<std::string> sysstrvec;
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+		sysstrvec.push_back("hallo");
+
+		REQUIRE(mystrvec == sysstrvec);
+		std::vector<int>::iterator sysstart = sysvec.begin();
+		std::vector<int>::iterator sysend = sysvec.end();
+		*sysend--;
+		ft::vector<int>::iterator itstart = myvec.begin();
+		ft::vector<int>::iterator itend = myvec.end();
+		*itend--;
+		REQUIRE(*sysstart == *itstart);
+		REQUIRE(*sysend == *itend);
+
+		ft::vector<int> newvec;
+		std::vector<int> sysnewvec;
+
+		newvec.assign(itstart, itend);
+		sysnewvec.assign(sysstart, sysend);
+		REQUIRE(myvec == sysvec);
+
+
+		ft::vector<std::string> myfillvec;
+		std::vector<std::string> sysfillvec;
+
+		myfillvec.assign(10, "hallo");
+		sysfillvec.assign(10, "hallo");
+		REQUIRE(myfillvec == sysfillvec);
 
 	}
 
@@ -470,41 +549,198 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 
 	SECTION("Insert single element")
 	{
+//		ft::vector<int> myvec;
+//		ft::vector<int>::iterator myit = myvec.begin();
+//		myvec.insert(myit, 10);
+//		std::vector<int> sysvec;
+//		std::vector<int>::iterator sysit = sysvec.begin();
+//		sysvec.insert(sysit, 10);
+//		REQUIRE(myvec == sysvec);
 
+		ft::vector<int> myvec;
+		std::vector<int> sysvec;
+
+		myvec.push_back(10);
+		myvec.push_back(9);
+		myvec.push_back(8);
+		myvec.push_back(7);
+		myvec.push_back(6);
+		myvec.push_back(5);
+		myvec.push_back(4);
+		myvec.push_back(3);
+		myvec.push_back(2);
+		myvec.push_back(1);
+		myvec.push_back(0);
+
+		sysvec.push_back(10);
+		sysvec.push_back(9);
+		sysvec.push_back(8);
+		sysvec.push_back(7);
+		sysvec.push_back(6);
+		sysvec.push_back(5);
+		sysvec.push_back(4);
+		sysvec.push_back(3);
+		sysvec.push_back(2);
+		sysvec.push_back(1);
+		sysvec.push_back(0);
+
+		ft::vector<int>::iterator myit1 = myvec.begin();
+		std::vector<int>::iterator sysit1 = sysvec.begin();
+
+		*myit1++;
+		*myit1++;
+		*sysit1++;
+		*sysit1++;
+		myvec.insert(myit1, 15);
+		sysvec.insert(sysit1, 15);
+		REQUIRE(myvec == sysvec);
 	}
 
 	SECTION("Insert fill")
 	{
+		// insert in empty
+		ft::vector<int> myvec;
+		std::vector<int> sysvec;
+		ft::vector<int>::iterator myit = myvec.begin();
+		std::vector<int>::iterator sysit = sysvec.begin();
 
+		myvec.insert(myit, 10,10);
+		sysvec.insert(sysit, 10, 10);
+
+		REQUIRE(myvec == sysvec);
+
+		// insert in full
+		ft::vector<int> myvec1(10,10);
+		std::vector<int> sysvec1(10,10);
+		ft::vector<int>::iterator myit1 = myvec1.end();
+		std::vector<int>::iterator sysit1 = sysvec1.end();
+
+		*myit1--;
+		*myit1--;
+		*sysit1--;
+		*sysit1--;
+
+		myvec1.insert(myit1, 100,10);
+		sysvec1.insert(sysit1, 100,10);
+
+		REQUIRE(myvec1 == sysvec1);
 	}
 
 	SECTION("Insert range")
 	{
+		// filling an empty vector
+		ft::vector<int>myvec(10,15);
+		ft::vector<int>::iterator myitbegin = myvec.begin();
+		ft::vector<int>::iterator myitend = myvec.end();
+		ft::vector<int>myvectofill(1,10);
+		ft::vector<int>::iterator mypositiontofil = myvectofill.begin();
+
+		std::vector<int>sysvec(10,15);
+		std::vector<int>::iterator sysitbegin = sysvec.begin();
+		std::vector<int>::iterator sysitend = sysvec.end();
+		std::vector<int>sysvectofill(1, 10);
+		std::vector<int>::iterator syspositiontofill = sysvectofill.begin();
+
+		myvectofill.insert(mypositiontofil, myitbegin, myitend);
+		sysvectofill.insert(syspositiontofill, sysitbegin, sysitend);
+
+		REQUIRE(myvectofill == sysvectofill);
 
 	}
 
-	SECTION("Erase")
+	SECTION("Erase one")
 	{
+		ft::vector<int> myvec(10,10);
+		std::vector<int> sysvec(10,10);
+		ft::vector<int>::iterator myit = myvec.begin();
+		std::vector<int>::iterator sysit = sysvec.begin();
 
+		myvec.erase(myit);
+		sysvec.erase(sysit);
+
+		REQUIRE(myvec == sysvec);
 	}
+
+	SECTION("Erase range")
+	{
+		ft::vector<int> myvec(15, 15);
+		std::vector<int> sysvec(15,15);
+		ft::vector<int>::iterator myitbegin = myvec.begin();
+		ft::vector<int>::iterator myitend = myvec.end();
+
+		std::vector<int>::iterator sysitbegin = sysvec.begin();
+		std::vector<int>::iterator sysitend = sysvec.end();
+
+		*myitbegin++;
+		*myitbegin++;
+
+		*myitend--;
+		*myitend--;
+
+		*sysitbegin++;
+		*sysitbegin++;
+
+		*sysitend--;
+		*sysitend--;
+
+		myvec.erase(myitbegin, myitend);
+		sysvec.erase(sysitbegin, sysitend);
+		REQUIRE(myvec == sysvec);
+	}
+
 
 	SECTION("Swap")
 	{
+		ft::vector<int>myvec(10,10);
+		ft::vector<int>myvec1(15,15);
 
+		std::vector<int>sysvec(10,10);
+		std::vector<int>sysvec1(15,15);
+
+		myvec.swap(myvec1);
+		sysvec.swap(sysvec1);
+
+		REQUIRE(myvec == sysvec);
 	}
 
 	SECTION("Clear")
 	{
-
+		ft::vector<std::string> myvec(3, "hallo");
+		std::vector<std::string> sysvec(3, "hallo");
+		myvec.clear();
+		sysvec.clear();
+		REQUIRE(myvec == sysvec);
 	}
 }
 
-TEST_CASE("Vector: Allocators")
-{
 
-}
-
-TEST_CASE("Vector: Non member overloads")
-{
-
-}
+//TEST_CASE("Vector: Non member overloads")
+//{
+//	ft::vector<int> a;
+//	a.push_back(10);
+//	a.push_back(20);
+//	a.push_back(30);
+//	ft::vector<int> b;
+//	b.push_back(10);
+//	b.push_back(20);
+//	b.push_back(30);
+//	ft::vector<int> c;
+//	c.push_back(30);
+//	c.push_back(20);
+//	c.push_back(10);
+//
+//	REQUIRE((a == b) == true);
+//	REQUIRE((b != c) == true);
+//	REQUIRE((b < c) == true);
+//	REQUIRE((c > b) == true);
+//	REQUIRE((a <= b) == true);
+//	REQUIRE((a >= b) == true);
+//
+//	REQUIRE((a <= b) == true);
+//	REQUIRE((a > b) == false);
+//	REQUIRE((a < b) == false);
+//	REQUIRE((a != b) == false);
+//	REQUIRE((b > c) == false);
+//	REQUIRE((b == c) == false);
+//	REQUIRE((b != c) == true);
+//}

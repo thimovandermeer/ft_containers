@@ -251,7 +251,7 @@ namespace ft {
 
 		template<class InputIterator>
 		void insert(iterator position, InputIterator start, InputIterator finish,
-					typename enable_if<is_iterator<typename InputIterator::iterator_category>::result, InputIterator>::type * = NULL)
+					typename iterator_traits<InputIterator>::type* = 0)
 		{
 			while (start != finish) {
 				insert(position, *start);

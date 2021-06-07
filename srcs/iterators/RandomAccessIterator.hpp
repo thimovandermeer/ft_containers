@@ -52,9 +52,9 @@ namespace ft{
 			return (tmp);
 		}
 
-		RandomAccessIterator operator-(RandomAccessIterator<T, Pointer, Reference> rhs) const
+		difference_type operator-(RandomAccessIterator<T, Pointer, Reference> rhs) const
 		{
-			return (this->_ptr - rhs._val);
+			return (this->_ptr - rhs._ptr);
 		}
 
 		RandomAccessIterator operator-(const difference_type &number) const

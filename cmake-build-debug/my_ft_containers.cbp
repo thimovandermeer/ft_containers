@@ -86,7 +86,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/RandomAccesIterator.hpp">
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/RandomAccessIterator.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/ReverseIterator.hpp">
