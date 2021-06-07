@@ -8,26 +8,26 @@
 namespace ft{
 	template<class Iterator>
 	class ReverseIterator {
-		typedef Iterator						iterator_type;
-		typedef typename Iterator::iterator_category		iterator_category;
-		typedef typename Iterator::value_type			value_type;
-		typedef typename Iterator::difference_type		difference_type;
-		typedef typename Iterator::pointer				pointer;
-		typedef typename Iterator::reference				reference;
+		typedef Iterator												iterator_type;
+		typedef ReverseIterator<iterator_type> 							this_type;
+		typedef ReverseIterator<typename iterator_type::const_type>		const_type;
+		typedef typename Iterator::iterator_category					iterator_category;
+		typedef typename Iterator::value_type							value_type;
+		typedef typename Iterator::difference_type						difference_type;
+		typedef typename Iterator::pointer								pointer;
+		typedef typename Iterator::reference							reference;
 
 	protected:
 		Iterator	_current;
 
 	public:
 		ReverseIterator(): _current() {}
-		explicit ReverseIterator(iterator_type x)
+		explicit ReverseIterator(iterator_type x) : _current(x)
 		{
-			Iterator tmp(x);
-			this->_current = ++tmp;
 		}
 
 		template<class Iter>
-				ReverseIterator(const ReverseIterator<Iterator>& other) : _current(other._current)
+				ReverseIterator(const ReverseIterator<Iter>& other) : _current(other.base())
 		{
 		}
 
@@ -39,8 +39,7 @@ namespace ft{
 		reference operator*() const
 		{
 			Iterator tmp = _current;
-			*--tmp;
-			return tmp;
+			return (*--tmp);
 		}
 
 		pointer operator->() const
@@ -95,6 +94,13 @@ namespace ft{
 			_current += number;
 			return(*this);
 		}
+
+		operator const_type() const
+		{
+			typename iterator_type::const_type tmp(_current);
+			return (ReverseIterator<typename iterator_type::const_type>(tmp));
+		}
+
 	};
 
 	// operators comparison

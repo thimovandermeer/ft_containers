@@ -10,7 +10,7 @@
 
 namespace ft {
 
-	template<class T, class Alloc>
+template<class T, class Alloc>
 	bool operator==(const ft::vector<T, Alloc> &mine,
 					const std::vector<T, Alloc> &real)
 	{
@@ -78,11 +78,13 @@ TEST_CASE("Vector: Constructors", "[Vector]")
 
 	SECTION("Range")
 	{
-//		std::vector<int> sysvector(10, 10);
-//		ft::vector<int> myvector(10,10);
-//
-//		std::vector<int>::iterator sysitbegin = sysvector.begin();
-//		ft::vector<int>::iterator myitbegin = sysvector.begin();
+		int myints[] = {16,2,77,29};
+		ft::vector<int> fifth (myints,myints +sizeof(myints) / sizeof(int));
+		int sysints[] = {16,2,77,29};
+		std::vector<int> sixth (sysints, sysints + sizeof(sysints) / sizeof(int));
+
+		REQUIRE(fifth == sixth);
+	
 	}
 
 	SECTION("Copy")
@@ -150,16 +152,15 @@ TEST_CASE("Vector: Iterators", "[Vector]")
 		std::vector<std::string> sysconstvector(3, "hallo");
 
 		// cant do const yet because of type_Traits which do not function yet so have to build this later
-//		ft::vector<std::string>::const_iterator myconstit = myconstvector.begin();
-//		std::vector<std::string>::const_iterator sysconstit = sysconstvector.begin();
-//
-//		REQUIRE(*myconstit == *sysconstit);
+		ft::vector<std::string>::const_iterator myconstit = myconstvector.begin();
+		std::vector<std::string>::const_iterator sysconstit = sysconstvector.begin();
+
+		REQUIRE(*myconstit == *sysconstit);
 
 	}
 
 	SECTION("End")
 	{
-		// normal
 		ft::vector<int> myvector(10,10);
 		std::vector<int> sysvector(10, 10);
 
@@ -168,16 +169,102 @@ TEST_CASE("Vector: Iterators", "[Vector]")
 		*myit--;
 		*sysit--;
 		REQUIRE(*myit == *sysit);
-		// const
 	}
 
 	SECTION("Rbegin")
 	{
+		ft::vector<int>myvec1(10,15);
+		std::vector<int>sysvec1(10,15);
 
+		ft::vector<int>::reverse_iterator myit1 = myvec1.rbegin();
+		std::vector<int>::reverse_iterator sysit1 = sysvec1.rbegin();
+
+		REQUIRE(*myit1 == *sysit1);
+		*myit1++;
+		*sysit1++;
+		REQUIRE(*myit1 == *sysit1);
+		*myit1++;
+		*sysit1++;
+		REQUIRE(*myit1 == *sysit1);
+		*myit1++;
+		*sysit1++;
+		REQUIRE(*myit1 == *sysit1);
+	}
+
+	SECTION("Const_Rbegin")
+	{
+		ft::vector<int>myvec1(10,15);
+		std::vector<int>sysvec1(10,15);
+
+		ft::vector<int>::const_reverse_iterator myit1 = myvec1.rbegin();
+		std::vector<int>::const_reverse_iterator sysit1 = sysvec1.rbegin();
+
+		REQUIRE(*myit1 == *sysit1);
+		*myit1++;
+		*sysit1++;
+		REQUIRE(*myit1 == *sysit1);
+		*myit1++;
+		*sysit1++;
+		REQUIRE(*myit1 == *sysit1);
+		*myit1++;
+		*sysit1++;
+		REQUIRE(*myit1 == *sysit1);
+
+		ft::vector<int>myvec(10,15);
+		std::vector<int>sysvec(10,15);
+
+		ft::vector<int>::reverse_iterator myIT = myvec.rbegin();
+		std::vector<int>::reverse_iterator sysit = sysvec.rbegin();
+
+		REQUIRE(*myIT == *sysit);
+		*myIT++;
+		*sysit++;
+		REQUIRE(*myIT == *sysit);
+		*myIT++;
+		*sysit++;
+		REQUIRE(*myIT == *sysit);
+		*myIT++;
+		*sysit++;
+		REQUIRE(*myIT == *sysit);
 	}
 
 	SECTION("Rend")
 	{
+		ft::vector<int> myvec(10,10);
+		std::vector<int> sysvec(10,10);
+
+		ft::vector<int>::reverse_iterator myit = myvec.rend();
+		std::vector<int>::reverse_iterator sysit = sysvec.rend();
+
+		*myit--;
+		*sysit--;
+		REQUIRE(*myit == *sysit);
+		*myit--;
+		*sysit--;
+		REQUIRE(*myit == *sysit);
+		*myit--;
+		*sysit--;
+		REQUIRE(*myit == *sysit);
+
+	}
+
+	SECTION("const_Rend")
+	{
+		ft::vector<int> myvec(10,10);
+		std::vector<int> sysvec(10,10);
+
+		ft::vector<int>::const_reverse_iterator myit = myvec.rend();
+		std::vector<int>::const_reverse_iterator sysit = sysvec.rend();
+
+		*myit--;
+		*sysit--;
+		REQUIRE(*myit == *sysit);
+		*myit--;
+		*sysit--;
+		REQUIRE(*myit == *sysit);
+		*myit--;
+		*sysit--;
+		REQUIRE(*myit == *sysit);
 
 	}
 }
@@ -195,8 +282,6 @@ TEST_CASE("Vector: Capacity", "[Vector]")
 		ft::vector<std::string> systringvec(5,"Doei");
 
 		REQUIRE(mystringvec.size() == systringvec.size());
-
-
 	}
 
 	SECTION("Max size")
@@ -435,8 +520,6 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 		myvec.push_back(1);
 		myvec.push_back(0);
 
-
-
 		std::vector<int> sysvec;
 		sysvec.push_back(10);
 		sysvec.push_back(9);
@@ -549,13 +632,6 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 
 	SECTION("Insert single element")
 	{
-//		ft::vector<int> myvec;
-//		ft::vector<int>::iterator myit = myvec.begin();
-//		myvec.insert(myit, 10);
-//		std::vector<int> sysvec;
-//		std::vector<int>::iterator sysit = sysvec.begin();
-//		sysvec.insert(sysit, 10);
-//		REQUIRE(myvec == sysvec);
 
 		ft::vector<int> myvec;
 		std::vector<int> sysvec;
@@ -713,34 +789,32 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 	}
 }
 
+TEST_CASE("Vector: Non member overloads")
+{
+	ft::vector<int> a;
+	a.push_back(10);
+	a.push_back(20);
+	a.push_back(30);
+	ft::vector<int> b;
+	b.push_back(10);
+	b.push_back(20);
+	b.push_back(30);
+	ft::vector<int> c;
+	c.push_back(30);
+	c.push_back(20);
+	c.push_back(10);
 
-//TEST_CASE("Vector: Non member overloads")
-//{
-//	ft::vector<int> a;
-//	a.push_back(10);
-//	a.push_back(20);
-//	a.push_back(30);
-//	ft::vector<int> b;
-//	b.push_back(10);
-//	b.push_back(20);
-//	b.push_back(30);
-//	ft::vector<int> c;
-//	c.push_back(30);
-//	c.push_back(20);
-//	c.push_back(10);
-//
-//	REQUIRE((a == b) == true);
-//	REQUIRE((b != c) == true);
-//	REQUIRE((b < c) == true);
-//	REQUIRE((c > b) == true);
-//	REQUIRE((a <= b) == true);
-//	REQUIRE((a >= b) == true);
-//
-//	REQUIRE((a <= b) == true);
-//	REQUIRE((a > b) == false);
-//	REQUIRE((a < b) == false);
-//	REQUIRE((a != b) == false);
-//	REQUIRE((b > c) == false);
-//	REQUIRE((b == c) == false);
-//	REQUIRE((b != c) == true);
-//}
+	REQUIRE((a == b) == true);
+	REQUIRE((b != c) == true);
+	REQUIRE((b < c) == true);
+	REQUIRE((c > b) == true);
+	REQUIRE((a <= b) == true);
+	REQUIRE((a >= b) == true);
+	REQUIRE((a <= b) == true);
+	REQUIRE((a > b) == false);
+	REQUIRE((a < b) == false);
+	REQUIRE((a != b) == false);
+	REQUIRE((b > c) == false);
+	REQUIRE((b == c) == false);
+	REQUIRE((b != c) == true);
+}

@@ -6,6 +6,7 @@
 #define MY_FT_CONTAINERS_VECTOR_HPP
 #include "../iterators/RandomAccessIterator.hpp"
 #include "../iterators/ReverseIterator.hpp"
+#include "../utils/utils.hpp"
 #include <iostream>
 namespace ft {
 	template < class T, class Alloc = std::allocator<T>>
@@ -19,7 +20,7 @@ namespace ft {
 		typedef T 													*pointer;
 		typedef const T 											*const_pointer;
 		typedef RandomAccessIterator<T, T*, T&>						iterator;
-		typedef RandomAccessIterator< const T, const T*, const T&>	const_iterator;
+		typedef RandomAccessIterator<T, const T*, const T&>			const_iterator;
 		typedef ReverseIterator<iterator>							reverse_iterator;
 		typedef ReverseIterator<const_iterator>						const_reverse_iterator;
 		typedef ptrdiff_t 											difference_type;
@@ -134,12 +135,12 @@ namespace ft {
 
 		reverse_iterator rbegin()
 		{
-			return reverse_iterator (end());
+			return reverse_iterator (end() - 1);
 		}
 
 		const_reverse_iterator rbegin() const
 		{
-			return const_reverse_iterator(end());
+			return const_reverse_iterator(end() - 1);
 		}
 
 		reverse_iterator rend()
@@ -452,53 +453,51 @@ namespace ft {
 		}
 	};
 
-//	template<class value_type, class allocator_type>
-//	bool operator==(const vector<value_type, allocator_type> &lhs, const vector<value_type, allocator_type> &rhs)
-//	{
-//		if (lhs.size() != rhs.size())
-//			return false;
-//		typename ft::vector<value_type>::iterator lhsIT = lhs.begin();
-//		typename ft::vector<value_type>::iterator rhsIT = rhs.begin();
-//		while(lhsIT != lhs.end() && rhsIT != rhs.end())
-//		{
-//			if(!(*lhsIT == *rhsIT))
-//				return false;
-//			++lhsIT;
-//			++rhsIT;
-//		}
-//		return true;
-//	}
-//
-//
-//	template<class value_type, class allocator_type>
-//	bool operator!=(const vector<value_type, allocator_type> &lhs, const vector<value_type, allocator_type> &rhs)
-//	{
-//		return !(lhs == rhs);
-//	}
-//
-//	template<class value_type, class allocator_type>
-//	bool operator<(const vector<value_type, allocator_type> &lhs, const vector<value_type, allocator_type> &rhs)
-//	{
-//		return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
-//	}
-//
-//	template<class value_type, class allocator_type>
-//	bool operator>(const vector<value_type, allocator_type> &lhs, const vector<value_type, allocator_type> &rhs)
-//	{
-//		return (rhs < lhs);
-//	}
-//
-//	template<class value_type, class allocator_type>
-//	bool operator<=(const vector<value_type, allocator_type> &lhs, const vector<value_type, allocator_type> &rhs)
-//	{
-//		return !(rhs < lhs);
-//	}
-//
-//	template<class value_type, class allocator_type>
-//	bool operator>=(const vector<value_type, allocator_type> &lhs, const vector<value_type, allocator_type> &rhs)
-//	{
-//		return !(lhs < rhs);
-//	}
+	template<class T, class Alloc>
+	bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return false;
+
+		for (typename ft::vector<T>::size_type i = 0; i < lhs.size();i++)
+		{
+			if (lhs[i] != rhs[i])
+				return (false);
+		}
+		return true;
+	}
+
+	template<class T, class Alloc>
+	bool operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return !(lhs == rhs);
+	}
+
+	template<class T, class Alloc>
+	bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template<class T, class Alloc>
+	bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return (rhs < lhs);
+	}
+
+	template<class T, class Alloc>
+	bool operator<=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return !(rhs < lhs);
+	}
+
+	template<class T, class Alloc>
+	bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+	{
+		return !(lhs < rhs);
+	}
+
+
 
 }
 #endif //MY_FT_CONTAINERS_VECTOR_HPP

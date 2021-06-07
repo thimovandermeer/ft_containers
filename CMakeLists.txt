@@ -10,4 +10,4 @@ include_directories(srcs/list)
 add_executable(my_ft_containers
         srcs/list/list.hpp
         tests/listTest.cpp
-        srcs/stack/stack.hpp tests/stackTest.cpp srcs/queue/queue.hpp tests/queueTest.cpp srcs/vector/vector.hpp tests/vectorTest.cpp srcs/iterators/RandomAccessIterator.hpp srcs/iterators/ReverseIterator.hpp)
+        srcs/stack/stack.hpp tests/stackTest.cpp srcs/queue/queue.hpp tests/queueTest.cpp srcs/vector/vector.hpp tests/vectorTest.cpp srcs/iterators/RandomAccessIterator.hpp srcs/iterators/ReverseIterator.hpp srcs/utils/utils.hpp)

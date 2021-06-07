@@ -101,6 +101,9 @@
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/stack/stack.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/utils/utils.hpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/vector/vector.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
