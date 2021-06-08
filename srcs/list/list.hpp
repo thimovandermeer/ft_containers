@@ -19,8 +19,8 @@ namespace ft {
 	class list
 	{
 	public:
-		typedef T value_type;
-		typedef Alloc allocator_type;
+		typedef T 					value_type;
+		typedef Alloc 										allocator_type;
 		typedef T &reference;
 		typedef const T &const_reference;
 		typedef T *pointer;

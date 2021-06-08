@@ -170,6 +170,33 @@ tests/listTest.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/listTest.cpp.s
 .PHONY : tests/listTest.cpp.s
 
+tests/mapTest.o: tests/mapTest.cpp.o
+
+.PHONY : tests/mapTest.o
+
+# target to build an object file
+tests/mapTest.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/mapTest.cpp.o
+.PHONY : tests/mapTest.cpp.o
+
+tests/mapTest.i: tests/mapTest.cpp.i
+
+.PHONY : tests/mapTest.i
+
+# target to preprocess a source file
+tests/mapTest.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/mapTest.cpp.i
+.PHONY : tests/mapTest.cpp.i
+
+tests/mapTest.s: tests/mapTest.cpp.s
+
+.PHONY : tests/mapTest.s
+
+# target to generate assembly for a file
+tests/mapTest.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/mapTest.cpp.s
+.PHONY : tests/mapTest.cpp.s
+
 tests/queueTest.o: tests/queueTest.cpp.o
 
 .PHONY : tests/queueTest.o
@@ -263,6 +290,9 @@ help:
 	@echo "... tests/listTest.o"
 	@echo "... tests/listTest.i"
 	@echo "... tests/listTest.s"
+	@echo "... tests/mapTest.o"
+	@echo "... tests/mapTest.i"
+	@echo "... tests/mapTest.s"
 	@echo "... tests/queueTest.o"
 	@echo "... tests/queueTest.i"
 	@echo "... tests/queueTest.s"

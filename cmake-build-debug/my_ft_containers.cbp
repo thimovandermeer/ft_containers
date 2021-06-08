@@ -95,6 +95,9 @@
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/list/list.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/map.hpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/queue/queue.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
@@ -108,6 +111,9 @@
 			<Option target="my_ft_containers"/>
 		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/listTest.cpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/mapTest.cpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/queueTest.cpp">
