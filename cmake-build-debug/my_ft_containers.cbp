@@ -95,6 +95,12 @@
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/list/list.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/MapNode.hpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
+		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/main.cpp">
+			<Option target="my_ft_containers"/>
+		</Unit>
 		<Unit filename="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/map.hpp">
 			<Option target="my_ft_containers"/>
 		</Unit>

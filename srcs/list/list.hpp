@@ -19,19 +19,19 @@ namespace ft {
 	class list
 	{
 	public:
-		typedef T 					value_type;
-		typedef Alloc 										allocator_type;
-		typedef T &reference;
-		typedef const T &const_reference;
-		typedef T *pointer;
-		typedef const T *const_pointer;
-		typedef listNode<T> *node_pointer;
-		typedef ptrdiff_t difference_type;
-		typedef size_t size_type;
-		typedef BidirectionalIterator<value_type, node_pointer> iterator;
-		typedef ConstBidirectionalIterator<value_type, node_pointer> const_iterator;
-		typedef RevBidirectionalIterator<value_type , node_pointer > reverse_iterator;
-		typedef ConstRevBidirectionalIterator<value_type, node_pointer> const_reverse_iterator;
+		typedef T 															value_type;
+		typedef Alloc 														allocator_type;
+		typedef T 															&reference;
+		typedef const T 													&const_reference;
+		typedef T 															*pointer;
+		typedef const T 													*const_pointer;
+		typedef listNode<T> 												*node_pointer;
+		typedef ptrdiff_t 													difference_type;
+		typedef size_t 														size_type;
+		typedef BidirectionalIterator<value_type, node_pointer> 			iterator;
+		typedef ConstBidirectionalIterator<value_type, node_pointer> 		const_iterator;
+		typedef RevBidirectionalIterator<value_type , node_pointer > 		reverse_iterator;
+		typedef ConstRevBidirectionalIterator<value_type, node_pointer>		const_reverse_iterator;
 
 	private:
 		// here are the member vars

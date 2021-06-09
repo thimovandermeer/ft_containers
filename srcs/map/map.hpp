@@ -5,24 +5,24 @@
 #ifndef MY_FT_CONTAINERS_MAP_HPP
 #define MY_FT_CONTAINERS_MAP_HPP
 #include "../iterators/BidirectionalIterator.hpp"
+#include "MapNode.hpp"
 namespace ft {
 	template< 	class Key,
 				class T,
 				class Compare = std::less<Key>,
-				class Alloc = allocator<pair<const Key, T >>
-	class map
+				class Alloc = std::allocator<std::pair<const Key, T> >
+	> class map
 	{
 		typedef Key																	key_type;
 		typedef T																	mapped_type;
-		typedef pair<const key_type, mapped_type>									value_type;
+		typedef std::pair<const key_type, mapped_type>								value_type;
 		typedef Compare																key_compare;
 		typedef T&																	reference;
 		typedef const T&															const_reference;
 		typedef T*																	pointer;
 		typedef const T*															const_pointer;
-		// nodepointer
-		// node
-
+		typedef mapNode<value_type>*												*node_pointer;
+		typedef mapNode<value_type>													node;
 		typedef Alloc																allocator_type;
 		typedef ptrdiff_t 															difference_type;
 		typedef size_t																size_type;
@@ -33,7 +33,7 @@ namespace ft {
 
 		// constructors
 		explicit map (const key_compare& comp = key_compare(),
-				const allocator_type& alloc = allocator_type)
+				const allocator_type& alloc = allocator_type())
 		{
 
 		}
@@ -133,7 +133,7 @@ namespace ft {
 
 		// modifiers
 		// insert
-		pair<iterator, bool> insert(const value_type& val)
+		std::pair<iterator, bool> insert(const value_type& val)
 		{
 
 		}
@@ -184,11 +184,11 @@ namespace ft {
 
 		}
 
-		// value_comp
-		value_compare value_comp() const
-		{
-
-		}
+		// value_comp later implementeren blijft nu rood
+//		value_compare value_comp() const
+//		{
+//
+//		}
 
 		// operations
 		// find
@@ -232,12 +232,12 @@ namespace ft {
 
 		// equal_range
 
-		pair<const_iterator, const_iterator> equal_range (const key_type& k) const
+		std::pair<const_iterator, const_iterator> equal_range (const key_type& k) const
 		{
 
 		}
 
-		pair<iterator, iterator>			equal_range(const key_type& k)
+		std::pair<iterator, iterator>			equal_range(const key_type& k)
 		{
 
 		}

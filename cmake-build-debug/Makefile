@@ -143,6 +143,33 @@ my_ft_containers/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/build
 .PHONY : my_ft_containers/fast
 
+srcs/map/main.o: srcs/map/main.cpp.o
+
+.PHONY : srcs/map/main.o
+
+# target to build an object file
+srcs/map/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/srcs/map/main.cpp.o
+.PHONY : srcs/map/main.cpp.o
+
+srcs/map/main.i: srcs/map/main.cpp.i
+
+.PHONY : srcs/map/main.i
+
+# target to preprocess a source file
+srcs/map/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/srcs/map/main.cpp.i
+.PHONY : srcs/map/main.cpp.i
+
+srcs/map/main.s: srcs/map/main.cpp.s
+
+.PHONY : srcs/map/main.s
+
+# target to generate assembly for a file
+srcs/map/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/srcs/map/main.cpp.s
+.PHONY : srcs/map/main.cpp.s
+
 tests/listTest.o: tests/listTest.cpp.o
 
 .PHONY : tests/listTest.o
@@ -287,6 +314,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... my_ft_containers"
+	@echo "... srcs/map/main.o"
+	@echo "... srcs/map/main.i"
+	@echo "... srcs/map/main.s"
 	@echo "... tests/listTest.o"
 	@echo "... tests/listTest.i"
 	@echo "... tests/listTest.s"

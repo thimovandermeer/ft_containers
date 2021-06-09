@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/my_ft_containers.dir/srcs/map/main.cpp.o"
   "CMakeFiles/my_ft_containers.dir/tests/listTest.cpp.o"
   "CMakeFiles/my_ft_containers.dir/tests/mapTest.cpp.o"
   "CMakeFiles/my_ft_containers.dir/tests/queueTest.cpp.o"
