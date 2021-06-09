@@ -8,42 +8,42 @@
 #include "../srcs/map/MapNode.hpp"
 #include <iostream>
 
-namespace ft
-{
-	// have to create the overload for equals
-	template<class T, class Alloc>
-	bool operator==(const ft::map<T, Alloc> &mine,
-					const std::map<T, Alloc> &real)
-	{
-		if (mine.size() != real.size())
-			return (false);
-		if (mine.get_allocator() != real.get_allocator())
-			return (false);
-		auto myit = mine.begin();
-		auto realit = real.begin();
-		for (size_t i = 0; i < mine.size(); i++, myit++, realit++)
-		{
-			if (*myit != *realit)
-				return (false);
-		}
-		return (true);
-	}
-
-	template<class T, class Alloc>
-	bool operator==(const std::map<T, Alloc> &real,
-					const ft::map<T, Alloc> &mine)
-	{ return (mine == real); }
-
-	template<class T, class Alloc>
-	bool operator!=(const ft::map<T, Alloc> &mine,
-					const std::map<T, Alloc> &real)
-	{ return !(mine == real); }
-
-	template<class T, class Alloc>
-	bool operator!=(const std::map<T, Alloc> &real,
-					const ft::map<T, Alloc> &mine)
-	{ return !(mine == real); }
-}
+//namespace ft
+//{
+//	// have to create the overload for equals
+//	template<class Key, class T, class Alloc>
+//	bool operator==(const ft::map<Key, T> &mine,
+//					const std::map<Key, T> &real)
+//	{
+//		if (mine.size() != real.size())
+//			return (false);
+//		if (mine.get_allocator() != real.get_allocator())
+//			return (false);
+//		auto myit = mine.begin();
+//		auto realit = real.begin();
+//		for (size_t i = 0; i < mine.size(); i++, myit++, realit++)
+//		{
+//			if (*myit != *realit)
+//				return (false);
+//		}
+//		return (true);
+//	}
+//
+//	template<class Key, class T>
+//	bool operator==(const std::map<Key, T> &real,
+//					const ft::map<Key, T> &mine)
+//	{ return (mine == real); }
+//
+//	template<class Key, class T>
+//	bool operator!=(const ft::map<Key, T> &mine,
+//					const std::map<Key, T> &real)
+//	{ return !(mine == real); }
+//
+//	template<class Key, class T>
+//	bool operator!=(const std::map<Key, T> &real,
+//					const ft::map<Key, T> &mine)
+//	{ return !(mine == real); }
+//}
 
 
 	TEST_CASE("Map: Node check", "[Map]")
@@ -137,6 +137,17 @@ namespace ft
 		SECTION("Default")
 		{
 			ft::map<char, int> mymap1;
+			std::map<char, int> sysmap1;
+
+			ft::map<char, int>::iterator myit1 = mymap1.begin();
+			std::map<char, int>::iterator sysit1 = sysmap1.begin();
+			*myit1++;
+			*sysit1++;
+			std::cout << myit1->first << std::endl;
+			std::cout << sysit1->first << std::endl;
+			REQUIRE(myit1->first == sysit1->first);
+
+
 		}
 
 		SECTION("Range")

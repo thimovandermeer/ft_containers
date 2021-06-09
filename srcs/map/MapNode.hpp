@@ -33,12 +33,12 @@ public:
 	}
 
 	mapNode(const mapNode<T>&x) :
-		_data(x.getData(),
+		_data(x.getData()),
 		_parent(x.getParent()),
 		_left(x.getLeft()),
 		_right(x.getRight()),
 		_color(x.getColor()),
-		_isnill(false))
+		_isnill(false)
 	{
 
 	}
@@ -123,7 +123,7 @@ public:
 		return _right;
 	}
 
-	mapNode*	getParent() const
+	mapNode*		getParent() const
 	{
 		return _parent;
 	}
@@ -170,10 +170,10 @@ public:
 	{
 		_color = newColor;
 	}
-
+	T					_data;
 private:
 	color				_color;
-	T					_data;
+
 	mapNode				*_left;
 	mapNode				*_right;
 	mapNode				*_parent;

@@ -13,6 +13,7 @@ namespace ft {
 				class Alloc = std::allocator<std::pair<const Key, T> >
 	> class map
 	{
+	public:
 		typedef Key																	key_type;
 		typedef T																	mapped_type;
 		typedef std::pair<const key_type, mapped_type>								value_type;
@@ -21,7 +22,7 @@ namespace ft {
 		typedef const T&															const_reference;
 		typedef T*																	pointer;
 		typedef const T*															const_pointer;
-		typedef mapNode<value_type>*												*node_pointer;
+		typedef mapNode<value_type>*												node_pointer;
 		typedef mapNode<value_type>													node;
 		typedef Alloc																allocator_type;
 		typedef ptrdiff_t 															difference_type;
@@ -43,9 +44,15 @@ namespace ft {
 	public:
 		// constructors
 		explicit map (const key_compare& comp = key_compare(),
-				const allocator_type& alloc = allocator_type())
+				const allocator_type& alloc = allocator_type()) :
+				_root(NULL),
+				_first(NULL),
+				_last(NULL),
+				_size(0),
+				_comp(comp),
+				_alloc(alloc)
 		{
-
+			// should do nothing just an empty map
 		}
 
 		template<class InputIterator>
@@ -76,62 +83,65 @@ namespace ft {
 			// begin
 		iterator begin()
 		{
-
+			return iterator(_first->getParent());
 		}
 
 		const_iterator begin() const
 		{
-
+			return const_iterator(_first->getParent());
 		}
 
 			// end
 		iterator end()
 		{
-
+			return iterator (_last);
 		}
 
 		const_iterator end() const
 		{
-
+			return const_iterator (_last);
 		}
 
 			// rbegin
 		reverse_iterator rbegin()
 		{
-
+			return reverse_iterator (_first->getParent());
 		}
 
 		const_reverse_iterator rbegin() const
 		{
-
+			return const_reverse_iterator (_first->getParent());
 		}
 			// rend
 		reverse_iterator rend()
 		{
-
+			return reverse_iterator (_last);
 		}
 
 		const_reverse_iterator rend() const
 		{
-
+			return const_reverse_iterator (_last);
 		}
 
 		// capacity
 		// empty
 		bool empty() const
 		{
-
+			if (_size == 0)
+				return true;
+			else
+				return false;
 		}
 		// size
 		size_type size() const
 		{
-
+			return (_size);
 		}
 
 		// max_size
 		size_type max_size() const
 		{
-
+			_alloc.max_size();
 		}
 
 		// element acces
@@ -256,7 +266,7 @@ namespace ft {
 		// get_allocators
 		allocator_type get_allocator() const
 		{
-
+			return _alloc;
 		}
 
 	};
