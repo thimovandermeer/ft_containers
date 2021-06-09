@@ -139,13 +139,8 @@
 			ft::map<char, int> mymap1;
 			std::map<char, int> sysmap1;
 
-			ft::map<char, int>::iterator myit1 = mymap1.begin();
-			std::map<char, int>::iterator sysit1 = sysmap1.begin();
-			*myit1++;
-			*sysit1++;
-			std::cout << myit1->first << std::endl;
-			std::cout << sysit1->first << std::endl;
-			REQUIRE(myit1->first == sysit1->first);
+			REQUIRE(mymap1.size() == sysmap1.size());
+			REQUIRE(mymap1.get_allocator() == sysmap1.get_allocator());
 
 
 		}
@@ -244,6 +239,19 @@
 
 	TEST_CASE("Map: Operator[]", "[Map]")
 	{
+		std::map<char, int> sysfirst;
+		sysfirst['a'] = 10;
+		sysfirst['b'] = 30;
+		sysfirst['c'] = 50;
+		sysfirst['d'] = 70;
+
+		ft::map<char, int> myfirst;
+		myfirst['a'] = 10;
+		myfirst['b'] = 30;
+		myfirst['c'] = 50;
+		myfirst['d'] = 50;
+
+		REQUIRE(myfirst.size() == sysfirst.size());
 
 	}
 
