@@ -5,6 +5,8 @@
 #ifndef MY_FT_CONTAINERS_MAPNODE_HPP
 #define MY_FT_CONTAINERS_MAPNODE_HPP
 
+#include <clocale>
+
 enum color{Red, Black};
 
 template <class T>
@@ -19,28 +21,32 @@ public:
 	typedef const T*	const_pointer;
 
 	// constructors
-	explicit mapNode() : 	_color(Red),
-							_data(T(),
-			 				_left(nullptr),
-			 				_right(nullptr),
-			 				_parent(nullptr))
-	{
 
-	}
-
-	explicit mapNode(T elem) : 	_color(Red),
-								_data(T(elem),
-						  		_left(nullptr),
-						  		_right(nullptr),
-						  		_parent(nullptr))
+	explicit mapNode(value_type const& elem = value_type()) :
+		_color(Red),
+		_data(elem),
+		_left(NULL),
+		_right(NULL),
+		_parent(NULL),
+		_isnill(false)
 	{
 	}
 
+	mapNode(const mapNode<T>&x) :
+		_data(x.getData(),
+		_parent(x.getParent()),
+		_left(x.getLeft()),
+		_right(x.getRight()),
+		_color(x.getColor()),
+		_isnill(false))
+	{
+
+	}
 	// destructors
 	virtual ~mapNode(){};
 
 	// operator=
-	mapNode& operator==(mapNode object)
+	mapNode& operator=(mapNode object)
 	{
 		if (this != &object)
 		{
@@ -54,6 +60,59 @@ public:
 	}
 
 	// getters
+
+	mapNode*	getNext()
+	{
+		mapNode<T> *tmp = this;
+		if(tmp->getRight() != NULL)
+		{
+			tmp = tmp->getRight();
+			while(tmp->getLeft() != NULL)
+			{
+				tmp = tmp->getLeft();
+			}
+			return (tmp);
+		}
+//		else
+//		{
+//			if (tmp->getNill() == true)
+//				return (tmp->getParent());
+//			while(tmp->getParent() && (tmp->getParent()->getData().first < tmp->getData().first()))
+//			{
+//				tmp = tmp->getParent();
+//			}
+//			if (tmp->getParent() && (tmp->getParent()->getData().first > tmp->getData().first()))
+//				return tmp->getParent();
+//		}
+		return tmp;
+	}
+
+	mapNode*	getPrev()
+	{
+		mapNode<T> *tmp = this;
+		if(tmp->getLeft() != NULL)
+		{
+			tmp = tmp->getLeft();
+			while(tmp->getRight() != NULL)
+			{
+				tmp = tmp->getRight();
+			}
+			return tmp;
+		}
+//		else
+//		{
+//			if (tmp->getNill() == true)
+//				return (tmp->getParent());
+//			while(tmp->getParent() && (tmp->getParent()->getData().first > tmp->getData().first()))
+//			{
+//				tmp = tmp->getParent();
+//			}
+//			if (tmp->getParent() && (tmp->getParent()->getData().first < tmp->getData().first()))
+//				return tmp->getParent();
+//		}
+		return tmp;
+	}
+
 	mapNode* 	getLeft() const
 	{
 		return _left;
@@ -77,6 +136,11 @@ public:
 	color		getColor() const
 	{
 		return _color;
+	}
+
+	bool 		getNill() const
+	{
+		return _isnill;
 	}
 
 
@@ -109,10 +173,10 @@ public:
 
 private:
 	color				_color;
-	T*					_data;
+	T					_data;
 	mapNode				*_left;
 	mapNode				*_right;
 	mapNode				*_parent;
-	// mogelijk nil toevoegen
+	bool 				_isnill;
 };
 #endif //MY_FT_CONTAINERS_MAPNODE_HPP

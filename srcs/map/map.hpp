@@ -31,6 +31,16 @@ namespace ft {
 		typedef RevBidirectionalIterator<value_type, node_pointer, Alloc>			reverse_iterator;
 		typedef ConstRevBidirectionalIterator<value_type, node_pointer,Alloc>		const_reverse_iterator;
 
+
+	private:
+		node_pointer 	_root;
+		node_pointer	_first;
+		node_pointer 	_last;
+		size_type 		_size;
+		key_compare 	_comp;
+		allocator_type 	_alloc;
+
+	public:
 		// constructors
 		explicit map (const key_compare& comp = key_compare(),
 				const allocator_type& alloc = allocator_type())

@@ -5,18 +5,138 @@
 #include "Catch2.h"
 #include <map>
 #include "../srcs/map/map.hpp"
+#include "../srcs/map/MapNode.hpp"
 #include <iostream>
 
 namespace ft
 {
 	// have to create the overload for equals
+	template<class T, class Alloc>
+	bool operator==(const ft::map<T, Alloc> &mine,
+					const std::map<T, Alloc> &real)
+	{
+		if (mine.size() != real.size())
+			return (false);
+		if (mine.get_allocator() != real.get_allocator())
+			return (false);
+		auto myit = mine.begin();
+		auto realit = real.begin();
+		for (size_t i = 0; i < mine.size(); i++, myit++, realit++)
+		{
+			if (*myit != *realit)
+				return (false);
+		}
+		return (true);
+	}
 
+	template<class T, class Alloc>
+	bool operator==(const std::map<T, Alloc> &real,
+					const ft::map<T, Alloc> &mine)
+	{ return (mine == real); }
+
+	template<class T, class Alloc>
+	bool operator!=(const ft::map<T, Alloc> &mine,
+					const std::map<T, Alloc> &real)
+	{ return !(mine == real); }
+
+	template<class T, class Alloc>
+	bool operator!=(const std::map<T, Alloc> &real,
+					const ft::map<T, Alloc> &mine)
+	{ return !(mine == real); }
+}
+
+
+	TEST_CASE("Map: Node check", "[Map]")
+	{
+
+		SECTION("GetNext")
+		{
+			// make for adjecent nodes make 7 nodes {13, 8,17,1,11,15,25}
+			// create a tree with root 13 and check if get prev returns 15 as next
+			// mock data the get next should return the rightchildleft
+			mapNode<int> root(13);
+			mapNode<int> firstleft(8);
+			mapNode<int> leftchildleft(1);
+			mapNode<int> rightchildleft(15);
+			mapNode<int> firstright(17);
+			mapNode<int> rightchildright(25);
+			mapNode<int> leftchildright(11);
+
+			root.setLeft(&firstleft);
+			root.setRight(&firstright);
+
+			firstleft.setParent(&root);
+			firstleft.setLeft(&leftchildleft);
+			firstleft.setRight(&leftchildright);
+
+			firstright.setParent(&root);
+			firstright.setLeft(&rightchildleft);
+			firstright.setRight(&rightchildright);
+
+			leftchildright.setParent(&firstleft);
+			leftchildleft.setParent(&firstleft);
+
+			rightchildright.setParent(&firstright);
+			rightchildleft.setParent(&firstright);
+
+			std::cout << root.getNext()->getData() << std::endl;
+		}
+
+		SECTION("GetNext without bigger elem")
+		{
+			// deze moet ik later bouwen omdat ik nu de map nog niet heb geimplementeerd.
+			// hierdoor heb ik first and last nog niet vanuit het value pair. Ik kan hierdoor geen vergelijkingen doen op key
+			// dit komt dus later
+		}
+
+
+		SECTION("GetPrev")
+		{
+			// make for adjecent nodes make 7 nodes {13, 8,17,1,11,15,25}
+			// create a tree with root 13 and check if get prev returns 15 as next
+			// mock data the get next should return the rightchildleft
+			mapNode<int> root(13);
+			mapNode<int> firstleft(8);
+			mapNode<int> leftchildleft(1);
+			mapNode<int> rightchildleft(15);
+			mapNode<int> firstright(17);
+			mapNode<int> rightchildright(25);
+			mapNode<int> leftchildright(11);
+
+			root.setLeft(&firstleft);
+			root.setRight(&firstright);
+
+			firstleft.setParent(&root);
+			firstleft.setLeft(&leftchildleft);
+			firstleft.setRight(&leftchildright);
+
+			firstright.setParent(&root);
+			firstright.setLeft(&rightchildleft);
+			firstright.setRight(&rightchildright);
+
+			leftchildright.setParent(&firstleft);
+			leftchildleft.setParent(&firstleft);
+
+			rightchildright.setParent(&firstright);
+			rightchildleft.setParent(&firstright);
+
+			std::cout << root.getPrev()->getData() << std::endl;
+		}
+
+		SECTION("GetPrev without bigger elem")
+		{
+			// deze moet ik later bouwen omdat ik nu de map nog niet heb geimplementeerd.
+			// hierdoor heb ik first and last nog niet vanuit het value pair. Ik kan hierdoor geen vergelijkingen doen op key
+			// dit komt dus later
+		}
+
+	}
 
 	TEST_CASE("Map: Constructors", "[Map]")
 	{
 		SECTION("Default")
 		{
-
+			ft::map<char, int> mymap1;
 		}
 
 		SECTION("Range")
@@ -225,5 +345,3 @@ namespace ft
 	{
 
 	}
-
-}

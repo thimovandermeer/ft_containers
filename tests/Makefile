@@ -1,11 +1,11 @@
 NAME = ft_containers_tests
-FILES = catchMain listTest stackTest queueTest vectorTest
+FILES = catchMain listTest stackTest queueTest vectorTest mapTest
 #vectorTest queueTest stackTest
 SRCS = $(addsuffix .cpp, $(FILES))
 OBJS = $(SRCS:.cpp=.o)
 
 # Add the directories you need here:
-INCLUDE = -I../srcs/list -I../srcs/stack -I../srcs/queue -I../srcs/vector
+INCLUDE = -I../srcs/list -I../srcs/stack -I../srcs/queue -I../srcs/vector -I../srcs/map
 #-I../srcs    -I../srcs/map
 
 CXXFLAGS = -std=c++11
