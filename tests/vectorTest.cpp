@@ -14,8 +14,6 @@ template<class T, class Alloc>
 	bool operator==(const ft::vector<T, Alloc> &mine,
 					const std::vector<T, Alloc> &real)
 	{
-		if (mine.capacity() != real.capacity())
-			return (false);
 		if (mine.size() != real.size())
 			return (false);
 		if (mine.get_allocator() != real.get_allocator())
@@ -78,12 +76,34 @@ TEST_CASE("Vector: Constructors", "[Vector]")
 
 	SECTION("Range")
 	{
-		int myints[] = {16,2,77,29};
-		ft::vector<int> fifth (myints,myints +sizeof(myints) / sizeof(int));
-		int sysints[] = {16,2,77,29};
-		std::vector<int> sixth (sysints, sysints + sizeof(sysints) / sizeof(int));
+		ft::vector<int>		own(6, 100);
+		std::vector<int>	real(6, 100);
 
-		REQUIRE(fifth == sixth);
+		ft::vector<int>		own2(own.begin(), own.end());
+		std::vector<int>	real2(real.begin(), real.end());
+
+		REQUIRE(own2.size() == real2.size());
+		REQUIRE(own2[0] ==  real2[0]);
+		REQUIRE(own2[1] == real2[1]);
+
+		own.clear();
+		real.clear();
+		int sum = 0;
+		for (int i = 0; i < 5; ++i)
+		{
+			own.push_back(sum);
+			real.push_back(sum);
+			sum += 1;
+		}
+		own.pop_back();
+		real.pop_back();
+
+		ft::vector<int> 	own3(own.begin() + 1, own.end());
+		std::vector<int>	real3(real.begin() + 1, real.end());
+
+		REQUIRE(own3.size() == real3.size());
+		REQUIRE(own3[0] == real3[0]);
+		REQUIRE(own3[1] == real3[1]);
 	
 	}
 
@@ -103,6 +123,15 @@ TEST_CASE("Vector: Constructors", "[Vector]")
 		ft::vector<int> myvector1(myemptycopy);
 		std::vector<int> sysvector1(sysemptycopy);
 		REQUIRE(myvector1 == sysvector1);
+
+		ft::vector<int> 	own1(5, 5);
+		std::vector<int> 	real1(5, 5);
+
+		ft::vector<int> 	own2(own1);
+		std::vector<int> 	real2(real1);
+
+		REQUIRE(own2.size() == real2.size());
+		REQUIRE(own2[2] == real2[2]);
 	}
 
 }
@@ -132,6 +161,8 @@ TEST_CASE("Vector: Operator=", "[Vector]")
 
 	REQUIRE(myvector1 == sysvector1);
 	REQUIRE(copyme2 == syscopyme2);
+
+
 }
 
 
@@ -151,11 +182,17 @@ TEST_CASE("Vector: Iterators", "[Vector]")
 		ft::vector<std::string> myconstvector(3, "hallo");
 		std::vector<std::string> sysconstvector(3, "hallo");
 
-		// cant do const yet because of type_Traits which do not function yet so have to build this later
 		ft::vector<std::string>::const_iterator myconstit = myconstvector.begin();
 		std::vector<std::string>::const_iterator sysconstit = sysconstvector.begin();
 
 		REQUIRE(*myconstit == *sysconstit);
+		ft::vector<int> 	own(4, 3);
+		std::vector<int> 	real(4, 3);
+
+		ft::vector<int>::iterator own_it = own.begin();
+		std::vector<int>::iterator real_it = real.begin();
+
+		REQUIRE(*own_it == *real_it);
 
 	}
 
@@ -169,6 +206,16 @@ TEST_CASE("Vector: Iterators", "[Vector]")
 		*myit--;
 		*sysit--;
 		REQUIRE(*myit == *sysit);
+
+		ft::vector<int> 	own(4, 3);
+		std::vector<int> 	real(4, 3);
+
+		ft::vector<int>::const_iterator own_ite = own.end();
+		std::vector<int>::const_iterator real_ite = real.end();
+
+		own_ite--;
+		real_ite--;
+		REQUIRE(*own_ite == *real_ite);
 	}
 
 	SECTION("Rbegin")
@@ -189,6 +236,30 @@ TEST_CASE("Vector: Iterators", "[Vector]")
 		*myit1++;
 		*sysit1++;
 		REQUIRE(*myit1 == *sysit1);
+
+		int sum = 0;
+		ft::vector<int>		own(5);
+		std::vector<int>	real(5);
+
+		for(int i = 0; i < 5; i++)
+		{
+			real.at(i) = sum;
+			own.at(i) = sum;
+			sum += 1;
+		}
+
+		ft::vector<int>::reverse_iterator own_rit = own.rbegin();
+		ft::vector<int>::reverse_iterator old_own_rit;
+		std::vector<int>::reverse_iterator real_rit = real.rbegin();
+		std::vector<int>::reverse_iterator old_real_rit;
+
+		++own_rit;
+		++real_rit;
+		REQUIRE(*own_rit == *real_rit);
+
+		old_own_rit = own_rit++;
+		old_real_rit = real_rit++;
+		REQUIRE(*old_real_rit == *old_own_rit);
 	}
 
 	SECTION("Const_Rbegin")
@@ -226,6 +297,29 @@ TEST_CASE("Vector: Iterators", "[Vector]")
 		*myIT++;
 		*sysit++;
 		REQUIRE(*myIT == *sysit);
+		int sum = 0;
+		ft::vector<int>		own(5);
+		std::vector<int>	real(5);
+
+		for(int i = 0; i < 5; i++)
+		{
+			real.at(i) = sum;
+			own.at(i) = sum;
+			sum += 1;
+		}
+
+		ft::vector<int>::const_reverse_iterator own_rit = own.rbegin();
+		ft::vector<int>::const_reverse_iterator old_own_rit;
+		std::vector<int>::const_reverse_iterator real_rit = real.rbegin();
+		std::vector<int>::const_reverse_iterator old_real_rit;
+
+		++own_rit;
+		++real_rit;
+		REQUIRE(*own_rit == *real_rit);
+
+		old_own_rit = own_rit++;
+		old_real_rit = real_rit++;
+		REQUIRE(*old_real_rit == *old_own_rit);
 	}
 
 	SECTION("Rend")
@@ -245,7 +339,29 @@ TEST_CASE("Vector: Iterators", "[Vector]")
 		*myit--;
 		*sysit--;
 		REQUIRE(*myit == *sysit);
+		int sum = 0;
+		ft::vector<int>		own(5);
+		std::vector<int>	real(5);
 
+		for(int i = 0; i < 5; i++)
+		{
+			real.at(i) = sum;
+			own.at(i) = sum;
+			sum += 1;
+		}
+
+		ft::vector<int>::reverse_iterator own_rite = own.rend();
+		ft::vector<int>::reverse_iterator old_own_rite;
+		std::vector<int>::reverse_iterator real_rite = real.rend();
+		std::vector<int>::reverse_iterator old_real_rite;
+
+		--own_rite;
+		--real_rite;
+		REQUIRE(*own_rite == *real_rite);
+
+		old_own_rite = own_rite--;
+		old_real_rite = real_rite--;
+		REQUIRE(*old_real_rite == *old_own_rite);
 	}
 
 	SECTION("const_Rend")
@@ -266,6 +382,29 @@ TEST_CASE("Vector: Iterators", "[Vector]")
 		*sysit--;
 		REQUIRE(*myit == *sysit);
 
+		int sum = 0;
+		ft::vector<int>		own(5);
+		std::vector<int>	real(5);
+
+		for(int i = 0; i < 5; i++)
+		{
+			real.at(i) = sum;
+			own.at(i) = sum;
+			sum += 1;
+		}
+
+		ft::vector<int>::const_reverse_iterator own_rite = own.rend();
+		ft::vector<int>::const_reverse_iterator old_own_rite;
+		std::vector<int>::const_reverse_iterator real_rite = real.rend();
+		std::vector<int>::const_reverse_iterator old_real_rite;
+
+		--own_rite;
+		--real_rite;
+		REQUIRE(*own_rite == *real_rite);
+
+		old_own_rite = own_rite--;
+		old_real_rite = real_rite--;
+		REQUIRE(*old_real_rite == *old_own_rite);
 	}
 }
 
@@ -323,6 +462,15 @@ TEST_CASE("Vector: Capacity", "[Vector]")
 		myfloatvector.resize(10);
 		sysfloatvector.resize(10);
 		REQUIRE(myfloatvector == sysfloatvector);
+
+		ft::vector<int> 	own(8, 5);
+		std::vector<int> 	real(8, 5);
+
+		own.resize(2, 2);
+		real.resize(2, 2);
+
+		REQUIRE(own.size() == real.size());
+		REQUIRE(own[1] == real[1]);
 
 	}
 
@@ -430,6 +578,21 @@ TEST_CASE("Vector: Element Access", "[Vector]")
 		sysvec.push_back(0);
 
 		REQUIRE(myvec[5] == sysvec[5]);
+
+		int sum = 0;
+		ft::vector<int>		own(5);
+		std::vector<int>	real(5);
+
+		for(int i = 0; i < 5; i++)
+		{
+			real[i] = sum;
+			own[i] = sum;
+			sum += 1;
+		}
+		REQUIRE(own[0] == real[0]);
+		REQUIRE(own[1] == real[1]);
+		REQUIRE(own[2] == real[2]);
+		REQUIRE(own[3] == real[3]);
 	}
 
 	SECTION("at")
@@ -470,6 +633,21 @@ TEST_CASE("Vector: Element Access", "[Vector]")
 			std::cout << e.what() << std::endl;
 		}
 		REQUIRE(myvec.at(5) == sysvec.at(5));
+
+		int sum = 0;
+		ft::vector<int>		own(5);
+		std::vector<int>	real(5);
+
+		for(int i = 0; i < 5; i++)
+		{
+			real.at(i) = sum;
+			own.at(i) = sum;
+			sum += 1;
+		}
+		REQUIRE(own.at(0) == real.at(0));
+		REQUIRE(own.at(1) == real.at(1));
+		REQUIRE(own.at(2) == real.at(2));
+		REQUIRE(own.at(3) == real.at(3));
 	}
 
 	SECTION("Front")
@@ -484,6 +662,18 @@ TEST_CASE("Vector: Element Access", "[Vector]")
 
 		REQUIRE(myvec.front() == sysvec.front());
 
+		int sum = 0;
+		ft::vector<int>		own(5);
+		std::vector<int>	real(5);
+
+		for(int i = 0; i < 5; i++)
+		{
+			real.at(i) = sum;
+			own.at(i) = sum;
+			sum += 1;
+		}
+
+		REQUIRE(own.front() == real.front());
 	}
 
 	SECTION("Back")
@@ -497,6 +687,19 @@ TEST_CASE("Vector: Element Access", "[Vector]")
 		sysvec.push_back(5);
 
 		REQUIRE(myvec.back() == sysvec.back());
+
+		int sum = 0;
+		ft::vector<int>		own(5);
+		std::vector<int>	real(5);
+
+		for(int i = 0; i < 5; i++)
+		{
+			real.at(i) = sum;
+			own.at(i) = sum;
+			sum += 1;
+		}
+
+		REQUIRE(own.back() == real.back());
 	}
 
 }
@@ -583,6 +786,25 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 		sysfillvec.assign(10, "hallo");
 		REQUIRE(myfillvec == sysfillvec);
 
+		ft::vector<int>		own1(5, 100);
+		ft::vector<int>		own2;
+		std::vector<int>	real1(5, 100);
+		std::vector<int>	real2;
+
+		own2.assign(own1.begin(), own1.begin() + 3);
+		real2.assign(real1.begin(), real1.begin() + 3);
+
+		ft::vector<int>::iterator own_it = own2.begin();
+		std::vector<int>::iterator real_it = real2.begin();
+
+		REQUIRE(own2.size() == real2.size());
+		while (own_it != own2.end())
+		{
+			REQUIRE(*own_it == *real_it);
+			++own_it;
+			++real_it;
+		}
+
 	}
 
 	SECTION("Push_back")
@@ -602,6 +824,19 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 
 		REQUIRE(myvec == sysvec);
 
+		ft::vector<int>		own;
+		std::vector<int>	real;
+
+		int sum = 10;
+		for(int i = 0; i < 4; ++i)
+		{
+			own.push_back(sum);
+			real.push_back(sum);
+			sum += 10;
+		}
+		REQUIRE(own[0] == real[0]);
+		REQUIRE(own[1] == real[1]);
+		REQUIRE(own[2] == real[2]);
 	}
 
 	SECTION("Pop_back")
@@ -628,6 +863,22 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 		myvec.pop_back();
 		sysvec.pop_back();
 		REQUIRE(myvec == sysvec);
+
+		int sum = 10;
+		ft::vector<int>		own;
+		std::vector<int>	real;
+
+		for(int i = 0; i < 4; ++i)
+		{
+			own.push_back(sum);
+			real.push_back(sum);
+			sum += 10;
+		}
+		REQUIRE(own.size() == real.size());
+		own.pop_back();
+		real.pop_back();
+		REQUIRE(own.size() == real.size());
+		REQUIRE(own[2] == real[2]);
 	}
 
 	SECTION("Insert single element")
@@ -670,6 +921,7 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 		myvec.insert(myit1, 15);
 		sysvec.insert(sysit1, 15);
 		REQUIRE(myvec == sysvec);
+
 	}
 
 	SECTION("Insert fill")
@@ -700,6 +952,56 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 		sysvec1.insert(sysit1, 100,10);
 
 		REQUIRE(myvec1 == sysvec1);
+	}
+
+	SECTION("INSERT TRY ALL")
+	{
+		ft::vector<int>		own(6, 100);
+		std::vector<int>	real(6, 100);
+
+		ft::vector<int>::iterator	it_own = own.begin();
+		std::vector<int>::iterator	it_real = real.begin();
+
+		it_own = own.insert(it_own, 200);
+		it_real = real.insert(it_real, 200);
+		//  200 100 100 100 100 100 100
+		//  ^
+		REQUIRE(*it_own == *it_real);
+
+		own.insert(it_own, 2, 300);
+		real.insert(it_real, 2, 300);
+		// 300 300 200 100 100 100 100 100 100
+		// ^   ^
+
+		REQUIRE(own[0] == real[0]);
+		REQUIRE(own[1] == real[1]);
+
+		ft::vector<int> 	own1(2, 400);
+		std::vector<int>	real2(2, 400);
+
+		it_own = own.begin();
+		it_real = real.begin();
+
+		own.insert(it_own + 2, own1.begin(), own1.end());
+		real.insert(it_real + 2, real2.begin(), real2.end());
+		// 300 300 400 400 200 100 100 100 100 100 100
+		//         ^   ^
+		REQUIRE(own[2] == real[2]);
+		REQUIRE(own[3] == real[3]);
+
+		int myarray[] = {101, 102, 103};
+
+		it_own = ft::vector<int>::iterator(myarray);
+
+		own.insert(own.begin(), it_own, it_own + 3);
+		real.insert(real.begin(), myarray, myarray + 3);
+		// 101 102 103 300 300 400 400 200 100 100 100 100 100 100
+		// ^   ^   ^
+		REQUIRE(own[0] == real[0]);
+		REQUIRE(own[1] == real[1]);
+		REQUIRE(own[2] == real[2]);
+		REQUIRE(own.size() == real.size());
+
 	}
 
 	SECTION("Insert range")
@@ -777,6 +1079,31 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 		sysvec.swap(sysvec1);
 
 		REQUIRE(myvec == sysvec);
+
+		ft::vector<int> 	own(4, 100);
+		ft::vector<int> 	own2(5, 300);
+		ft::vector<int>		own3;
+		std::vector<int> 	real(4, 100);
+		std::vector<int>	real2(5, 300);
+		std::vector<int>	real3;
+
+		own.swap(own2);
+		real.swap(real2);
+
+		REQUIRE(own.size() == real.size());
+		REQUIRE(own.capacity() == real.capacity());
+		REQUIRE(own[0] == real[0]);
+		REQUIRE(own[1] == real[1]);
+		REQUIRE(own[2] == real[2]);
+
+		std::swap(own3, own2);
+		std::swap(real3, real2);
+
+		REQUIRE(own3.size() == real3.size());
+		REQUIRE(own3.capacity() == real3.capacity());
+		REQUIRE(own3[0] == real3[0]);
+		REQUIRE(own3[1] == real3[1]);
+		REQUIRE(own3[2] == real3[2]);
 	}
 
 	SECTION("Clear")
@@ -787,6 +1114,66 @@ TEST_CASE("Vector: Modifiers", "[Vector]")
 		sysvec.clear();
 		REQUIRE(myvec == sysvec);
 	}
+}
+
+TEST_CASE("Vector: Get allocator")
+{
+	ft::vector<int>		own;
+	std::vector<int>	real;
+
+	int *p_own;
+	int *p_real;
+	bool own_return = false;
+	bool real_return = false;
+	unsigned int i_own;
+	unsigned int i_real;
+
+	// allocate an array with space for 5 elements using vector's allocator:
+	p_own = own.get_allocator().allocate(5);
+	p_real = real.get_allocator().allocate(5);
+
+	if (!p_own)
+		own_return = false;
+	else
+		own_return = true;
+
+	if (!p_real)
+		real_return = false;
+	else
+		real_return = true;
+
+	REQUIRE(own_return == real_return);
+
+	// construct values in-place on the array:
+	for (i_own = 0; i_own < 5; i_own++) own.get_allocator().construct(&p_own[i_own],i_own);
+	for (i_real = 0; i_real < 5; i_real++) real.get_allocator().construct(&p_real[i_real],i_real);
+
+	REQUIRE(p_own[0] == p_real[0]);
+	REQUIRE(p_own[1] == p_real[1]);
+	REQUIRE(p_own[2] == p_real[2]);
+	REQUIRE(p_own[3] == p_real[3]);
+
+	// destroy and deallocate:
+	for (i_own = 0; i_own < 3; i_own++) own.get_allocator().destroy(&p_own[i_own]);
+	for (i_real = 0; i_real < 3; i_real++) own.get_allocator().destroy(&p_own[i_real]);
+
+	REQUIRE(p_own[0] == p_real[0]);
+	REQUIRE(p_own[1] == p_real[1]);
+
+	own.get_allocator().deallocate(p_own,5);
+	real.get_allocator().deallocate(p_real,5);
+
+	if (!p_own)
+		own_return = false;
+	else
+		own_return = true;
+
+	if (!p_real)
+		real_return = false;
+	else
+		real_return = true;
+
+	REQUIRE(own_return == real_return);
 }
 
 TEST_CASE("Vector: Non member overloads")

@@ -288,7 +288,7 @@ namespace ft {
 			return (this->_ptr);
 		}
 
-		ConstRevBidirectionalIterator&&		operator--() { this->_ptr = this->_ptr->getNext(); return (*this); }
+		ConstRevBidirectionalIterator&		operator--() { this->_ptr = this->_ptr->getNext(); return (*this); }
 		ConstRevBidirectionalIterator		operator--(int)
 		{
 			ConstRevBidirectionalIterator tmp(*this);

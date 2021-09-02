@@ -41,1097 +41,1303 @@ namespace ft
 					const ft::list<T, Alloc> &mine)
 	{ return !(mine == real); }
 }
-TEST_CASE("List: Constructors", "[List]")
+
+TEST_CASE("list-Empty container constructor", "[list]")
 {
-	ft::list<std::string> myList;
-	std::list<std::string> sysList;
+	ft::list<int>	own;
+	std::list<int>	real;
 
-
-	SECTION("Size check for constructor")
-	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
-		REQUIRE(myList1.size() == sysList1.size());
-	}
-	SECTION("Extra checks")
-	{
-		std::list<int> real1;
-		ft::list<int> mine1;
-		REQUIRE(mine1 == real1);
-
-		std::list<int> real2(4, 100);
-		ft::list<int> mine2(4, 100);
-		REQUIRE(mine2 == real2);
-
-		std::list<int> real3(real2.begin(), real2.end());
-		ft::list<int> mine3(mine2.begin(), mine2.end());
-
-		std::list<int> real4(real3);
-		ft::list<int> mine4(mine3);
-
-		int intarr[] = {16, 2, 77, 29};
-		std::list<int> real5(intarr, intarr + sizeof(intarr) / sizeof(int));
-		ft::list<int> mine5(intarr, intarr + sizeof(intarr) / sizeof(int));
-		REQUIRE(mine5 == real5);
-	}
-
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
 }
 
-TEST_CASE("List: Destructors", "[List]")
+TEST_CASE("list-Fill constructor", "[list]")
 {
+	ft::list<int>	own(5, 100);
+	std::list<int>	real(5, 100);
 
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
 }
 
-TEST_CASE("List: Assignment operators", "[List]")
+TEST_CASE("list-Range constructor", "[list]")
 {
+	ft::list<int>		own(6, 100);
+	ft::list<int>		own2(own.begin(), own.end());
+	std::list<int>		real(6, 100);
+	std::list<int>		real2(real.begin(), real.end());
 
-}
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
 
-TEST_CASE("List: Allocators", "[List]")
-{
+	own_it = own2.begin();
+	real_it = real2.begin();
 
-}
+	REQUIRE(own2.size() == real2.size());
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own2.front() == real2.front());
+	REQUIRE(own2.back() == real2.back());
 
-TEST_CASE("List: Iterators", "[List]")
-{
-	SECTION("INCREMENT over int")
+	while (own_it != own2.end())
 	{
-		ft::list<int> myList;
-		std::list<int> sysList;
-
-		myList.push_back(10);
-		myList.push_back(5);
-		myList.push_back(15);
-		myList.push_back(20);
-		myList.push_back(25);
-		myList.push_back(30);
-		myList.push_back(35);
-
-
-		sysList.push_back(10);
-		sysList.push_back(5);
-		sysList.push_back(15);
-		sysList.push_back(20);
-		sysList.push_back(25);
-		sysList.push_back(30);
-		sysList.push_back(35);
-
-		ft::list<int>::iterator myIT = myList.begin();
-		std::list<int>::iterator sysIT = sysList.begin();
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-		++myIT;
-		++sysIT;
-		REQUIRE(*myIT == *sysIT);
-		++myIT;
-		++sysIT;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("INCREMENT over std::string")
-	{
-		ft::list<std::string> myList;
-		std::list<std::string> sysList;
-
-		myList.push_back("Hallo");
-		myList.push_back("Ik");
-		myList.push_back("Ben");
-		myList.push_back("Een");
-		myList.push_back("Baassie");
-		myList.push_back("Geweldig");
-		myList.push_back("Iterators");
-
-
-		sysList.push_back("Hallo");
-		sysList.push_back("Ik");
-		sysList.push_back("Ben");
-		sysList.push_back("Een");
-		sysList.push_back("Baassie");
-		sysList.push_back("Geweldig");
-		sysList.push_back("Iterators");
-
-		ft::list<std::string>::iterator myIT = myList.begin();
-		std::list<std::string>::iterator sysIT = sysList.begin();
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-		++myIT;
-		++sysIT;
-		REQUIRE(*myIT == *sysIT);
-		++myIT;
-		++sysIT;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("DECREMENT over int")
-	{
-		ft::list<int> myList;
-		std::list<int> sysList;
-
-		myList.push_back(10);
-		myList.push_back(5);
-		myList.push_back(15);
-		myList.push_back(20);
-		myList.push_back(25);
-		myList.push_back(30);
-		myList.push_back(35);
-
-
-		sysList.push_back(10);
-		sysList.push_back(5);
-		sysList.push_back(15);
-		sysList.push_back(20);
-		sysList.push_back(25);
-		sysList.push_back(30);
-		sysList.push_back(35);
-
-		ft::list<int>::iterator myIT = myList.end();
-		std::list<int>::iterator sysIT = sysList.end();
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-		--myIT;
-		--sysIT;
-		REQUIRE(*myIT == *sysIT);
-		--myIT;
-		--sysIT;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("DECREMENT over std::string")
-	{
-		ft::list<std::string> myList;
-		std::list<std::string> sysList;
-
-		myList.push_back("Hallo");
-		myList.push_back("Ik");
-		myList.push_back("Ben");
-		myList.push_back("Een");
-		myList.push_back("Baassie");
-		myList.push_back("Geweldig");
-		myList.push_back("Iterators");
-
-
-		sysList.push_back("Hallo");
-		sysList.push_back("Ik");
-		sysList.push_back("Ben");
-		sysList.push_back("Een");
-		sysList.push_back("Baassie");
-		sysList.push_back("Geweldig");
-		sysList.push_back("Iterators");
-
-		ft::list<std::string>::iterator myIT = myList.end();
-		std::list<std::string>::iterator sysIT = sysList.end();
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-		--myIT;
-		--sysIT;
-		REQUIRE(*myIT == *sysIT);
-		--myIT;
-		--sysIT;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	ft::list<std::string>mylist;
-	std::list<std::string>syslist;
-
-	mylist.push_back("iterators");
-	mylist.push_back("Zijn");
-	mylist.push_back("EPIC");
-
-
-	syslist.push_back("iterators");
-	syslist.push_back("Zijn");
-	syslist.push_back("EPIC");
-	ft::list<std::string>::iterator myIT = mylist.begin();
-	std::list<std::string>::iterator sysIT = syslist.begin();
-	SECTION("-> overload")
-	{
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT->data() == *sysIT->data());
-	}
-
-	SECTION("* overload")
-	{
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("== overload")
-	{
-		bool res;
-		res = myIT == mylist.begin();
-		REQUIRE(res == true);
-		myIT++;
-		res = myIT == mylist.begin();
-		REQUIRE(res == false);
-	}
-
-	SECTION("!= overload")
-	{
-		bool res;
-		res = myIT != mylist.begin();
-		REQUIRE(res == false);
-		myIT++;
-		res = myIT != mylist.begin();
-		REQUIRE(res == true);
-	}
-
-	SECTION("Test (*it)++")
-	{
-		ft::list<int> myIntList;
-		std::list<int> sysIntList;
-
-		myIntList.push_back(1);
-		sysIntList.push_back(1);
-
-		ft::list<int>::iterator myIntIt = myIntList.begin();
-		std::list<int>::iterator sysIntIt = sysIntList.begin();
-		(*myIntIt)++;
-		(*sysIntIt)++;
-		REQUIRE((*myIntIt) == (*sysIntIt));
-		(*myIntIt)--;
-		REQUIRE(*myIntIt == 1);
-		(*myIntIt)++;
-		REQUIRE(*myIntIt == 2);
-		*myIntIt++;
-		bool res = (myIntIt == myIntList.end());
-		REQUIRE(res == true);
-
-	}
-
-	SECTION("Test (*it)--") {
-		ft::list<int> myIntList;
-		std::list<int> sysIntList;
-
-		myIntList.push_back(2);
-		sysIntList.push_back(2);
-		std::list<int>::iterator sysIntIt = sysIntList.begin();
-		ft::list<int>::iterator myIntIt = myIntList.begin();
-		(*myIntIt)--;
-		(*sysIntIt)--;
-		REQUIRE((*myIntIt) == (*sysIntIt));
-		(*myIntIt)++;
-		REQUIRE(*myIntIt == 2);
-		(*myIntIt)--;
-		REQUIRE(*myIntIt == 1);
-		*myIntIt--;
-		bool res = (myIntIt != myIntList.begin());
-		REQUIRE(res == true);
-	}
-
-	SECTION("Test assignment with iterator")
-	{
-		ft::list<int> myIntList;
-		std::list<int> sysIntList;
-
-		myIntList.push_back(1);
-		myIntList.push_back(8);
-		ft::list<int>::iterator myIntIt = myIntList.begin();
-		REQUIRE(*myIntIt == 1);
-		*myIntIt = 5;
-		REQUIRE(*myIntIt == 5);
-	}
-
-	SECTION("TEST dereference as lvalue" )
-	{
-		ft::list<int> myIntList;
-		std::list<int> sysIntList;
-		myIntList.push_back(1);
-		myIntList.push_back(8);
-		ft::list<int>::iterator myIntIt = myIntList.begin();
-		*myIntIt++ = 5;
-		REQUIRE(*myIntIt == 8);
-		myIntIt--;
-		REQUIRE(*myIntIt == 5);
-	}
-
-}
-
-TEST_CASE("List: CONST Iterators", "[List]")
-{
-
-	SECTION("INCREMENT over int")
-	{
-		ft::list<int> myList;
-		std::list<int> sysList;
-
-		myList.push_back(10);
-		myList.push_back(5);
-		myList.push_back(15);
-		myList.push_back(20);
-		myList.push_back(25);
-		myList.push_back(30);
-		myList.push_back(35);
-
-
-		sysList.push_back(10);
-		sysList.push_back(5);
-		sysList.push_back(15);
-		sysList.push_back(20);
-		sysList.push_back(25);
-		sysList.push_back(30);
-		sysList.push_back(35);
-
-		ft::list<int>::const_iterator myIT = myList.begin();
-		std::list<int>::const_iterator sysIT = sysList.begin();
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-		++myIT;
-		++sysIT;
-		REQUIRE(*myIT == *sysIT);
-		++myIT;
-		++sysIT;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("INCREMENT over std::string")
-	{
-		ft::list<std::string> myList;
-		std::list<std::string> sysList;
-
-		myList.push_back("Hallo");
-		myList.push_back("Ik");
-		myList.push_back("Ben");
-		myList.push_back("Een");
-		myList.push_back("Baassie");
-		myList.push_back("Geweldig");
-		myList.push_back("Iterators");
-
-
-		sysList.push_back("Hallo");
-		sysList.push_back("Ik");
-		sysList.push_back("Ben");
-		sysList.push_back("Een");
-		sysList.push_back("Baassie");
-		sysList.push_back("Geweldig");
-		sysList.push_back("Iterators");
-
-		ft::list<std::string>::const_iterator myIT = myList.begin();
-		std::list<std::string>::const_iterator sysIT = sysList.begin();
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-		++myIT;
-		++sysIT;
-		REQUIRE(*myIT == *sysIT);
-		++myIT;
-		++sysIT;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("DECREMENT over int")
-	{
-		ft::list<int> myList;
-		std::list<int> sysList;
-
-		myList.push_back(10);
-		myList.push_back(5);
-		myList.push_back(15);
-		myList.push_back(20);
-		myList.push_back(25);
-		myList.push_back(30);
-		myList.push_back(35);
-
-
-		sysList.push_back(10);
-		sysList.push_back(5);
-		sysList.push_back(15);
-		sysList.push_back(20);
-		sysList.push_back(25);
-		sysList.push_back(30);
-		sysList.push_back(35);
-
-		ft::list<int>::const_iterator myIT = myList.end();
-		std::list<int>::const_iterator sysIT = sysList.end();
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-		--myIT;
-		--sysIT;
-		REQUIRE(*myIT == *sysIT);
-		--myIT;
-		--sysIT;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("DECREMENT over std::string")
-	{
-		ft::list<std::string> myList;
-		std::list<std::string> sysList;
-
-		myList.push_back("Hallo");
-		myList.push_back("Ik");
-		myList.push_back("Ben");
-		myList.push_back("Een");
-		myList.push_back("Baassie");
-		myList.push_back("Geweldig");
-		myList.push_back("Iterators");
-
-
-		sysList.push_back("Hallo");
-		sysList.push_back("Ik");
-		sysList.push_back("Ben");
-		sysList.push_back("Een");
-		sysList.push_back("Baassie");
-		sysList.push_back("Geweldig");
-		sysList.push_back("Iterators");
-
-		ft::list<std::string>::const_iterator myIT = myList.end();
-		std::list<std::string>::const_iterator sysIT = sysList.end();
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-		--myIT;
-		--sysIT;
-		REQUIRE(*myIT == *sysIT);
-		--myIT;
-		--sysIT;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	ft::list<std::string> mylist;
-	std::list<std::string> syslist;
-
-	mylist.push_back("iterators");
-	mylist.push_back("Zijn");
-	mylist.push_back("EPIC");
-
-
-	syslist.push_back("iterators");
-	syslist.push_back("Zijn");
-	syslist.push_back("EPIC");
-	ft::list<std::string>::const_iterator myIT = mylist.begin();
-	std::list<std::string>::const_iterator sysIT = syslist.begin();
-
-	SECTION("Begin")
-	{
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("END")
-	{
-		ft::list<std::string> mylist;
-		std::list<std::string> syslist;
-
-		mylist.push_back("iterators");
-		mylist.push_back("Zijn");
-		mylist.push_back("EPIC");
-
-
-		syslist.push_back("iterators");
-		syslist.push_back("Zijn");
-		syslist.push_back("EPIC");
-		ft::list<std::string>::const_iterator myIT = mylist.end();
-		std::list<std::string>::const_iterator sysIT = syslist.end();
-		myIT--;
-		sysIT--;
-		REQUIRE(*myIT == *sysIT);
-	}
-	SECTION("-> overload")
-	{
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT->data() == *sysIT->data());
-	}
-
-	SECTION("* overload")
-	{
-		myIT++;
-		sysIT++;
-		REQUIRE(*myIT == *sysIT);
-	}
-
-	SECTION("== overload")
-	{
-		bool res;
-		res = myIT == mylist.begin();
-		REQUIRE(res == true);
-		myIT++;
-		res = myIT == mylist.begin();
-		REQUIRE(res == false);
-	}
-
-	SECTION("!= overload")
-	{
-		bool res;
-		res = myIT != mylist.begin();
-		REQUIRE(res == false);
-		myIT++;
-		res = myIT != mylist.begin();
-		REQUIRE(res == true);
-	}
-
-
-}
-
-TEST_CASE("List: Member Functions Assign", "[List]")
-{
-	SECTION("FIll version of assign")
-	{
-		ft::list<std::string> myList1;
-		std::list<std::string> sysList1;
-
-		myList1.assign(10, "hello");
-		sysList1.assign(10, "hello");
-		REQUIRE(myList1.size() == sysList1.size());
-		REQUIRE(myList1.front() == sysList1.front());
-		REQUIRE(myList1.back() == sysList1.back());
-
-	}
-
-	SECTION("FIll version of assign with pre sized list")
-	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
-
-		myList1.assign(10, "hello");
-		sysList1.assign(10, "hello");
-		REQUIRE(myList1.size() == sysList1.size());
-		REQUIRE(myList1.front() == sysList1.front());
-		REQUIRE(myList1.back() == sysList1.back());
-	}
-
-	SECTION("Template version of ASSIGN")
-	{
-		ft::list<int>list;
-		ft::list<int>receivelist;
-		list.push_back(1);
-		list.push_back(2);
-		list.push_back(3);
-		list.push_back(150);
-		receivelist.assign(list.begin(), list.end());
-		REQUIRE(receivelist.size() == 4);
-		ft::list<int>::iterator myit = receivelist.begin();
-		myit++;
-		REQUIRE(*myit == 2);
-		ft::list<int>::iterator myitback = receivelist.end();
-		myitback--;
-		REQUIRE(*myitback == 150);
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
 	}
 }
 
-TEST_CASE("List: Member Functions Clear", "[List]")
+TEST_CASE("list-Copy constructor", "[list]")
 {
-	ft::list<std::string> myList1;
-	std::list<std::string> sysList1;
-	myList1.push_back("Epic next elem1");
-	sysList1.push_back("Epic next elem1");
-	myList1.push_back("Epic next elem2");
-	sysList1.push_back("Epic next elem2");
-	myList1.push_back("Epic next elem3");
-	sysList1.push_back("Epic next elem3");
-	myList1.push_back("Epic next elem4");
-	sysList1.push_back("Epic next elem4");
-	myList1.push_back("Epic next elem5");
-	sysList1.push_back("Epic next elem5");
-	myList1.push_back("Epic next elem6");
-	sysList1.push_back("Epic next elem6");
-	REQUIRE(sysList1.size() == myList1.size());
-	REQUIRE(sysList1.front() == myList1.front());
+	ft::list<int>		own(6, 100);
+	ft::list<int>		own2(own);
+	std::list<int>		real(6, 100);
+	std::list<int>		real2(real);
+
+
+	REQUIRE(own2.size() == real2.size());
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own2.front() == real2.front());
+	REQUIRE(own2.back() == real2.back());
 }
 
-TEST_CASE("List: Member Functions Empty", "[List]")
+TEST_CASE("list-Assign content", "[list]")
 {
-	SECTION("check if empty list is empty")
-	{
-		ft::list<std::string> myList1;
-		std::list<std::string> sysList1;
-		REQUIRE(myList1.empty() == sysList1.empty());
-	}
+	ft::list<int>		own(6, 100);
+	ft::list<int>		own2;
+	std::list<int>		real(6, 100);
+	std::list<int>		real2;
 
-	SECTION("check if non empty list is not empty")
-	{
-		ft::list<std::string> myList1;
-		std::list<std::string> sysList1;
-		myList1.push_back("Uw zus");
-		sysList1.push_back("Uw zus");
-		REQUIRE(myList1.empty() == sysList1.empty());
-	}
+	own2 = own;
+	real2 = real;
+
+	REQUIRE(own2.size() == real2.size());
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own2.front() == real2.front());
+	REQUIRE(own2.back() == real2.back());
+	REQUIRE(own2.get_allocator() == real2.get_allocator());
 
 }
 
-TEST_CASE("List: Member Functions Erase", "[List]")
+/* ------------ ITERATORS ------------ */
+TEST_CASE("list-begin function", "[list]")
 {
-	SECTION("Position erase")
+	ft::list<int> 	own(4, 3);
+	std::list<int> 	real(4, 3);
+
+	ft::list<int>::iterator own_it = own.begin();
+	std::list<int>::iterator real_it = real.begin();
+
+	REQUIRE(*own_it == *real_it);
+}
+
+TEST_CASE("list-const begin function", "[list]")
+{
+	ft::list<int> 	own(4, 3);
+	std::list<int> 	real(4, 3);
+
+	ft::list<int>::const_iterator own_it = own.begin();
+	std::list<int>::const_iterator real_it = real.begin();
+
+	REQUIRE(*own_it == *real_it);
+}
+
+TEST_CASE("list-end function", "[list]")
+{
+	ft::list<int> 	own(4, 3);
+	std::list<int> 	real(4, 3);
+
+	ft::list<int>::iterator own_ite = own.end();
+	std::list<int>::iterator real_ite = real.end();
+
+	own_ite--;
+	real_ite--;
+	REQUIRE(*own_ite == *real_ite);
+}
+
+TEST_CASE("list-const end function", "[list]")
+{
+	ft::list<int> 	own(4, 3);
+	std::list<int> 	real(4, 3);
+
+	ft::list<int>::const_iterator own_ite = own.end();
+	std::list<int>::const_iterator real_ite = real.end();
+
+	own_ite--;
+	real_ite--;
+	REQUIRE(*own_ite == *real_ite);
+}
+
+TEST_CASE("list-rbegin function", "[list]")
+{
+	int sum = 0;
+	ft::list<int>		own(5);
+	std::list<int>	real(5);
+
+	for(int i = 0; i < 5; i++)
 	{
-		ft::list<std::string> mylist;
-		std::list<std::string> syslist;
-
-		mylist.push_back("iterators");
-		mylist.push_back("Zijn");
-		mylist.push_back("EPIC");
-
-
-		syslist.push_back("iterators");
-		syslist.push_back("Zijn");
-		syslist.push_back("EPIC");
-		ft::list<std::string>::const_iterator myIT = mylist.begin();
-		std::list<std::string>::const_iterator sysIT = syslist.begin();
-
-		mylist.erase(myIT);
-		syslist.erase(sysIT);
-		myIT = mylist.begin();
-		sysIT = syslist.begin();
-		REQUIRE(mylist.size() == syslist.size());
-		REQUIRE(*myIT == *sysIT);
+		real.push_back(sum);
+		own.push_back(sum);
+		sum += 1;
 	}
 
-	SECTION("range erase")
+	ft::list<int>::reverse_iterator own_rit = own.rbegin();
+	ft::list<int>::reverse_iterator old_own_rit;
+	std::list<int>::reverse_iterator real_rit = real.rbegin();
+	std::list<int>::reverse_iterator old_real_rit;
+
+	++own_rit;
+	++real_rit;
+	REQUIRE(*own_rit == *real_rit);
+
+	old_own_rit = own_rit++;
+	old_real_rit = real_rit++;
+	REQUIRE(*old_real_rit == *old_own_rit);
+}
+
+TEST_CASE("list-const rbegin function", "[list]")
+{
+	int sum = 0;
+	ft::list<int>		own(5);
+	std::list<int>	real(5);
+
+	for(int i = 0; i < 5; i++)
 	{
-		ft::list<std::string> mylist;
-		std::list<std::string> syslist;
+		real.push_back(sum);
+		own.push_back(sum);
+		sum += 1;
+	}
 
-		mylist.push_back("iterators");
-		mylist.push_back("Zijn");
-		mylist.push_back("EPIC");
+	ft::list<int>::const_reverse_iterator own_rit = own.rbegin();
+	ft::list<int>::const_reverse_iterator old_own_rit;
+	std::list<int>::const_reverse_iterator real_rit = real.rbegin();
+	std::list<int>::const_reverse_iterator old_real_rit;
+
+	++own_rit;
+	++real_rit;
+	REQUIRE(*own_rit == *real_rit);
+
+	old_own_rit = own_rit++;
+	old_real_rit = real_rit++;
+	REQUIRE(*old_real_rit == *old_own_rit);
+}
+
+TEST_CASE("list-rend function", "[list]")
+{
+	int sum = 0;
+	ft::list<int>		own(5);
+	std::list<int>	real(5);
+
+	for(int i = 0; i < 5; i++)
+	{
+		real.push_back(sum);
+		own.push_back(sum);
+		sum += 1;
+	}
+
+	ft::list<int>::reverse_iterator own_rite = own.rend();
+	ft::list<int>::reverse_iterator old_own_rite;
+	std::list<int>::reverse_iterator real_rite = real.rend();
+	std::list<int>::reverse_iterator old_real_rite;
+
+	--own_rite;
+	--real_rite;
+	REQUIRE(*own_rite == *real_rite);
+
+	old_own_rite = own_rite--;
+	old_real_rite = real_rite--;
+	REQUIRE(*old_real_rite == *old_own_rite);
+}
+
+TEST_CASE("list-const rend function", "[list]")
+{
+	int sum = 0;
+	ft::list<int>		own(5);
+	std::list<int>		real(5);
+
+	for(int i = 0; i < 5; i++)
+	{
+		real.push_back(sum);
+		own.push_back(sum);
+		sum += 1;
+	}
+
+	ft::list<int>::const_reverse_iterator own_rite = own.rend();
+	ft::list<int>::const_reverse_iterator old_own_rite;
+	std::list<int>::const_reverse_iterator real_rite = real.rend();
+	std::list<int>::const_reverse_iterator old_real_rite;
+
+	--own_rite;
+	--real_rite;
+	REQUIRE(*own_rite == *real_rite);
+
+	old_own_rite = own_rite--;
+	old_real_rite = real_rite--;
+	REQUIRE(*old_real_rite == *old_own_rite);
+}
+
+/* ------------ CAPACITY ------------ */
+
+TEST_CASE("list-empty function", "[list]")
+{
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	REQUIRE(own.empty() == real.empty());
+
+	ft::list<int>	own2(5, 100);
+	std::list<int>	real2(5, 100);
+
+	real2.clear();
+	own2.clear();
+
+	REQUIRE(own.empty() == real.empty());
+}
+
+TEST_CASE("list-size function", "[list]")
+{
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	REQUIRE(own.size() == real.size());
+
+	ft::list<int>	own2(5, 100);
+	std::list<int>	real2(5, 100);
+
+	REQUIRE(own.size() == real.size());
+
+	real2.clear();
+	own2.clear();
+
+	REQUIRE(own.size() == real.size());
+}
+
+/* ------------ ELEMENT ACCESS ------------ */
+
+TEST_CASE("list-front function", "[list]")
+{
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	int sum = 40;
+	const int tim = 100;
 
 
-		syslist.push_back("iterators");
-		syslist.push_back("Zijn");
-		syslist.push_back("EPIC");
-		ft::list<std::string>::const_iterator myIT = mylist.begin();
-		std::list<std::string>::const_iterator sysIT = syslist.begin();
+	for (int i  = 0; i < 5; ++i)
+	{
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 10;
+	}
 
-		ft::list<std::string>::const_iterator myITEND = mylist.end();
-		std::list<std::string>::const_iterator sysITEND = syslist.end();
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
 
-		mylist.erase(myIT, myITEND);
-		syslist.erase(sysIT, sysITEND);
-		myIT = mylist.begin();
-		sysIT = syslist.begin();
-		REQUIRE(mylist.size() == syslist.size());
-		REQUIRE(*myIT == *sysIT);
+	own.push_front(tim);
+	real.push_front(tim);
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+}
+
+TEST_CASE("list-back function", "[list]")
+{
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	const int tim = 100;
+	int sum = 40;
+
+
+	for (int i  = 0; i < 5; ++i)
+	{
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 10;
+	}
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	own.push_back(tim);
+	real.push_back(tim);
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+}
+
+/* ------------ MODIFIERS ------------ */
+TEST_CASE("list-assign with iterators", "[list]")
+{
+	ft::list<int>		own1(5, 100);
+	ft::list<int>		own2;
+	std::list<int>		real1(5, 100);
+	std::list<int>		real2;
+
+
+	own2.assign(own1.begin(), own1.end());
+	real2.assign(real1.begin(), real1.end());
+
+	ft::list<int>::iterator own_it = own2.begin();
+	std::list<int>::iterator real_it = real2.begin();
+
+	REQUIRE(own2.size() == real2.size());
+	while (own_it != own2.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
 	}
 }
 
-TEST_CASE("List: Member Functions Insert", "[List]")
+TEST_CASE("list-assign size n and type val")
 {
-	SECTION("INSERT SPECIFIC POSITION")
-	{
-		ft::list<std::string> mylist;
-		std::list<std::string> syslist;
-
-		mylist.push_back("iterators");
-		mylist.push_back("Zijn");
-		mylist.push_back("EPIC");
-
-
-		syslist.push_back("iterators");
-		syslist.push_back("Zijn");
-		syslist.push_back("EPIC");
-		ft::list<std::string>::const_iterator myIT = mylist.begin();
-		std::list<std::string>::const_iterator sysIT = syslist.begin();
-
-		mylist.insert(myIT, "Niet meer EPIC");
-		syslist.insert(sysIT, "Niet meer EPIC");
-		myIT = mylist.begin();
-		sysIT = syslist.begin();
-		REQUIRE(mylist.size() == syslist.size());
-		REQUIRE(*myIT == *sysIT);
-
-		ft::list<std::string>::const_iterator myITEND = mylist.end();
-		std::list<std::string>::const_iterator sysITEND = syslist.end();
-
-		mylist.insert(myITEND, "Zet dit aan de achterkant");
-		syslist.insert(sysITEND, "Zet dit aan de achterkant");
-		myITEND = mylist.end();
-		sysITEND = syslist.end();
-		*myITEND--;
-		*sysITEND--;
-		REQUIRE(mylist.size() == syslist.size());
-		REQUIRE(*myITEND == *sysITEND);
-	}
-
-	SECTION("INSERT RANGE")
-	{
-		ft::list<int> mylist;
-		ft::list<int>::iterator myit;
-		std::list<int> syslist;
-		std::list<int>::iterator sysit;
-		// set some initial values:
-		for (int i = 1; i <= 5; ++i) mylist.push_back(i); // 1 2 3 4 5
-		for (int i = 1; i <= 5; ++i) syslist.push_back(i);
-		myit = mylist.begin();
-		sysit = syslist.begin();
-		++myit;       // it points now to number 2           ^
-		++sysit;
-
-		REQUIRE(*myit == *sysit);
-		mylist.insert(myit, 10);                        // 1 10 2 3 4 5
-		syslist.insert(sysit, 10);
-		REQUIRE(mylist.size() == syslist.size());
-		// "it" still points to number 2                           ^
-		mylist.insert(myit, 2, 20);                      // 1 10 20 20 2 3 4 5
-		syslist.insert(sysit, 2, 20);                      // 1 10 20 20 2 3 4 5
-		REQUIRE(mylist.size() == syslist.size());
-		--myit;       // it points now to the second 20            ^
-		--sysit;
-		REQUIRE(*myit == *sysit);
-	}
-
-	SECTION("INSERT TEMPLATE")
-	{
-		ft::list<int> mylist;
-		std::list<int> syslist;
-		ft::list<int> mylist1;
-		std::list<int> syslist1;
-		ft::list<int>::iterator myit = mylist.begin();
-		std::list<int>::iterator sysit = syslist.begin();
-
-		mylist1.push_front(10);
-		mylist1.push_front(15);
-		mylist1.push_front(20);
-		mylist1.push_front(25);
-
-		syslist1.push_front(10);
-		syslist1.push_front(15);
-		syslist1.push_front(20);
-		syslist1.push_front(25);
-
-		mylist.insert(myit, mylist1.begin(), mylist1.end());
-		syslist.insert(sysit, syslist1.begin(), syslist1.end());
-		// 1 10 20 30 30 20 2 3 4 5
-		//               ^
-		REQUIRE(mylist.size() == syslist.size());
-		for (int i = 0; i < 4; i++) {
-			myit--;
-			sysit--;
-			REQUIRE(*myit == *sysit);
-		}
-	}
+//	ft::list<int>	own;
+//	std::list<int>	real;
+//	own.assign(6, 100);
+//	real.assign(6, 100);
+//	REQUIRE(own.size() == real.size());
+//	REQUIRE(own.empty() == real.empty());
+//	REQUIRE(own.front() == real.front());
+//	REQUIRE(own.back() == real.back());
 }
 
-TEST_CASE("List: Member Functions Merge", "[List]")
+TEST_CASE("list-push_front function", "[list]")
 {
-	SECTION("List X merging")
+	ft::list<int>	own;
+	std::list<int>	real;
+	int sum = 10;
+	for (int i = 0; i < 10; ++i)
 	{
-		int numbers[5] = {10, 9, 50, 30, 4};
-		int mergenumbers[6] = {12, 8, 7, 3, 12, 1};
-		std::list<int> syslist(numbers, numbers+5);
-		std::list<int> mergelist(mergenumbers, mergenumbers+6);
-		syslist.sort();
-		mergelist.sort();
-
-		ft::list<int> mylist(numbers, numbers+5);
-		ft::list<int> mymergelist(mergenumbers, mergenumbers+6);
-		mylist.sort();
-		mergelist.sort();
-		syslist.sort();
-		mymergelist.sort();
-		mylist.merge(mymergelist);
-		syslist.merge(mergelist);
-		REQUIRE(mylist.size() == syslist.size());
-		ft::list<int>::iterator myit = mylist.begin();
-		std::list<int>::iterator sysit = syslist.begin();
-
-		for (int i = 0; i < (int)mylist.size(); i++, myit++, sysit++)
-		{
-//			std::cout << "my it " << *myit << std::endl;
-//			std::cout << "sys it " << *sysit << std::endl;
-			REQUIRE(*myit == *sysit);
-		}
+		own.push_front(sum);
+		real.push_front(sum);
+		sum += 11;
 	}
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
 }
 
-TEST_CASE("List: Member Functions PopBack", "[List]")
+TEST_CASE("list-pop_front function", "[list]")
 {
-	ft::list<std::string> myList;
-	std::list<std::string> sysList;
-
-	SECTION("check first elem after popback")
+	ft::list<int>	own;
+	std::list<int>	real;
+	int sum = 10;
+	for (int i = 0; i < 10; ++i)
 	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
-
-		myList1.push_back("Epic next elem");
-		sysList1.push_back("Epic next elem");
-		myList1.push_back("Epic elem which is going to be deleted");
-		sysList1.push_back("Epic elem which is going to be deleted");
-		myList1.pop_back();
-		sysList1.pop_back();
-
-		REQUIRE(myList1.back() == sysList1.back());
+		own.push_front(sum);
+		real.push_front(sum);
+		sum += 11;
 	}
-
-	SECTION("check size after popback")
+	for (int i = 0; i < 5; ++i)
 	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
-
-		myList1.push_back("Epic next elem");
-		sysList1.push_back("Epic next elem");
-		myList1.push_back("Epic elem which is going to be deleted");
-		sysList1.push_back("Epic elem which is going to be deleted");
-		myList1.pop_back();
-		sysList1.pop_back();
-		REQUIRE(myList1.size() == sysList1.size());
+		own.pop_front();
+		real.pop_front();
 	}
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
 }
 
-TEST_CASE("List: Member Functions PopFront", "[List]")
+TEST_CASE("list-push_back function", "[list]")
 {
-	ft::list<std::string> myList;
-	std::list<std::string> sysList;
-
-	SECTION("check first elem after popfront")
+	ft::list<int>	own;
+	std::list<int>	real;
+	int sum = 10;
+	for (int i = 0; i < 10; ++i)
 	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
-
-		myList1.push_front("Epic next elem");
-		sysList1.push_front("Epic next elem");
-		myList1.push_front("Epic elem which is going to be deleted");
-		sysList1.push_front("Epic elem which is going to be deleted");
-		myList1.pop_front();
-		sysList1.pop_front();
-
-		REQUIRE(myList1.front() == sysList1.front());
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 11;
 	}
-
-	SECTION("check size after popfront")
-	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
-
-		myList1.push_front("Epic next elem");
-		sysList1.push_front("Epic next elem");
-		myList1.push_front("Epic elem which is going to be deleted");
-		sysList1.push_front("Epic elem which is going to be deleted");
-		myList1.pop_front();
-		sysList1.pop_front();
-		REQUIRE(myList1.size() == sysList1.size());
-	}
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
 }
 
-TEST_CASE("List: Member Functions PushBack", "[List]")
+TEST_CASE("list-pop_back function", "[list]")
 {
-	ft::list<std::string> myList;
-	std::list<std::string> sysList;
-
-	SECTION("check last elem after pushBack")
+	ft::list<int>	own;
+	std::list<int>	real;
+	int sum = 10;
+	for (int i = 0; i < 10; ++i)
 	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
-
-		myList1.push_back("Epic next elem");
-		sysList1.push_back("Epic next elem");
-		REQUIRE(myList1.back() == sysList1.back());
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 11;
 	}
 
-	SECTION("check size after pushBack")
+	for (int i = 0; i < 5; ++i)
 	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
-
-		myList1.push_back("Epic next elem");
-		sysList1.push_back("Epic next elem");
-		REQUIRE(myList1.size() == 11);
-		REQUIRE(myList1.size() == sysList1.size());
+		REQUIRE(own.back() == real.back());
+		REQUIRE(own.size() == real.size());
+		own.pop_back();
+		real.pop_back();
 	}
+
+	own.push_back(2000);
+	real.push_back(2000);
+
+	REQUIRE(own.back() == real.back());
+	REQUIRE(own.size() == real.size());
+	own.pop_back();
+	real.pop_back();
+
+	REQUIRE(own.back() == real.back());
+	REQUIRE(own.size() == real.size());
 
 }
 
-TEST_CASE("List: Member Functions PushFront", "[List]")
+TEST_CASE("list-insert single element", "[list]")
 {
-	ft::list<std::string> myList;
-	std::list<std::string> sysList;
+	ft::list<int>	own;
+	std::list<int>	real;
 
-	SECTION("check first elem after pushfront")
+	int sum = 5;
+
+	for (int i = 0; i < 10; ++i)
 	{
-		ft::list<std::string> myList(10);
-		std::list<std::string> sysList(10);
-
-		myList.push_front("Epic next elem");
-		sysList.push_front("Epic next elem");
-		REQUIRE(myList.front() == sysList.front());
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 5;
 	}
 
-	SECTION("check size after pushfront")
-	{
-		ft::list<std::string> myList1(10);
-		std::list<std::string> sysList1(10);
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
 
-		myList1.push_front("Epic next elem");
-		sysList1.push_front("Epic next elem");
-		REQUIRE(myList1.size() == 11);
-		REQUIRE(myList1.size() == sysList1.size());
+	++own_it; ++own_it;
+	++real_it; ++real_it;
+
+	own.insert(own_it, 1000);
+	real.insert(real_it, 1000);
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
 	}
+}
+
+TEST_CASE("list-insert fill", "[list]")
+{
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	int sum = 5;
+
+	for (int i = 0; i < 10; ++i)
+	{
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 5;
+	}
+
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
+
+	++own_it; ++own_it;
+	++real_it; ++real_it;
+
+	own.insert(own_it, 5, 1000);
+	real.insert(real_it, 5, 1000);
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("list-insert range", "[list]")
+{
+	ft::list<int>	own;
+	ft::list<int>	own2(4, 2000);
+	std::list<int>	real;
+	std::list<int>	real2(4, 2000);
+
+	int sum = 5;
+
+	for (int i = 0; i < 10; ++i)
+	{
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 5;
+	}
+
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
+
+	++own_it; ++own_it;
+	++real_it; ++real_it;
+
+	own.insert(own_it, own2.begin(), own2.end());
+	real.insert(real_it, real2.begin(), real2.end());
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("list-erase single element", "[list]")
+{
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	int sum = 5;
+
+	for (int i = 0; i < 10; ++i)
+	{
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 5;
+	}
+
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
+
+	++own_it; ++own_it;
+	++real_it; ++real_it;
+
+	own.erase(own_it);
+	real.erase(real_it);
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("list-erase range element", "[list]")
+{
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	int sum = 5;
+
+	for (int i = 0; i < 10; ++i)
+	{
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 5;
+	}
+
+	ft::list<int>::iterator		own_it = own.begin();
+	ft::list<int>::iterator		own_ite = own.end();
+
+	std::list<int>::iterator	real_it = real.begin();
+	std::list<int>::iterator	real_ite = real.end();
+
+	++own_it; ++own_it;
+	++real_it; ++real_it;
+
+	own.erase(own_it, own_ite);
+	real.erase(real_it, real_ite);
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("list-swap ", "[list]")
+{
+	ft::list<int>	own;
+	ft::list<int>	own2;
+	ft::list<int>	own3;
+	std::list<int>	real;
+	std::list<int>	real2;
+	std::list<int>	real3;
+	int sum = 10;
+	for (int i = 0; i < 10; ++i)
+	{
+		own.push_back(sum);
+		real.push_back(sum);
+		sum += 11;
+	}
+	own2.swap(own);
+	real2.swap(real);
+	REQUIRE(own2.size() == real2.size());
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own2.front() == real2.front());
+	REQUIRE(own2.back() == real2.back());
+
+	std::swap(own3, own2);
+	std::swap(real3, real2);
+
+	REQUIRE(own3.size() == own3.size());
+	REQUIRE(own3.empty() == own3.empty());
+	REQUIRE(own3.front() == own3.front());
+	REQUIRE(own3.back() == own3.back());
+
 
 }
 
-TEST_CASE("List: Member Functions Remove", "[List]")
+TEST_CASE("list-resize", "[list]")
 {
-	int myints[]= {17,89,7,14};
-	ft::list<int> myintlist(myints, myints+4);
-	std::list<int> sysintslist(myints, myints+4);
+	ft::list<int>	own(5, 100);
+	std::list<int>	real(5, 100);
+	REQUIRE(own.size() == real.size());
 
-	myintlist.remove(89);
-	sysintslist.remove(89);
-	REQUIRE(myintlist.size() == sysintslist.size());
-	ft::list<int>::iterator myit = myintlist.begin();
-	std::list<int>::iterator sysit = sysintslist.begin();
-	*myit++;
-	*sysit++;
-	REQUIRE(*myit == *sysit);
-	*myit++;
-	*sysit++;
-	REQUIRE(*myit == *sysit);
+	own.resize(10, 200);
+	real.resize(10, 200);
 
+	REQUIRE(own.back() == real.back());
+	REQUIRE(own.size() == real.size());
+
+	own.resize(4, 50);
+	real.resize(4, 50);
+
+	REQUIRE(own.back() == real.back());
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.front() == real.front());
 }
 
-TEST_CASE("List: Member Functions RemoveIF", "[List]")
+TEST_CASE("list-clear", "[list]")
 {
+	ft::list<int>	own(5, 100);
+	std::list<int>	real(5, 100);
+
+	for (int i = 0; i < 2; ++i)
+	{
+		REQUIRE(own.size() == real.size());
+		REQUIRE(own.empty() == real.empty());
+		REQUIRE(own.front() == real.front());
+		REQUIRE(own.back() == real.back());
+
+		own.clear();
+		real.clear();
+
+		REQUIRE(own.size() == real.size());
+		REQUIRE(own.empty() == real.empty());
+		REQUIRE(own.front() == real.front());
+		REQUIRE(own.back() == real.back());
+	}
+}
+
+/* ------------ OPERATIONS ------------ */
+
+TEST_CASE("list-splice version 1", "[list]")
+{
+	ft::list<int>	own;
+	ft::list<int>	own2;
+	std::list<int>	real;
+	std::list<int>	real2;
+
+	for (int i = 1; i < 5; ++i)
+	{
+		own.push_back(i);
+		real.push_back(i);
+	}
+	for (int i = 5; i < 7; ++i)
+	{
+		own2.push_back(i);
+		real2.push_back(i);
+	}
+
+	own.splice(own.end(), own2);
+	real.splice(real.end(), real2);
+
+
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
+
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("list-splice version 2", "[list]")
+{
+	ft::list<int>	own;
+	ft::list<int>	own2;
+	std::list<int>	real;
+	std::list<int>	real2;
+
+	for (int i = 1; i < 5; ++i)
+	{
+		own.push_back(i);
+		real.push_back(i);
+	}
+	for (int i = 5; i < 7; ++i)
+	{
+		own2.push_back(i);
+		real2.push_back(i);
+	}
+
+	ft::list<int>::iterator		own_it = own2.begin();
+	std::list<int>::iterator	real_it = real2.begin();
+
+	own.splice(own.end(), own2, own_it);
+	real.splice(real.end(), real2, real_it);
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own2.size() == real2.size());
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("list-splice version 3", "[list]")
+{
+	ft::list<int>	own;
+	ft::list<int>	own2;
+	std::list<int>	real;
+	std::list<int>	real2;
+
+	for (int i = 1; i < 5; ++i)
+	{
+		own.push_back(i);
+		real.push_back(i);
+	}
+	for (int i = 5; i < 10; ++i)
+	{
+		own2.push_back(i);
+		real2.push_back(i);
+	}
+
+	ft::list<int>::iterator		own_it = own2.begin();
+	ft::list<int>::iterator		own_ite = own2.end();
+
+	std::list<int>::iterator	real_it = real2.begin();
+	std::list<int>::iterator	real_ite = real2.end();
+
+	own.splice(own.end(), own2, own_it, own_ite);
+	real.splice(real.end(), real2, real_it, real_ite);
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own2.size() == real2.size());
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("list-remove", "[list]")
+{
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	for (int i = 1; i < 10; ++i)
+	{
+		own.push_back(i);
+		real.push_back(i);
+	}
+
+	own.remove(5);
+	real.remove(5);
+
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+
+	for (int i = 1; i < 10; ++i)
+	{
+		own.push_back(100);
+		real.push_back(100);
+	}
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	own.remove(100);
+	real.remove(100);
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+// a predicate implemented as a function:
+bool single_digit (const int& value) { return (value<10); }
 
 // a predicate implemented as a class:
-	struct is_odd {
-		bool operator() (const int& value) { return (value%2)==1; }
-	};
+struct is_odd {
+	bool operator() (const int& value) { return (value%2)==1; }
+};
 
-	int myints[]= {15,36,7,17,20,39,4,1};
-	int sysints[]= {15,36,7,17,20,39,4,1};
-	ft::list<int> mylist (myints, myints+8);
-	std::list<int> syslist (sysints,sysints+8);   // 15 36 7 17 20 39 4 1
-
-
-	mylist.remove_if (is_odd());
-	syslist.remove_if (is_odd());// 36 20 36 17 20 39
-
-	REQUIRE(mylist.size() == syslist.size());
-	ft::list<int>::iterator myit = mylist.begin();
-	std::list<int>::iterator sysit = syslist.begin();
-
-	for (int i = 0; i < (int)mylist.size(); i++, myit++, sysit++)
-	{
-		REQUIRE(*myit == *sysit);
-	}
-}
-
-TEST_CASE("List: Member Functions Resize", "[List]")
+TEST_CASE("list-remove_if", "[list]")
 {
-	SECTION("List needs to be made smaller")
+	ft::list<int> own;
+	std::list<int> real;
+
+	for (int i = 1; i < 16; ++i)
 	{
-		int myints[]= {15,36,7,17,20,39,4,1};
-		int sysints[]= {15,36,7,17,20,39,4,1};
-
-		ft::list<int> myintlist(myints, myints+8);
-		std::list<int> sysintlist(sysints, sysints+8);
-
-		myintlist.resize(5);
-		sysintlist.resize(5);
-
-		REQUIRE(myintlist.size() == sysintlist.size());
-		ft::list<int>::iterator myit = myintlist.begin();
-		std::list<int>::iterator sysit = sysintlist.begin();
-
-		for (int i = 0; i < (int)myintlist.size(); i++, myit++, sysit++)
-		{
-//			std::cout << *myit << std::endl;
-//			std::cout << *sysit << std::endl;
-			REQUIRE(*myit == *sysit);
-		}
+		own.push_back(i);
+		real.push_back(i);
 	}
 
-	SECTION ("List needs to be made bigger with given values")
+	// 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15
+	own.remove_if(single_digit);           // 10 11 12 13 14 15
+	own.remove_if(is_odd());               // 10 12 14
+	real.remove_if(single_digit);           // 10 11 12 13 14 15
+	real.remove_if(is_odd());               // 10 12 14
+
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
 	{
-		int myints[]= {15,36,7,17,20,39,4,1};
-		int sysints[]= {15,36,7,17,20,39,4,1};
-
-		ft::list<int> myintlist(myints, myints+8);
-		std::list<int> sysintlist(sysints, sysints+8);
-
-		myintlist.resize(20, 15);
-		sysintlist.resize(20,15);
-
-		REQUIRE(myintlist.size() == sysintlist.size());
-		ft::list<int>::iterator myit = myintlist.begin();
-		std::list<int>::iterator sysit = sysintlist.begin();
-
-		for (int i = 0; i < (int)myintlist.size(); i++, myit++, sysit++)
-		{
-//			std::cout << "my it " << *myit << std::endl;
-//			std::cout << "sys it " << *sysit << std::endl;
-			REQUIRE(*myit == *sysit);
-		}
-	}
-
-	SECTION("List need to be made bigger with zero values")
-	{
-		int myints[]= {15,36,7,17,20,39,4,1};
-		int sysints[]= {15,36,7,17,20,39,4,1};
-
-		ft::list<int> myintlist(myints, myints+8);
-		std::list<int> sysintlist(sysints, sysints+8);
-
-		myintlist.resize(20);
-		sysintlist.resize(20);
-
-		REQUIRE(myintlist.size() == sysintlist.size());
-		ft::list<int>::iterator myit = myintlist.begin();
-		std::list<int>::iterator sysit = sysintlist.begin();
-
-		for (int i = 0; i < (int)myintlist.size(); i++, myit++, sysit++)
-		{
-//			std::cout << "my it " << *myit << std::endl;
-//			std::cout << "sys it " << *sysit << std::endl;
-			REQUIRE(*myit == *sysit);
-		}
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
 	}
 }
 
-TEST_CASE("List: Member Functions Reverse", "[List]")
+TEST_CASE("list-unique version 1", "[list]")
 {
-	int myints[] = {1,2,3,4,5,6,7,8,9,10};
-	int sysints[] = {1,2,3,4,5,6,7,8,9,10};
-	ft::list<int> mylist(myints, myints+10);
-	std::list<int> syslist(sysints, sysints+10);
+	ft::list<int> own;
+	std::list<int> real;
 
-	mylist.reverse();
-	syslist.reverse();
-	std::cout << "Nee" << std::endl;
-	std::cout << mylist.size() << std::endl;
-	std::cout << syslist.size() << std::endl;
-	REQUIRE(mylist.size() == syslist.size());
-	ft::list<int>::iterator myit = mylist.begin();
-	std::list<int>::iterator sysit = syslist.begin();
+	int suma = 1;
+	int sumb = 1;
 
-	std::cerr << "Kom ik hier?" << std::endl;
-	for (int i = 0; i < (int)mylist.size(); i++, myit++, sysit++)
+
+	for (int i = 0; i < 10; ++i)
 	{
-		std::cerr << "myit = " << *myit << std::endl;
-		REQUIRE(*myit == *sysit);
+		own.push_back(suma);
+		own.push_back(sumb);
+		real.push_back(suma);
+		real.push_back(sumb);
+		suma += 1;
+		sumb += 1;
+	}
+	// 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 10 10
+	own.unique();
+	real.unique();
+	// 1 2 3 4 5 6 7 8 9 10
+	ft::list<int>::iterator		own_it = own.begin();
+	std::list<int>::iterator	real_it = real.begin();
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+
+	own.push_back(10); own.push_back(10); own.push_back(10);
+	real.push_back(10); real.push_back(10); real.push_back(10);
+	// 1 2 3 4 5 6 7 8 9 10 10 10 10
+
+	own.unique();
+	real.unique();
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	// 1 2 3 4 5 6 7 8 9 10
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+
+	own.clear();
+	real.clear();
+
+	own.push_back(1);
+	own.push_back(1);
+	real.push_back(1);
+	real.push_back(1);
+
+	own.unique();
+	real.unique();
+
+	own_it = own.begin();
+	real_it = real.begin();
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+
+	own.clear();
+	real.clear();
+
+	own.push_back(1);
+	real.push_back(1);
+
+	own.unique();
+	real.unique();
+
+	own_it = own.begin();
+	real_it = real.begin();
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+	own.clear();
+	real.clear();
+
+	own.unique();
+	real.unique();
+
+	own_it = own.begin();
+	real_it = real.begin();
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
 	}
 }
 
+// a binary predicate implemented as a function:
+bool same_integral_part (double first, double second)
+{ return ( int(first) == int(second) ); }
+
+// a binary predicate implemented as a class:
+struct is_near
+{
+	bool operator() (double first, double second)
+	{
+		return (fabs(first-second)<5.0);
+	}
+};
+
+TEST_CASE("list-unique version 2", "[list]")
+{
+	ft::list<double>	own;
+	std::list<double>	real;
+
+	own.push_back(12.15); real.push_back(12.15);
+	own.push_back(2.72); real.push_back(2.72);
+	own.push_back(73.0); real.push_back(73.0);
+	own.push_back(12.77); real.push_back(12.77);
+	own.push_back(3.14); real.push_back(3.14);
+	own.push_back(12.77); real.push_back(12.77);
+	own.push_back(73.35); real.push_back(73.35);
+	own.push_back(72.25); real.push_back(72.25);
+	own.push_back(15.3); real.push_back(15.3);
+	own.push_back(72.25); real.push_back(72.25);
+
+	own.sort();
+	real.sort();
+
+	own.unique();
+	real.unique();
+
+	own.unique(same_integral_part);
+	real.unique(same_integral_part);
+
+	ft::list<double>::iterator		own_it = own.begin();
+	std::list<double>::iterator		real_it = real.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+
+	own.unique(is_near());
+	real.unique(is_near());
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	while (real_it != real.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	own_it = own.begin();
+	real_it = real.begin();
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+
+}
+
+TEST_CASE("list-merge version 1", "[list]")
+{
+	ft::list<double>	own1;
+	ft::list<double>	own2;
+	std::list<double>	real1;
+	std::list<double>	real2;
+
+	own1.push_back (3.1);
+	own1.push_back (2.2);
+	own1.push_back (2.9);
+	own2.push_back (3.7);
+	own2.push_back (7.1);
+	own2.push_back (1.4);
+
+	real1.push_back (3.1);
+	real1.push_back (2.2);
+	real1.push_back (2.9);
+	real2.push_back (3.7);
+	real2.push_back (7.1);
+	real2.push_back (1.4);
+
+	own1.sort();
+	own2.sort();
+	real1.sort();
+	real2.sort();
+
+	own1.merge(own2);
+	real1.merge(real2);
+
+	ft::list<double>::iterator		own_it = own1.begin();
+	std::list<double>::iterator		real_it = real1.begin();
+
+	REQUIRE(own2.size() == real2.size());
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own1.size() == real1.size());
+	REQUIRE(own1.empty() == real1.empty());
+	REQUIRE(own1.front() == real1.front());
+	REQUIRE(own1.back() == real1.back());
+
+	while (own_it != own1.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+// compare only integral part:
+bool mycomparison (double first, double second)
+{ return ( int(first)<int(second) ); }
+
+TEST_CASE("list-merge version 2", "[list]")
+{
+	ft::list<double>	own1;
+	ft::list<double>	own2;
+	std::list<double>	real1;
+	std::list<double>	real2;
+
+	own1.push_back (3.1);
+	own1.push_back (2.2);
+	own1.push_back (2.9);
+	own2.push_back (3.7);
+	own2.push_back (7.1);
+	own2.push_back (1.4);
+
+	real1.push_back (3.1);
+	real1.push_back (2.2);
+	real1.push_back (2.9);
+	real2.push_back (3.7);
+	real2.push_back (7.1);
+	real2.push_back (1.4);
+
+	own1.sort();
+	own2.sort();
+	real1.sort();
+	real2.sort();
+
+	own1.merge(own2, mycomparison);
+	real1.merge(real2, mycomparison);
+
+	ft::list<double>::iterator		own_it = own1.begin();
+	std::list<double>::iterator		real_it = real1.begin();
+
+	REQUIRE(own2.size() == real2.size());
+	REQUIRE(own2.empty() == real2.empty());
+	REQUIRE(own1.size() == real1.size());
+	REQUIRE(own1.empty() == real1.empty());
+	REQUIRE(own1.front() == real1.front());
+	REQUIRE(own1.back() == real1.back());
+
+	while (own_it != own1.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+TEST_CASE("list-sort version 1", "[list]")
+{
+	ft::list<std::string>	own;
+	std::list<std::string>	real;
+
+	real.push_back ("one");
+	real.push_back ("two");
+	real.push_back ("Three");
+
+	own.push_back ("one");
+	own.push_back ("two");
+	own.push_back ("Three");
+
+	real.sort();
+	own.sort();
+
+	std::list<std::string>::iterator	real_it = real.begin();
+	ft::list<std::string>::iterator		own_it = own.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
+	{
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
+	}
+}
+
+// comparison, not case sensitive.
 bool compare_nocase (const std::string& first, const std::string& second)
 {
 	unsigned int i=0;
@@ -1144,250 +1350,166 @@ bool compare_nocase (const std::string& first, const std::string& second)
 	return ( first.length() < second.length() );
 }
 
-TEST_CASE("List: Member Functions sort", "[List]")
+TEST_CASE("list-sort version 2", "[list]")
 {
+	ft::list<std::string>	own;
+	std::list<std::string>	real;
 
-	SECTION("Non templated sort function")
+	real.push_back ("one");
+	real.push_back ("two");
+	real.push_back ("Three");
+
+	own.push_back ("one");
+	own.push_back ("two");
+	own.push_back ("Three");
+
+	real.sort(compare_nocase);
+	own.sort(compare_nocase);
+
+	std::list<std::string>::iterator	real_it = real.begin();
+	ft::list<std::string>::iterator		own_it = own.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
 	{
-		int myints[] = {1,2,3,4,5,6,7,8,9,10};
-		int sysints[] = {1,2,3,4,5,6,7,8,9,10};
-		ft::list<int> mylist(myints, myints+10);
-		std::list<int> syslist(sysints, sysints+10);
-		mylist.sort();
-		syslist.sort();
-		REQUIRE(mylist.size() == syslist.size());
-		ft::list<int>::iterator myit = mylist.begin();
-		std::list<int>::iterator sysit = syslist.begin();
-
-		for (int i = 0; i < (int)mylist.size(); i++, myit++, sysit++)
-		{
-//			std::cout << "my it " << *myit << std::endl;
-//			std::cout << "sys it " << *sysit << std::endl;
-			REQUIRE(*myit == *sysit);
-//			std::cout<< "[" << *myit << "]" << " VS " << "[" << *sysit << "]" << std::endl;
-		}
-
-	}
-	SECTION("Templated sort function")
-	{
-
-		ft::list<std::string> mylist;
-		std::list<std::string> syslist;
-		mylist.push_back ("one");
-		mylist.push_back ("two");
-		mylist.push_back ("Three");
-		mylist.push_back ("Four");
-		mylist.push_back ("Six");
-		mylist.push_back ("ten");
-
-		syslist.push_back ("one");
-		syslist.push_back ("two");
-		syslist.push_back ("Three");
-		syslist.push_back ("Four");
-		syslist.push_back ("Six");
-		syslist.push_back ("ten");
-
-		syslist.sort(compare_nocase);
-		mylist.sort(compare_nocase);
-		ft::list<std::string>::iterator myit = mylist.begin();
-		std::list<std::string>::iterator sysit = syslist.begin();
-		for (int i = 0; i < (int)mylist.size(); i++, myit++, sysit++)
-		{
-//			std::cout << "my it " << *myit << std::endl;
-//			std::cout << "sys it " << *sysit << std::endl;
-			REQUIRE(*myit == *sysit);
-//			std::cout<< "[" << *myit << "]" << " VS " << "[" << *sysit << "]" << std::endl;
-		}
-
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
 	}
 }
 
-TEST_CASE("List: Member Functions Splice", "[List]")
+TEST_CASE("list-reverse", "[list]")
 {
-	SECTION("Full list transfer")
+	ft::list<int>	own;
+	std::list<int>	real;
+
+	for (int i = 0; i < 10; ++i) own.push_back(i);
+	for (int i = 0; i < 10; ++i) real.push_back(i);
+
+	own.reverse();
+	real.reverse();
+
+	std::list<int>::iterator	real_it = real.begin();
+	ft::list<int>::iterator		own_it = own.begin();
+
+	REQUIRE(own.size() == real.size());
+	REQUIRE(own.empty() == real.empty());
+	REQUIRE(own.front() == real.front());
+	REQUIRE(own.back() == real.back());
+
+	while (own_it != own.end())
 	{
-		int myints[] = {1,2,3,4,5,6,7,8,9,10};
-		int insertints[] = {11,12,13,14,15,16,17,18,19,20};
-
-
-		ft::list<int> insertlist(insertints, insertints+10);
-		std::list<int> sysinsertlist(insertints, insertints+10);
-
-
-		ft::list<int> mylist(myints, myints+10);
-		std::list<int> syslist(myints, myints+10);
-
-		ft::list<int>::iterator myit = mylist.end();
-		std::list<int>::iterator sysit = syslist.end();
-		*myit--;
-		*myit--;
-		*sysit--;
-		*sysit--;
-		mylist.splice(myit, insertlist);
-		syslist.splice(sysit, sysinsertlist);
-
-		ft::list<int>::iterator myit2 = mylist.begin();
-		std::list<int>::iterator sysit2 = syslist.begin();
-
-		for (int i = 0; i < (int)mylist.size(); i++, myit2++, sysit2++)
-		{
-
-			REQUIRE(*myit2 == *sysit2);
-		}
-		REQUIRE(insertlist.size() == sysinsertlist.size());
-	}
-
-	SECTION("Range of list transfer")
-	{
-
-		// ft part of construction
-		int startlist[5] = {1,2,3,4,5};
-		ft::list<int> mylist(startlist, startlist+5);
-
-		int insertionnumbers[5] = {100, 101, 102, 103, 104};
-		ft::list<int> insertionlist(insertionnumbers, insertionnumbers+5);
-
-		ft::list<int>::iterator position = mylist.end();
-		ft::list<int>::iterator start = insertionlist.begin();
-		ft::list<int>::iterator end = insertionlist.end();
-		end--;
-		end--;
-		// end of ft part of construction
-		// std::part of construction
-//		int sysstartlist[5] = {1,2,3,4,5};
-		std::list<int> syslist(startlist, startlist+5);
-
-		int sysinsertionnumbers[5] = {100, 101, 102, 103, 104};
-		std::list<int> sysinsertionlist(sysinsertionnumbers, sysinsertionnumbers+5);
-
-		std::list<int>::iterator sysposition = syslist.end();
-		std::list<int>::iterator sysstart = sysinsertionlist.begin();
-		std::list<int>::iterator sysend = sysinsertionlist.end();
-		sysend--;
-		sysend--;
-		// end of std:: part of construction
-
-		mylist.splice(position, insertionlist, start, end);
-		syslist.splice(sysposition, sysinsertionlist, sysstart, sysend);
-
-		ft::list<int>::iterator myit2 = mylist.begin();
-		std::list<int>::iterator sysit2 = syslist.begin();
-		for (int i = 0; i < (int)mylist.size(); i++, myit2++, sysit2++)
-		{
-			REQUIRE(*myit2 == *sysit2);
-		}
-		REQUIRE(insertionlist.size() == sysinsertionlist.size());
+		REQUIRE(*own_it == *real_it);
+		++own_it;
+		++real_it;
 	}
 }
 
-TEST_CASE("List: Member Functions Swap", "[List]")
+/* ------------ OBSERVERS ------------ */
+
+TEST_CASE("list-get_allocator", "[list]")
 {
-	SECTION("Same length")
-	{
-		int startlist[5] = {1,2,3,4,5};
-		ft::list<int> mystartlist(startlist, startlist+5);
-		int secondlist[5] = {10,11,12,13,14};
-		ft::list<int> mysecondlist(secondlist, secondlist+5);
+	ft::list<int>		own;
+	std::list<int>		real;
 
-		int sysstart[5] = {1,2,3,4,5};
-		std::list<int> sysstartlist(sysstart, sysstart+5);
-		int syssecond[5] = {10,11,12,13,14};
-		std::list<int> syssecondlist(syssecond, syssecond+5);
+	int *p_own;
+	int *p_real;
+	bool own_return = false;
+	bool real_return = false;
+	unsigned int i_own;
+	unsigned int i_real;
 
-		mystartlist.swap(mysecondlist);
-		sysstartlist.swap(syssecondlist);
+	// allocate an array with space for 5 elements using list's allocator:
+	p_own = own.get_allocator().allocate(5);
+	p_real = real.get_allocator().allocate(5);
 
-		ft::list<int>::iterator myit2 = mystartlist.begin();
-		std::list<int>::iterator sysit2 = sysstartlist.begin();
-		for (int i = 0; i < (int)mystartlist.size(); i++, myit2++, sysit2++)
-		{
-			REQUIRE(*myit2 == *sysit2);
-		}
-		REQUIRE(mystartlist.size() == sysstartlist.size());
-		REQUIRE(mysecondlist.size() == syssecondlist.size());
-	}
+	if (!p_own)
+		own_return = false;
+	else
+		own_return = true;
+
+	if (!p_real)
+		real_return = false;
+	else
+		real_return = true;
+
+	REQUIRE(own_return == real_return);
+
+	// construct values in-place on the array:
+	for (i_own = 0; i_own < 5; i_own++) own.get_allocator().construct(&p_own[i_own],i_own);
+	for (i_real = 0; i_real < 5; i_real++) real.get_allocator().construct(&p_real[i_real],i_real);
+
+	REQUIRE(p_own[0] == p_real[0]);
+	REQUIRE(p_own[1] == p_real[1]);
+	REQUIRE(p_own[2] == p_real[2]);
+	REQUIRE(p_own[3] == p_real[3]);
+
+	// destroy and deallocate:
+	for (i_own = 0; i_own < 3; i_own++) own.get_allocator().destroy(&p_own[i_own]);
+	for (i_real = 0; i_real < 3; i_real++) own.get_allocator().destroy(&p_own[i_real]);
+
+	REQUIRE(p_own[0] == p_real[0]);
+	REQUIRE(p_own[1] == p_real[1]);
+
+	own.get_allocator().deallocate(p_own,5);
+	real.get_allocator().deallocate(p_real,5);
+
+	if (!p_own)
+		own_return = false;
+	else
+		own_return = true;
+
+	if (!p_real)
+		real_return = false;
+	else
+		real_return = true;
+
+	REQUIRE(own_return == real_return);
 }
 
-struct is_near {
-	bool operator() (double first, double second)
-	{ return (fabs(first-second)<5.0); }
-};
+/* ------------ RELATIONAL OPERATORS ------------ */
 
-TEST_CASE("List: Member Functions Unique", "[List]")
+TEST_CASE("list-operation overloaders", "[list]")
 {
-	SECTION("Unique without binary predicate")
-	{
-		int startlist[5] = {1,2,3,3,3};
-		ft::list<int> mystartlist(startlist, startlist+5);
+	ft::list<int> 	own(4, 200);
+	ft::list<int> 	own2(4, 100);
+	ft::list<int> 	own3(4, 200);
+	std::list<int>	real(4, 200);
+	std::list<int>	real2(4, 100);
+	std::list<int>	real3(4, 200);
 
-		int sysstart[5] = {1,2,3,3,3};
-		std::list<int> sysstartlist(sysstart, sysstart+5);
 
-		mystartlist.unique();
-		sysstartlist.unique();
+	REQUIRE((own == own3) == true);
+	REQUIRE((own == own2) == false);
+	REQUIRE((real == real3) == true);
+	REQUIRE((real == real2) == false);
 
-		ft::list<int>::iterator myit2 = mystartlist.begin();
-		std::list<int>::iterator sysit2 = sysstartlist.begin();
-		for (int i = 0; i < (int)mystartlist.size(); i++, myit2++, sysit2++)
-		{
-			REQUIRE(*myit2 == *sysit2);
-		}
-		REQUIRE(mystartlist.size() == sysstartlist.size());
-	}
+	REQUIRE((own != own3) == false);
+	REQUIRE((own != own2) == true);
+	REQUIRE((real != real3) == false);
+	REQUIRE((real != real2) == true);
 
-	SECTION("Unique with binary predicate")
-	{
-		double mydoubles[]={ 12.15,  2.72, 73.0,  12.77,  3.14,
-							 12.77, 73.35, 72.25, 15.3,  72.25 };
-		double sysdoubles[]={ 12.15,  2.72, 73.0,  12.77,  3.14,
-							 12.77, 73.35, 72.25, 15.3,  72.25 };
+	REQUIRE((own < own2) == false);
+	REQUIRE((own2 < own3) == true);
+	REQUIRE((real < real2) == false);
+	REQUIRE((real2 < real3) == true);
 
-		ft::list<double> mylist (mydoubles,mydoubles+10);
-		std::list<double> syslist(sysdoubles, sysdoubles+10);
-		mylist.sort();             //  2.72,  3.14, 12.15, 12.77, 12.77,
-		syslist.sort();
-		mylist.unique (is_near());           //  2.72, 12.15, 72.25
-		syslist.unique(is_near());
-		ft::list<double>::iterator myit2 = mylist.begin();
-		std::list<double>::iterator sysit2 = syslist.begin();
-		for (int i = 0; i < (int)mylist.size(); i++, myit2++, sysit2++)
-		{
-			REQUIRE(*myit2 == *sysit2);
-			std::cout << "my it " << *myit2 << std::endl;
-			std::cout << "sys it " << *sysit2 << std::endl;
-		}
-		REQUIRE(mylist.size() == syslist.size());
-	}
+	REQUIRE((own < own3) == false);
+	REQUIRE((own <= own3) == true);
+	REQUIRE((real < real3) == false);
+	REQUIRE((real <= real3) == true);
+
+	REQUIRE((own > own2) == true);
+	REQUIRE((own2 > own3) == false);
+	REQUIRE((real > real2) == true);
+	REQUIRE((real2 > real3) == false);
+
+	REQUIRE((own > own3) == false);
+	REQUIRE((own >= own3) == true);
+	REQUIRE((real > real3) == false);
+	REQUIRE((real >= real3) == true);
 }
-
-TEST_CASE("List: overlaods ", "[List]")
-{
-	ft::list<int> a;
-	a.push_back(10);
-	a.push_back(20);
-	a.push_back(30);
-	ft::list<int> b;
-	b.push_back(10);
-	b.push_back(20);
-	b.push_back(30);
-	ft::list<int> c;
-	c.push_back(30);
-	c.push_back(20);
-	c.push_back(10);
-
-	REQUIRE((a == b) == true);
-	REQUIRE((b != c) == true);
-	REQUIRE((b < c) == true);
-	REQUIRE((c > b) == true);
-	REQUIRE((a <= b) == true);
-	REQUIRE((a >= b) == true);
-
-	REQUIRE((a <= b) == true);
-	REQUIRE((a > b) == false);
-	REQUIRE((a < b) == false);
-	REQUIRE((a != b) == false);
-	REQUIRE((b > c) == false);
-	REQUIRE((b == c) == false);
-	REQUIRE((b != c) == true);
-}
-

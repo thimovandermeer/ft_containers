@@ -36,6 +36,19 @@ namespace ft {
 		static const bool result = (sizeof(true_type) == sizeof(test<T>(0)));
 	};
 
+	template <class Iterator, bool>
+	struct _iterator_traits {};
+
+	template < class Iterator>
+	struct _iterator_traits<Iterator, true>
+	{
+		typedef typename Iterator::difference_type		difference_type;
+		typedef typename Iterator::value_type			value_type;
+		typedef typename Iterator::pointer				pointer;
+		typedef typename Iterator::reference			reference;
+		typedef typename Iterator::iterator_category	iterator_category;
+	};
+
 	template <typename T>
 	struct iterator_traits : public enable_if<is_iterator<T>::result, T>
 	{
@@ -55,19 +68,17 @@ namespace ft {
 		typedef T&							reference;
 		typedef random_access_iterator_tag	iterator_category;
 
-		typedef random_access_iterator_tag	type;
 	};
 
 	template <typename T>
 	struct iterator_traits<const T*>
 	{
 		typedef ptrdiff_t					difference_type;
-		typedef T							value_type;
-		typedef T*							pointer;
-		typedef T&							reference;
+		typedef const T						value_type;
+		typedef const T*					pointer;
+		typedef const T&					reference;
 		typedef random_access_iterator_tag	iterator_category;
 
-		typedef random_access_iterator_tag	type;
 	};
 }
 #endif //MY_FT_CONTAINERS_TYPETRAITS_HPP

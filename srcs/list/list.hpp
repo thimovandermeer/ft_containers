@@ -63,10 +63,10 @@ namespace ft {
 			assign(n, val);
 		}
 
-		template<class inputIterator>
-		list(inputIterator first, inputIterator last,
+		template<class InputIterator>
+		list(InputIterator first, InputIterator last,
 	   	const allocator_type &alloc = allocator_type(),
-	   	typename iterator_traits<inputIterator>::iterator_category* = NULL)
+	   	typename iterator_traits<InputIterator>::iterator_category* = NULL)
 		{
 			_head = new listNode<value_type>;
 			_tail = new listNode<value_type>;
@@ -91,6 +91,7 @@ namespace ft {
 		~list()
 		{
 			this->clear();
+
 		}
 
 		// Assignment operators
@@ -135,42 +136,41 @@ namespace ft {
 
 		reverse_iterator rbegin()
 		{
-			return reverse_iterator (_head->_next);
+			return reverse_iterator (this->_tail->_prev);
 		}
 
 		const_reverse_iterator rbegin() const
 		{
-			return const_reverse_iterator (_head->_next);
+			return const_reverse_iterator (this->_tail->_prev);
 		}
 
 		reverse_iterator rend()
 		{
-			return reverse_iterator (_tail);
+			return reverse_iterator (this->_head);
 		}
 
 		const_reverse_iterator rend() const
 		{
-			return const_reverse_iterator (_tail);
+			return const_reverse_iterator (this->_head);
 		}
 
-//		// Member Functions
-		template<class InputIterator>
-		void assign(InputIterator start, InputIterator finish,
-			  typename iterator_traits<InputIterator>::iterator_category* = NULL)
+		void	assign(size_type n, const value_type& val)
 		{
-			clear();
-			while (start != finish) {
-				push_back(*start);
-				start++;
-			}
-		}
-
-		void assign(size_type n, const value_type &val)
-		{
-			clear();
-			while (n) {
+			this->clear();
+			for (size_type i = 0; i < n; i++)
 				push_back(val);
-				n--;
+		}
+
+
+		template <class InputIterator>
+		void	assign(InputIterator first, InputIterator last,
+					   typename iterator_traits<InputIterator>::type* = NULL)
+		{
+			this->clear();
+			while (first != last)
+			{
+				push_back(*first);
+				++first;
 			}
 		}
 
@@ -186,9 +186,9 @@ namespace ft {
 
 		void clear()
 		{
-			while (_size) {
+			while(!this->empty())
 				pop_back();
-			}
+			return;
 		}
 
 		bool empty() const
@@ -306,15 +306,14 @@ namespace ft {
 
 		void pop_back()
 		{
-			if (_size) {
-				listNode<value_type> *tmp;
-				tmp = _tail->_prev;
-				tmp->_next = NULL;
-				_tail->_next = NULL;
-				_tail->_prev = NULL;
-				delete _tail;
-				_tail = tmp;
-				_size--;
+			if (this->_size)
+			{
+				node_pointer back_node = this->_tail->_prev;
+
+				this->_tail->_prev->_prev->_next = this->_tail;
+				this->_tail->_prev = this->_tail->_prev->_prev;
+				this->_size -= 1;
+				delete back_node;
 			}
 		}
 
@@ -393,17 +392,20 @@ namespace ft {
 
 		void reverse()
 		{
-			listNode<value_type> *current = _head;
-			listNode<value_type> *prev = NULL;
-			listNode<value_type> *next = NULL;
+			node_pointer 	tmp;
+			node_pointer 	pos = this->_head;
 
-			while (current != NULL) {
-				next = current->_next;
-				current->_next = prev;
-				prev = current;
-				current = next;
+			while (pos != NULL)
+			{
+				tmp = pos->_next;
+				pos->_next = pos->_prev;
+				pos->_prev = tmp;
+
+				pos = tmp;
 			}
-			_head = prev;
+			tmp = this->_head;
+			this->_head = this->_tail;
+			this->_tail = tmp;
 		}
 
 		void sort()
@@ -480,17 +482,15 @@ namespace ft {
 
 		void unique()
 		{
-			iterator tmp = this->begin();
-			iterator prev;
-			tmp++;
-			while (tmp != this->end()) {
-				if (*tmp == tmp.getPtr()->_prev->_data) {
-					prev = tmp;
-					tmp++;
-					erase(prev);
-				}
+			if (this->size() <= 1)
+				return;
+			iterator it = this->begin();
+			while (it != this->end())
+			{
+				if (*it == it.getPtr()->_prev->_data)
+					it = erase(it);
 				else
-					tmp++;
+					++it;
 			}
 		}
 

@@ -136,12 +136,12 @@ namespace ft {
 
 		reverse_iterator rbegin()
 		{
-			return reverse_iterator (end() - 1);
+			return reverse_iterator (end());
 		}
 
 		const_reverse_iterator rbegin() const
 		{
-			return const_reverse_iterator(end() - 1);
+			return const_reverse_iterator(end());
 		}
 
 		reverse_iterator rend()
@@ -329,23 +329,16 @@ namespace ft {
 				void insert (iterator position, InputIterator first, InputIterator last,
 				 			typename iterator_traits<InputIterator>::type* = 0)
 		{
-			difference_type pos = distance(begin(), position);
-			difference_type n = distance(first, last);
-
-			if (n == 0)
-				return;
-			if (size() + n > _space)
+			vector tmp(position, this->end());
+			while(position != this->end())
+				this->pop_back();
+			while (first != last)
 			{
-				reserve(_space / 2 > (unsigned long)n ? _space + _space / 2 + 1 : _space + n);
+				this->push_back(*first);
+				++first;
 			}
-			for (difference_type i = _size + n - 1; i >= pos + n; i--)
-			{
-				_alloc.construct(&_elements[i], _elements[i - n]);
-				_alloc.destroy(&_elements[i - n]);
-			}
-			for (difference_type i = 0; i < n; i++)
-				_alloc.construct(&_elements[pos + i], *first);
-			_size += n;
+			for (InputIterator it = tmp.begin(); it != tmp.end(); ++it)
+				this->push_back(*it);
 		}
 
 		iterator erase (iterator position)
