@@ -2,7 +2,7 @@
 // Created by Thimo Van der meer on 20/05/2021.
 //
 
-#include "Catch2.h"
+#include "catch.hpp"
 #include "../srcs/stack/stack.hpp"
 #include <iostream>
 #include <deque>

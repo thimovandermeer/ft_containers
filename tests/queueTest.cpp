@@ -2,7 +2,7 @@
 // Created by Thimo Van der meer on 25/05/2021.
 //
 
-#include "Catch2.h"
+#include "catch.hpp"
 #include "../srcs/queue/queue.hpp"
 #include <iostream>
 #include <deque>

@@ -6,21 +6,31 @@
 
 #IncludeRegexTransform: 
 
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/RandomAccessIterator.hpp
+../srcs/list/listNode.hpp
+
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/BidirectionalIterator.hpp
+iterator
+-
+cstddef
+-
+listNode.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/listNode.hpp
 ../utils/typeTraits.hpp
 /Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/utils/typeTraits.hpp
 
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/ReverseIterator.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/MapNode.hpp
+clocale
+-
 
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/utils/typeTraits.hpp
-
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/vector/vector.hpp
-../iterators/RandomAccessIterator.hpp
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/RandomAccessIterator.hpp
-../iterators/ReverseIterator.hpp
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/ReverseIterator.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/map.hpp
+../iterators/BidirectionalIterator.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/iterators/BidirectionalIterator.hpp
+MapNode.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/MapNode.hpp
 iostream
 -
+
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/utils/typeTraits.hpp
 
 /Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/Catch2.h
 TargetConditionals.h
@@ -604,13 +614,15 @@ algorithm
 cassert
 -
 
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/vectorTest.cpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/redblacktreeTest.cpp
 Catch2.h
 /Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests/Catch2.h
-vector
+map
 -
-../srcs/vector/vector.hpp
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/vector/vector.hpp
+../srcs/map/map.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/map.hpp
+../srcs/map/MapNode.hpp
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/map/MapNode.hpp
 iostream
 -
 

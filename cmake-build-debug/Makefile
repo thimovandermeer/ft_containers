@@ -131,44 +131,84 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named my_ft_containers
+# Target rules for targets named catch
 
 # Build rule for target.
-my_ft_containers: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 my_ft_containers
-.PHONY : my_ft_containers
+catch: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 catch
+.PHONY : catch
 
 # fast build rule for target.
-my_ft_containers/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/build
-.PHONY : my_ft_containers/fast
+catch/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/build
+.PHONY : catch/fast
 
-srcs/map/main.o: srcs/map/main.cpp.o
+#=============================================================================
+# Target rules for targets named tests
 
-.PHONY : srcs/map/main.o
+# Build rule for target.
+tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tests
+.PHONY : tests
+
+# fast build rule for target.
+tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
+.PHONY : tests/fast
+
+tests/catch.o: tests/catch.cpp.o
+
+.PHONY : tests/catch.o
 
 # target to build an object file
-srcs/map/main.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/srcs/map/main.cpp.o
-.PHONY : srcs/map/main.cpp.o
+tests/catch.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/catch.cpp.o
+.PHONY : tests/catch.cpp.o
 
-srcs/map/main.i: srcs/map/main.cpp.i
+tests/catch.i: tests/catch.cpp.i
 
-.PHONY : srcs/map/main.i
+.PHONY : tests/catch.i
 
 # target to preprocess a source file
-srcs/map/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/srcs/map/main.cpp.i
-.PHONY : srcs/map/main.cpp.i
+tests/catch.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/catch.cpp.i
+.PHONY : tests/catch.cpp.i
 
-srcs/map/main.s: srcs/map/main.cpp.s
+tests/catch.s: tests/catch.cpp.s
 
-.PHONY : srcs/map/main.s
+.PHONY : tests/catch.s
 
 # target to generate assembly for a file
-srcs/map/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/srcs/map/main.cpp.s
-.PHONY : srcs/map/main.cpp.s
+tests/catch.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/catch.cpp.s
+.PHONY : tests/catch.cpp.s
+
+tests/catchMain.o: tests/catchMain.cpp.o
+
+.PHONY : tests/catchMain.o
+
+# target to build an object file
+tests/catchMain.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/catchMain.cpp.o
+.PHONY : tests/catchMain.cpp.o
+
+tests/catchMain.i: tests/catchMain.cpp.i
+
+.PHONY : tests/catchMain.i
+
+# target to preprocess a source file
+tests/catchMain.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/catchMain.cpp.i
+.PHONY : tests/catchMain.cpp.i
+
+tests/catchMain.s: tests/catchMain.cpp.s
+
+.PHONY : tests/catchMain.s
+
+# target to generate assembly for a file
+tests/catchMain.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/catchMain.cpp.s
+.PHONY : tests/catchMain.cpp.s
 
 tests/listTest.o: tests/listTest.cpp.o
 
@@ -176,7 +216,7 @@ tests/listTest.o: tests/listTest.cpp.o
 
 # target to build an object file
 tests/listTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/listTest.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/listTest.cpp.o
 .PHONY : tests/listTest.cpp.o
 
 tests/listTest.i: tests/listTest.cpp.i
@@ -185,7 +225,7 @@ tests/listTest.i: tests/listTest.cpp.i
 
 # target to preprocess a source file
 tests/listTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/listTest.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/listTest.cpp.i
 .PHONY : tests/listTest.cpp.i
 
 tests/listTest.s: tests/listTest.cpp.s
@@ -194,7 +234,7 @@ tests/listTest.s: tests/listTest.cpp.s
 
 # target to generate assembly for a file
 tests/listTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/listTest.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/listTest.cpp.s
 .PHONY : tests/listTest.cpp.s
 
 tests/mapTest.o: tests/mapTest.cpp.o
@@ -203,7 +243,7 @@ tests/mapTest.o: tests/mapTest.cpp.o
 
 # target to build an object file
 tests/mapTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/mapTest.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/mapTest.cpp.o
 .PHONY : tests/mapTest.cpp.o
 
 tests/mapTest.i: tests/mapTest.cpp.i
@@ -212,7 +252,7 @@ tests/mapTest.i: tests/mapTest.cpp.i
 
 # target to preprocess a source file
 tests/mapTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/mapTest.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/mapTest.cpp.i
 .PHONY : tests/mapTest.cpp.i
 
 tests/mapTest.s: tests/mapTest.cpp.s
@@ -221,7 +261,7 @@ tests/mapTest.s: tests/mapTest.cpp.s
 
 # target to generate assembly for a file
 tests/mapTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/mapTest.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/mapTest.cpp.s
 .PHONY : tests/mapTest.cpp.s
 
 tests/queueTest.o: tests/queueTest.cpp.o
@@ -230,7 +270,7 @@ tests/queueTest.o: tests/queueTest.cpp.o
 
 # target to build an object file
 tests/queueTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/queueTest.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/queueTest.cpp.o
 .PHONY : tests/queueTest.cpp.o
 
 tests/queueTest.i: tests/queueTest.cpp.i
@@ -239,7 +279,7 @@ tests/queueTest.i: tests/queueTest.cpp.i
 
 # target to preprocess a source file
 tests/queueTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/queueTest.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/queueTest.cpp.i
 .PHONY : tests/queueTest.cpp.i
 
 tests/queueTest.s: tests/queueTest.cpp.s
@@ -248,7 +288,7 @@ tests/queueTest.s: tests/queueTest.cpp.s
 
 # target to generate assembly for a file
 tests/queueTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/queueTest.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/queueTest.cpp.s
 .PHONY : tests/queueTest.cpp.s
 
 tests/stackTest.o: tests/stackTest.cpp.o
@@ -257,7 +297,7 @@ tests/stackTest.o: tests/stackTest.cpp.o
 
 # target to build an object file
 tests/stackTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/stackTest.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/stackTest.cpp.o
 .PHONY : tests/stackTest.cpp.o
 
 tests/stackTest.i: tests/stackTest.cpp.i
@@ -266,7 +306,7 @@ tests/stackTest.i: tests/stackTest.cpp.i
 
 # target to preprocess a source file
 tests/stackTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/stackTest.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/stackTest.cpp.i
 .PHONY : tests/stackTest.cpp.i
 
 tests/stackTest.s: tests/stackTest.cpp.s
@@ -275,7 +315,7 @@ tests/stackTest.s: tests/stackTest.cpp.s
 
 # target to generate assembly for a file
 tests/stackTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/stackTest.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/stackTest.cpp.s
 .PHONY : tests/stackTest.cpp.s
 
 tests/vectorTest.o: tests/vectorTest.cpp.o
@@ -284,7 +324,7 @@ tests/vectorTest.o: tests/vectorTest.cpp.o
 
 # target to build an object file
 tests/vectorTest.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/vectorTest.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/vectorTest.cpp.o
 .PHONY : tests/vectorTest.cpp.o
 
 tests/vectorTest.i: tests/vectorTest.cpp.i
@@ -293,7 +333,7 @@ tests/vectorTest.i: tests/vectorTest.cpp.i
 
 # target to preprocess a source file
 tests/vectorTest.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/vectorTest.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/vectorTest.cpp.i
 .PHONY : tests/vectorTest.cpp.i
 
 tests/vectorTest.s: tests/vectorTest.cpp.s
@@ -302,7 +342,7 @@ tests/vectorTest.s: tests/vectorTest.cpp.s
 
 # target to generate assembly for a file
 tests/vectorTest.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/tests/vectorTest.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/tests/vectorTest.cpp.s
 .PHONY : tests/vectorTest.cpp.s
 
 # Help Target
@@ -313,10 +353,14 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... my_ft_containers"
-	@echo "... srcs/map/main.o"
-	@echo "... srcs/map/main.i"
-	@echo "... srcs/map/main.s"
+	@echo "... catch"
+	@echo "... tests"
+	@echo "... tests/catch.o"
+	@echo "... tests/catch.i"
+	@echo "... tests/catch.s"
+	@echo "... tests/catchMain.o"
+	@echo "... tests/catchMain.i"
+	@echo "... tests/catchMain.s"
 	@echo "... tests/listTest.o"
 	@echo "... tests/listTest.i"
 	@echo "... tests/listTest.s"

@@ -6,177 +6,94 @@
 #define MY_FT_CONTAINERS_MAPNODE_HPP
 
 #include <clocale>
+#include "../iterators/BidirectionalIterator.hpp"
 
-enum color{Red, Black};
 
-template <class T>
-class mapNode {
-	// data members
+template< typename T >
+class mapNode
+{
 public:
-	// redirects
-	typedef T			value_type;
-	typedef T&			reference;
-	typedef const T&	const_reference;
-	typedef T*			pointer;
-	typedef const T*	const_pointer;
 
-	// constructors
+	mapNode*		left;
+	mapNode*		right;
+	mapNode*		parent;
+	T				_data;
 
-	explicit mapNode(value_type const& elem = value_type()) :
-		_color(Red),
-		_data(elem),
-		_left(NULL),
-		_right(NULL),
-		_parent(NULL),
-		_isnill(false)
+	explicit mapNode() : left(NULL), right(NULL), parent(NULL), _data() { return; }
+	explicit mapNode(const T &data) : left(NULL), right(NULL), parent(NULL), _data(data) { return; }
+	~mapNode() { return; }
+	mapNode(const mapNode &src) : left(src.left), right(src.right), parent(src.parent), _data(src.data) { return *this; }
+
+	mapNode&		operator=(const mapNode &obj)
 	{
-	}
-
-	mapNode(const mapNode<T>&x) :
-		_data(x.getData()),
-		_parent(x.getParent()),
-		_left(x.getLeft()),
-		_right(x.getRight()),
-		_color(x.getColor()),
-		_isnill(false)
-	{
-
-	}
-	// destructors
-	virtual ~mapNode(){};
-
-	// operator=
-	mapNode& operator=(mapNode object)
-	{
-		if (this != &object)
+		if (this != &obj)
 		{
-			_color = object._color;
-			_data = object._data;
-			_left = object._left;
-			_right = object._right;
-			_parent = object._parent;
+			this->left = obj.left;
+			this->right = obj.right;
+			this->parent = obj.parent;
+			this->_data = obj._data;
 		}
-		return (*this);
+		return *this;
 	}
 
-	// getters
-
-	mapNode*	getNext()
+	mapNode*		getNext()
 	{
-		mapNode<T> *tmp = this;
-		if(tmp->getRight() != NULL)
+		mapNode* next = this;
+		mapNode* tmp = next->parent;
+		if (next->right)
 		{
-			tmp = tmp->getRight();
-			while(tmp->getLeft() != NULL)
-			{
-				tmp = tmp->getLeft();
-			}
-			return (tmp);
+			next = next->right;
+			while (next->left)
+				next = next->left;
+			return next;
 		}
-//		else
-//		{
-//			if (tmp->getNill() == true)
-//				return (tmp->getParent());
-//			while(tmp->getParent() && (tmp->getParent()->getData().first < tmp->getData().first()))
-//			{
-//				tmp = tmp->getParent();
-//			}
-//			if (tmp->getParent() && (tmp->getParent()->getData().first > tmp->getData().first()))
-//				return tmp->getParent();
-//		}
+		while (tmp && next == tmp->right)
+		{
+			tmp = tmp->parent;
+			next = next->parent;
+		}
+		if (!tmp)
+		{
+			while (next->left != NULL)
+				next = next->left;
+			tmp = next->left;
+		}
 		return tmp;
 	}
-
-	mapNode*	getPrev()
+	mapNode*		getPrev()
 	{
-		mapNode<T> *tmp = this;
-		if(tmp->getLeft() != NULL)
+		mapNode* next = this;
+		mapNode* tmp = next->parent;
+		if (next->left)
 		{
-			tmp = tmp->getLeft();
-			while(tmp->getRight() != NULL)
-			{
-				tmp = tmp->getRight();
-			}
-			return tmp;
+			next = next->left;
+			while (next->right)
+				next = next->right;
+			return next;
 		}
-//		else
-//		{
-//			if (tmp->getNill() == true)
-//				return (tmp->getParent());
-//			while(tmp->getParent() && (tmp->getParent()->getData().first > tmp->getData().first()))
-//			{
-//				tmp = tmp->getParent();
-//			}
-//			if (tmp->getParent() && (tmp->getParent()->getData().first < tmp->getData().first()))
-//				return tmp->getParent();
-//		}
+		while (tmp && next == tmp->left)
+		{
+			tmp = tmp->parent;
+			next = next->parent;
+		}
+		if (!tmp) {
+			while (next->right != NULL)
+				next = next->right;
+			tmp = next->right;
+		}
 		return tmp;
 	}
-
-	mapNode* 	getLeft() const
+	mapNode&	getNode()
 	{
-		return _left;
+		return *this;
 	}
 
-	mapNode*	getRight() const
+	T	getData()
 	{
-		return _right;
+		return this->_data;
 	}
 
-	mapNode*		getParent() const
-	{
-		return _parent;
-	}
-
-	T			getData() const
-	{
-		return _data;
-	}
-
-	color		getColor() const
-	{
-		return _color;
-	}
-
-	bool 		getNill() const
-	{
-		return _isnill;
-	}
-
-
-	// setters
-
-	void 		setLeft(mapNode *newLeft)
-	{
-		_left = newLeft;
-	}
-
-	void 		setRight(mapNode *newRight)
-	{
-		_right = newRight;
-	}
-
-	void 		setParent(mapNode *newParent)
-	{
-		_parent = newParent;
-	}
-
-	void 		setData(T *newData)
-	{
-		_data = newData;
-	}
-
-	void 		setColor(color newColor)
-	{
-		_color = newColor;
-	}
-	T					_data;
-private:
-	color				_color;
-
-	mapNode				*_left;
-	mapNode				*_right;
-	mapNode				*_parent;
-	bool 				_isnill;
 };
+
+
 #endif //MY_FT_CONTAINERS_MAPNODE_HPP

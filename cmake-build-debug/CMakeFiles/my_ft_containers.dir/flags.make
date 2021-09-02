@@ -6,5 +6,5 @@ CXX_FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/Ma
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I"/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/." -I"/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs" -I"/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/list" 
+CXX_INCLUDES = -I"/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/." -I"/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs" -I"/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/srcs/list" -I"/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/tests" 
 

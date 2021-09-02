@@ -6,7 +6,6 @@
 #define MY_FT_CONTAINERS_BIDIRECTIONALITERATOR_HPP
 #include <iterator>
 #include <cstddef>
-#include "listNode.hpp"
 #include "../utils/typeTraits.hpp"
 
 namespace ft {
@@ -117,6 +116,7 @@ namespace ft {
 			}
 			return *this;
 		}
+
 		ConstBidirectionalIterator& operator= (const BidirectionalIterator<T, N>& obj){
 			if(&obj != this){
 				this->_ptr = obj.getPtr();
@@ -182,11 +182,11 @@ namespace ft {
 		virtual ~RevBidirectionalIterator(){}
 
 		reference operator*() const {
-			return (this->_ptr->_prev->_data);
+			return (this->_ptr->_data);
 		}
 
 		pointer 	operator->() {
-			return &this->_ptr->_prev->_data;
+			return &this->_ptr->_data;
 		}
 
 		bool operator== (const RevBidirectionalIterator& obj) {
@@ -201,8 +201,24 @@ namespace ft {
 			return (this->_ptr >= obj._ptr);
 		}
 
+		RevBidirectionalIterator&		operator++() { this->_ptr = this->_ptr->getPrev(); return (*this); }
+		RevBidirectionalIterator		operator++(int)
+		{
+			RevBidirectionalIterator tmp(*this);
+			++(*this);
+			return (tmp);
+		}
+
 		node_pointer getPtr() const {
 			return (this->_ptr);
+		}
+
+		RevBidirectionalIterator&		operator--() { this->_ptr = this->_ptr->getNext(); return (*this); }
+		RevBidirectionalIterator		operator--(int)
+		{
+			RevBidirectionalIterator tmp(*this);
+			--(*this);
+			return (tmp);
 		}
 	};
 
@@ -240,11 +256,11 @@ namespace ft {
 		virtual ~ConstRevBidirectionalIterator(){}
 
 		reference operator*() const {
-			return (this->_ptr->_prev->_data);
+			return (this->_ptr->_data);
 		}
 
 		pointer 	operator->() {
-			return &this->_ptr->_prev->_data;
+			return &this->_ptr->_data;
 		}
 
 		bool operator== (const ConstRevBidirectionalIterator& obj) {
@@ -258,9 +274,26 @@ namespace ft {
 		bool operator>=(const ConstRevBidirectionalIterator& obj) {
 			return (this->_ptr >= obj._ptr);
 		}
+		ConstRevBidirectionalIterator&		operator++() { this->_ptr = this->_ptr->getPrev(); return (*this); }
+
+		ConstRevBidirectionalIterator		operator++(int)
+		{
+			ConstRevBidirectionalIterator tmp(*this);
+			++(*this);
+			return (tmp);
+		}
+
 
 		node_pointer getPtr() const {
 			return (this->_ptr);
+		}
+
+		ConstRevBidirectionalIterator&&		operator--() { this->_ptr = this->_ptr->getNext(); return (*this); }
+		ConstRevBidirectionalIterator		operator--(int)
+		{
+			ConstRevBidirectionalIterator tmp(*this);
+			--(*this);
+			return (tmp);
 		}
 	};
 }

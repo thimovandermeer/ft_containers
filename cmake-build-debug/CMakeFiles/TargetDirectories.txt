@@ -1,3 +1,4 @@
 /Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 /Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles/my_ft_containers.dir
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles/catch.dir
+/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles/tests.dir

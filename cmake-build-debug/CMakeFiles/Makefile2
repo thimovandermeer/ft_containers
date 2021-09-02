@@ -73,7 +73,8 @@ CMAKE_BINARY_DIR = "/Users/thimovandermeer/Desktop/Codam projecten/ft_containers
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/my_ft_containers.dir/all
+all: CMakeFiles/catch.dir/all
+all: CMakeFiles/tests.dir/all
 
 .PHONY : all
 
@@ -83,36 +84,64 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/my_ft_containers.dir/clean
+clean: CMakeFiles/catch.dir/clean
+clean: CMakeFiles/tests.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/my_ft_containers.dir
+# Target rules for target CMakeFiles/catch.dir
 
 # All Build rule for target.
-CMakeFiles/my_ft_containers.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4,5,6,7 "Built target my_ft_containers"
-.PHONY : CMakeFiles/my_ft_containers.dir/all
+CMakeFiles/catch.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4,5,6,7,8 "Built target catch"
+.PHONY : CMakeFiles/catch.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/my_ft_containers.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles" 7
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/my_ft_containers.dir/all
+CMakeFiles/catch.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles" 8
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/catch.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles" 0
-.PHONY : CMakeFiles/my_ft_containers.dir/rule
+.PHONY : CMakeFiles/catch.dir/rule
 
 # Convenience name for target.
-my_ft_containers: CMakeFiles/my_ft_containers.dir/rule
+catch: CMakeFiles/catch.dir/rule
 
-.PHONY : my_ft_containers
+.PHONY : catch
 
 # clean rule for target.
-CMakeFiles/my_ft_containers.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/my_ft_containers.dir/build.make CMakeFiles/my_ft_containers.dir/clean
-.PHONY : CMakeFiles/my_ft_containers.dir/clean
+CMakeFiles/catch.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/catch.dir/build.make CMakeFiles/catch.dir/clean
+.PHONY : CMakeFiles/catch.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/tests.dir
+
+# All Build rule for target.
+CMakeFiles/tests.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir="/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles" --progress-num=9 "Built target tests"
+.PHONY : CMakeFiles/tests.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/tests.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles" 1
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/tests.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/thimovandermeer/Desktop/Codam projecten/ft_containers/my_ft_containers/cmake-build-debug/CMakeFiles" 0
+.PHONY : CMakeFiles/tests.dir/rule
+
+# Convenience name for target.
+tests: CMakeFiles/tests.dir/rule
+
+.PHONY : tests
+
+# clean rule for target.
+CMakeFiles/tests.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tests.dir/build.make CMakeFiles/tests.dir/clean
+.PHONY : CMakeFiles/tests.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

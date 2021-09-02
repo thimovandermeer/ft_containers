@@ -48,6 +48,7 @@ namespace ft {
 			_head->_next = _tail;
 			_tail->_prev = _head;
 			_size = 0;
+			_allocator = alloc;
 		}
 
 		explicit list(size_type n, const value_type &val = value_type(),
@@ -58,17 +59,21 @@ namespace ft {
 			_head->_next = _tail;
 			_tail->_prev = _head;
 			_size = 0;
+			_allocator = alloc;
 			assign(n, val);
 		}
 
 		template<class inputIterator>
-		list(inputIterator first, inputIterator last, const allocator_type &alloc = allocator_type())
+		list(inputIterator first, inputIterator last,
+	   	const allocator_type &alloc = allocator_type(),
+	   	typename iterator_traits<inputIterator>::iterator_category* = NULL)
 		{
 			_head = new listNode<value_type>;
 			_tail = new listNode<value_type>;
 			_head->_next = _tail;
 			_tail->_prev = _head;
 			_size = 0;
+			_allocator = alloc;
 			assign(first, last);
 		}
 
@@ -86,8 +91,6 @@ namespace ft {
 		~list()
 		{
 			this->clear();
-			delete this->_tail;
-			delete this->_head;
 		}
 
 		// Assignment operators
@@ -152,7 +155,8 @@ namespace ft {
 
 //		// Member Functions
 		template<class InputIterator>
-		void assign(InputIterator start, InputIterator finish)
+		void assign(InputIterator start, InputIterator finish,
+			  typename iterator_traits<InputIterator>::iterator_category* = NULL)
 		{
 			clear();
 			while (start != finish) {

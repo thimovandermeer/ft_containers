@@ -4,7 +4,7 @@ SRCS = $(addprefix srcs/, $(addsuffix .cpp, $(FILES)))
 OBJS = $(SRCS:.cpp=.o)
 INCLUDE = -Isrcs -Isrcs/list -Isrcs/queue -Isrcs/stack -Isrcs/vector -Isrcs/map
 
-CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++98 -O0
+CXXFLAGS = -W -Wall -Werror -Wextra -pedantic -std=c++14 -O0
 
 ifeq ($(shell uname), Linux)
  ECHO = -e

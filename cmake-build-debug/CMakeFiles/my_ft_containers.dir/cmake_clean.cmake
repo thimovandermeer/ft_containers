@@ -3,6 +3,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/my_ft_containers.dir/tests/listTest.cpp.o"
   "CMakeFiles/my_ft_containers.dir/tests/mapTest.cpp.o"
   "CMakeFiles/my_ft_containers.dir/tests/queueTest.cpp.o"
+  "CMakeFiles/my_ft_containers.dir/tests/redblacktreeTest.cpp.o"
   "CMakeFiles/my_ft_containers.dir/tests/stackTest.cpp.o"
   "CMakeFiles/my_ft_containers.dir/tests/vectorTest.cpp.o"
   "my_ft_containers"

@@ -8,7 +8,7 @@ OBJS = $(SRCS:.cpp=.o)
 INCLUDE = -I../srcs/list -I../srcs/stack -I../srcs/queue -I../srcs/vector -I../srcs/map
 #-I../srcs    -I../srcs/map
 
-CXXFLAGS = -std=c++11
+CXXFLAGS = -std=c++14
 
 
 ifeq ($(shell uname), Linux)

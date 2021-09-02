@@ -38,8 +38,8 @@ namespace ft {
 		// default
 		explicit vector (const allocator_type& alloc = allocator_type()):
 			_size(0),
-			_space(0),
 			_elements(nullptr),
+			_space(0),
 			_alloc(alloc)
 		{
 		};
@@ -59,9 +59,9 @@ namespace ft {
 			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
 		   		typename iterator_traits<InputIterator>::type* = NULL) :
 			_size(0),
+			_elements(NULL),
 			_space(0),
-			_alloc(alloc),
-			_elements(NULL)
+			_alloc(alloc)
 		{
 				std::cout << "voor assign\n";
 				assign(first, last);
@@ -70,13 +70,14 @@ namespace ft {
 		// copy
 		vector (const vector& x) :
 		_size(x.size()),
+		_elements(NULL),
 		_space(x._space),
 		_alloc(x._alloc)
 		{
 			if(!x.size())
 				return;
 			_elements = _alloc.allocate(_space);
-			for(int i = 0; i < _size; i++)
+			for(int i = 0; i < (int)_size; i++)
 				_elements[i] = x._elements[i];
 
 		}
@@ -85,8 +86,8 @@ namespace ft {
 		{
 			// destroy all elements
 			for(size_type i = 0; i < _size; i++)
-				_alloc.destroy(&_elements[i]);
-			_alloc.deallocate(_elements, _space);
+				this->_alloc.destroy(&this->_elements[i]);
+			this->_alloc.deallocate(this->_elements, this->_space);
 			_elements = nullptr;
 		}
 
@@ -335,14 +336,14 @@ namespace ft {
 				return;
 			if (size() + n > _space)
 			{
-				reserve(_space / 2 > n ? _space + _space / 2 + 1 : _space + n);
+				reserve(_space / 2 > (unsigned long)n ? _space + _space / 2 + 1 : _space + n);
 			}
-			for (size_type i = _size + n - 1; i >= pos + n; i--)
+			for (difference_type i = _size + n - 1; i >= pos + n; i--)
 			{
 				_alloc.construct(&_elements[i], _elements[i - n]);
 				_alloc.destroy(&_elements[i - n]);
 			}
-			for (size_type i = 0; i < n; i++)
+			for (difference_type i = 0; i < n; i++)
 				_alloc.construct(&_elements[pos + i], *first);
 			_size += n;
 		}
@@ -358,7 +359,7 @@ namespace ft {
 			ret++;
 			for (size_type i = 0; i < _size; i++)
 			{
-				if (i == pos)
+				if (i == (size_type)pos)
 					j++;
 				_alloc.construct(&new_elements[i], _elements[j]);
 				j++;
@@ -384,7 +385,7 @@ namespace ft {
 			ret++;
 			for (size_type j = 0; i < _size; j++)
 			{
-				while (j >= start_pos && j < start_pos + skip_amount)
+				while (j >= (size_type)start_pos && j < (size_type)start_pos + skip_amount)
 					j++;
 				_alloc.construct(&new_elements[i], _elements[j]);
 				i++;
